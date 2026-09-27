@@ -72,6 +72,56 @@ textarea{width:100%;min-height:120px;border:1px solid var(--line);border-radius:
   text-align: center !important;
 }
 
+
+/* Onboarding screens — true centered layout */
+#welcomeScreen,
+#howScreen,
+#practicesScreen {
+  width: 100% !important;
+  min-height: 100vh !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  padding: 50px 24px !important;
+}
+#welcomeScreen.hidden,
+#howScreen.hidden,
+#practicesScreen.hidden {
+  display: none !important;
+}
+#welcomeScreen > .intro-inner,
+#howScreen > .intro-inner,
+#practicesScreen > .intro-inner {
+  width: min(720px, 100%) !important;
+  max-width: 720px !important;
+  margin: 0 auto !important;
+  padding: 40px 25px !important;
+  box-sizing: border-box !important;
+  text-align: center !important;
+}
+#welcomeScreen .intro-body,
+#howScreen .intro-body {
+  width: min(620px, 100%) !important;
+  max-width: 620px !important;
+  margin: 20px auto !important;
+  text-align: center !important;
+}
+#welcomeScreen .timing-box {
+  width: min(620px, 100%) !important;
+  max-width: 620px !important;
+  margin: 25px auto 30px !important;
+  text-align: center !important;
+}
+#practicesScreen .practice-intro-grid {
+  width: min(620px, 100%) !important;
+  max-width: 620px !important;
+  margin: 25px auto 30px !important;
+  text-align: center !important;
+}
+
 </style>
 <style>
 .language-only{max-width:620px;text-align:center}
