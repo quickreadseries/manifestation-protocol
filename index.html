@@ -36,92 +36,6 @@ textarea{width:100%;min-height:120px;border:1px solid var(--line);border-radius:
 .top-right{display:flex;align-items:center;gap:12px}.lang-switch{display:flex;gap:4px}
 .lang-btn{border:1px solid var(--line);background:transparent;border-radius:7px;padding:5px 8px;font-size:10px;cursor:pointer}
 .lang-btn.active{background:#222;color:#fff;border-color:#222}
-
-/* Centered onboarding pages after language selection */
-#welcomeScreen .intro-inner,
-#howScreen .intro-inner,
-#practicesScreen .intro-inner {
-  text-align: center !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-}
-#welcomeScreen .intro-body,
-#howScreen .intro-body {
-  text-align: center !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-}
-#welcomeScreen .timing-box {
-  text-align: center !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-}
-#welcomeScreen .timing-box p {
-  text-align: center !important;
-}
-#practicesScreen .practice-intro-grid {
-  margin-left: auto !important;
-  margin-right: auto !important;
-  text-align: center !important;
-}
-#practicesScreen .practice-intro-grid div {
-  text-align: center !important;
-}
-#practicesScreen .practice-intro-grid strong,
-#practicesScreen .practice-intro-grid span {
-  text-align: center !important;
-}
-
-
-/* Onboarding screens — true centered layout */
-#welcomeScreen,
-#howScreen,
-#practicesScreen {
-  width: 100% !important;
-  min-height: 100vh !important;
-  box-sizing: border-box !important;
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  justify-content: center !important;
-  text-align: center !important;
-  padding: 50px 24px !important;
-}
-#welcomeScreen.hidden,
-#howScreen.hidden,
-#practicesScreen.hidden {
-  display: none !important;
-}
-#welcomeScreen > .intro-inner,
-#howScreen > .intro-inner,
-#practicesScreen > .intro-inner {
-  width: min(720px, 100%) !important;
-  max-width: 720px !important;
-  margin: 0 auto !important;
-  padding: 40px 25px !important;
-  box-sizing: border-box !important;
-  text-align: center !important;
-}
-#welcomeScreen .intro-body,
-#howScreen .intro-body {
-  width: min(620px, 100%) !important;
-  max-width: 620px !important;
-  margin: 20px auto !important;
-  text-align: center !important;
-}
-#welcomeScreen .timing-box {
-  width: min(620px, 100%) !important;
-  max-width: 620px !important;
-  margin: 25px auto 30px !important;
-  text-align: center !important;
-}
-#practicesScreen .practice-intro-grid {
-  width: min(620px, 100%) !important;
-  max-width: 620px !important;
-  margin: 25px auto 30px !important;
-  text-align: center !important;
-}
-
 </style>
 <style>
 .language-only{max-width:620px;text-align:center}
@@ -141,153 +55,18 @@ textarea{width:100%;min-height:120px;border:1px solid var(--line);border-radius:
 .practice-intro-grid span{display:block;font-family:Georgia,serif;font-size:16px;line-height:1.45;color:#5f5b55}
 @media(max-width:650px){.practice-intro-grid{grid-template-columns:1fr}.language-mark{font-size:54px}}
 </style>
-</head><body><body>
-<div id="introScreen" class="screen">
-  <div class="intro-inner language-only">
-    <div class="intro-brand">QUICK READ MOMENTS</div>
-    <div class="language-mark">SMALL<br>MOMENTS<br>METHOD</div>
-    <div class="intro-rule"></div>
-    <div class="language-title">CHOOSE YOUR LANGUAGE<br><span>WYBIERZ JĘZYK</span></div>
-    <div class="language-buttons">
-      <button class="btn" id="enBtn">ENGLISH</button>
-      <button class="btn" id="plBtn">POLSKI</button>
-    </div>
-    <div class="intro-practices">90 DAYS · ONE SMALL MOMENT AT A TIME</div>
-  </div>
-</div>
 
-<div id="welcomeScreen" class="screen hidden">
-  <div class="intro-inner intro-page">
-    <div class="intro-brand">QUICK READ MOMENTS</div>
-    <div class="intro-kicker" id="welcomeKicker"></div>
-    <h1 id="welcomeTitle"></h1>
-    <div class="intro-rule"></div>
-    <div class="intro-body left" id="welcomeBody"></div>
-    <div class="timing-box" id="timingBox"></div>
-    <button class="btn primary begin-btn" id="welcomeNext"></button>
-  </div>
-</div>
-
-<div id="howScreen" class="screen hidden">
-  <div class="intro-inner intro-page">
-    <div class="intro-brand">QUICK READ MOMENTS</div>
-    <div class="intro-kicker" id="howKicker"></div>
-    <h1 id="howTitle"></h1>
-    <div class="intro-rule"></div>
-    <div class="intro-body left" id="howBody"></div>
-    <button class="btn primary begin-btn" id="howNext"></button>
-  </div>
-</div>
-
-<div id="practicesScreen" class="screen hidden">
-  <div class="intro-inner intro-page">
-    <div class="intro-brand">QUICK READ MOMENTS</div>
-    <div class="intro-kicker" id="practicesKicker"></div>
-    <h1 id="practicesTitle"></h1>
-    <div class="intro-rule"></div>
-    <div class="practice-intro-grid">
-      <div><strong>01 · <span id="p1name"></span></strong><span id="p1text"></span></div>
-      <div><strong>02 · <span id="p2name"></span></strong><span id="p2text"></span></div>
-      <div><strong>03 · <span id="p3name"></span></strong><span id="p3text"></span></div>
-      <div><strong>04 · <span id="p4name"></span></strong><span id="p4text"></span></div>
-    </div>
-    <button class="btn primary begin-btn" id="startProtocol"></button>
-  </div>
-</div>
-
-<div id="protocolScreen" class="screen hidden">
-<div class="app">
-  <div class="top">
-    <div class="logo">QUICK READ MOMENTS · SMALL MOMENTS METHOD</div>
-    <div class="top-right"><div class="progress" id="progressText">0 / 90 days</div><div class="lang-switch"><button class="lang-btn" id="switchEN">EN</button><button class="lang-btn" id="switchPL">PL</button></div></div>
-  </div>
-
-  <div class="card hero">
-    <div class="eyebrow" id="phaseLabel">PHASE I · IDENTITY</div>
-    <h1 id="dayTitle">Day 1</h1>
-    <div class="day" id="daySubtitle">A 90-Day Practice in Intention, Identity &amp; Manifestation</div>
-    <div class="bar"><div class="fill" id="fill"></div></div>
-    <div class="phases">
-      <div class="phase active" data-start="1">Identity<br>1–21</div>
-      <div class="phase" data-start="22">Vision<br>22–45</div>
-      <div class="phase" data-start="46">Embodiment<br>46–70</div>
-      <div class="phase" data-start="71">Manifestation<br>71–90</div>
-    </div>
-  </div>
-
-  <div class="grid">
-    <div class="card">
-      <div class="section-title">01 · Reset · 3 min</div>
-      <div class="practice-line">Come back to yourself.</div>
-      <div class="prompt">Put on your headphones if you use an audio track. Sit still, breathe slowly and let the noise of the day settle. You are not trying to force anything. You are entering the state in which you can hear yourself.</div>
-      <div class="timer" id="timer">03:00</div>
-      <div class="controls">
-        <button class="btn" id="timerBtn">Start timer</button>
-        <button class="btn" id="resetTimer">Reset</button>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="section-title">02 · Choose · 4 min</div>
-      <div class="practice-line">Choose the reality you are creating.</div>
-      <div class="manifest" id="manifestation"></div>
-      <p class="prompt">Write the statement by hand slowly. Read it as something that is already true — or as something that has already happened. Do not use future tense.</p>
-    </div>
-
-    <div class="card">
-      <div class="section-title">03 · See · 5 min</div>
-      <div class="practice-line">See yourself already living it.</div>
-      <div class="prompt" id="mirror"></div>
-    </div>
-
-    <div class="card">
-      <div class="section-title">04 · Live · 3 min</div>
-      <div class="practice-line">Bring it into an ordinary moment.</div>
-      <div class="prompt" id="anchor"></div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="section-title" id="notesTitle">Your notes</div>
-    <textarea id="notes" placeholder="Write briefly. One word, one sentence, or whatever feels right."></textarea>
-  </div>
-
-  <div class="card complete">
-    <input type="checkbox" id="completed">
-    <label for="completed" id="completedLabel">Day completed</label>
-  </div>
-
-  <div class="card">
-    <div class="section-title">Choose a day</div>
-    <div class="daypicker" id="daypicker"></div>
-  </div>
-
-  <div class="controls" style="justify-content:space-between">
-    <button class="btn" id="prev">← Previous day</button>
-    <button class="btn primary" id="next">Next day →</button>
-  </div>
-
-  <div class="footer">Your progress is saved in this browser. Nothing is uploaded or shared.</div>
-</div>
-</div>
-
-<div id="endScreen" class="screen hidden">
-  <div class="end-inner">
-    <div class="intro-brand">QUICK READ MOMENTS</div>
-    <div class="intro-kicker">90 DAYS COMPLETE</div>
-    <h1>YOU<br>NOTICED.</h1>
-    <p class="intro-quote">90 days.<br>90 small moments.<br>And somewhere along the way, you became more familiar with yourself.</p>
-    <div class="intro-rule"></div>
-    <p class="end-question">What do you want to keep noticing?</p>
-    <textarea id="finalNotes" placeholder="Write a few words for the person you are now."></textarea>
-    <button class="btn primary begin-btn" id="saveFinal">SAVE &amp; CLOSE</button>
-    <div class="intro-practices">RESET · CHOOSE · SEE · LIVE</div>
-  </div>
-</div>
-
-
+<style>
+.sound-box{margin-top:18px;padding-top:18px;border-top:1px solid var(--line)}
+.sound-title{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin-bottom:10px}
+.sound-buttons{display:flex;flex-wrap:wrap;gap:7px}
+.sound-btn{border:1px solid var(--line);background:transparent;border-radius:9px;padding:9px 11px;cursor:pointer;color:var(--ink);font-size:12px}
+.sound-btn.active{background:#222;color:#fff;border-color:#222}
+.sound-status{font-size:11px;color:var(--muted);margin-top:8px}
+.num.locked{opacity:.35;cursor:not-allowed}
+</style>
 <script>
-
+const daysEN_PLACEHOLDER = null;
 const daysEN = [
 ["I am becoming more fully myself. I know who I am, and I trust what I feel.","See yourself already living the reality you described. Notice your surroundings, posture, voice and choices.","Do one small thing today exactly as the person you described."],
 ["I am calm in my own presence. I no longer need constant noise to feel safe.","Imagine sitting alone and feeling completely comfortable with the silence.","Spend ten minutes without your phone."],
@@ -490,7 +269,7 @@ en:{
  live:["04 · Live · 3 min","Bring it into an ordinary moment."],
  notes:"Your notes",placeholder:"Write briefly. One word, one sentence, or whatever feels right.",
  completed:"Day completed",picker:"Choose a day",prev:"← Previous day",next:"Next day →",
- start:"Start timer",resetButton:"Reset",pause:"Pause",resume:"Resume timer",finished:"Finished",
+ start:"Start timer",reset:"Reset",pause:"Pause",resume:"Resume timer",finished:"Finished",
  footer:"Your progress is saved in this browser. Nothing is uploaded or shared."
 },
 pl:{
@@ -503,7 +282,7 @@ pl:{
  live:["04 · ŻYJ · 3 MIN","Wprowadź to do zwyczajnego momentu."],
  notes:"Twoje notatki",placeholder:"Pisz krótko. Jedno słowo, jedno zdanie albo cokolwiek, co wydaje się właściwe.",
  completed:"Dzień ukończony",picker:"Wybierz dzień",prev:"← Poprzedni dzień",next:"Następny dzień →",
- start:"Uruchom timer",resetButton:"Reset",pause:"Pauza",resume:"Wznów timer",finished:"Gotowe",
+ start:"Uruchom timer",reset:"Reset",pause:"Pauza",resume:"Wznów timer",finished:"Gotowe",
  footer:"Twój postęp jest zapisywany w tej przeglądarce. Nic nie jest przesyłane ani udostępniane."
 }};
 
@@ -527,13 +306,13 @@ pl:{
  p1:"RESET",p1t:"Wróć do siebie.",p2:"WYBIERZ",p2t:"Wybierz rzeczywistość, którą tworzysz.",p3:"ZOBACZ",p3t:"Zobacz siebie, jak już w niej żyjesz.",p4:"ŻYJ",p4t:"Wprowadź to do zwyczajnego momentu.",start:"ROZPOCZNIJ DZIEŃ 1 →"
 }};
 
-window.showScreen=function showScreen(id){
+function showScreen(id){
  ["introScreen","welcomeScreen","howScreen","practicesScreen","protocolScreen","endScreen"].forEach(x=>{
   const e=document.getElementById(x); if(e)e.classList.toggle("hidden",x!==id);
  });
  window.scrollTo(0,0);
 }
-window.fillIntro=function fillIntro(lang){
+function fillIntro(lang){
  const d=INTRO[lang];
  document.documentElement.lang=lang;
  document.getElementById("welcomeKicker").textContent=d.welcomeKicker;
@@ -565,7 +344,7 @@ function render(){
  const item=data[current-1]||data[0];
  const pi=phaseIndex(current);
  document.getElementById("phaseLabel").textContent=t.phase[pi];
- document.getElementById("dayTitle").textContent=(language==="pl"?"Dzień ":"Day ")+current;
+ document.getElementById("dayTitle").textContent="Day "+current;
  document.getElementById("daySubtitle").textContent=t.subtitle;
  document.getElementById("progressText").textContent=Object.values(done).filter(Boolean).length+" / "+(language==="pl"?"90 dni":"90 days");
  document.getElementById("fill").style.width=(current/90*100)+"%";
@@ -596,7 +375,7 @@ function render(){
  document.querySelector(".daypicker").previousElementSibling.textContent=t.picker;
  document.querySelector(".footer").textContent=t.footer;
  document.getElementById("timerBtn").textContent=timerId?t.pause:t.start;
- document.getElementById("resetTimer").textContent=t.resetButton;
+ document.getElementById("resetTimer").textContent=t.reset;
  document.getElementById("prev").disabled=current===1;
  document.getElementById("next").disabled=current===90;
  document.querySelectorAll(".num").forEach(e=>{const d=+e.dataset.day;e.classList.toggle("current",d===current);e.classList.toggle("done",!!done[d])});
@@ -614,7 +393,7 @@ function resetTimer(){
  document.getElementById("timer").textContent=m+":00";
  if(language)document.getElementById("timerBtn").textContent=T[language].start;
 }
-
+document.addEventListener("DOMContentLoaded",()=>{
  document.getElementById("enBtn").onclick=()=>{language="en";localStorage.setItem("smmLanguage","en");fillIntro("en");showScreen("welcomeScreen")};
  document.getElementById("plBtn").onclick=()=>{language="pl";localStorage.setItem("smmLanguage","pl");fillIntro("pl");showScreen("welcomeScreen")};
  document.getElementById("welcomeNext").onclick=()=>showScreen("howScreen");
@@ -641,6 +420,539 @@ function resetTimer(){
  document.querySelectorAll(".phase").forEach(e=>e.onclick=()=>{current=+e.dataset.start;save();render()});
  buildPicker();
  showScreen("introScreen");
+});
+</script></head><body><body>
+<div id="introScreen" class="screen">
+  <div class="intro-inner language-only">
+    <div class="intro-brand">QUICK READ MOMENTS</div>
+    <div class="language-mark">SMALL<br>MOMENTS<br>METHOD</div>
+    <div class="intro-rule"></div>
+    <div class="language-title">CHOOSE YOUR LANGUAGE<br><span>WYBIERZ JĘZYK</span></div>
+    <div class="language-buttons">
+      <button class="btn" id="enBtn">ENGLISH</button>
+      <button class="btn" id="plBtn">POLSKI</button>
+    </div>
+    <div class="intro-practices">90 DAYS · ONE SMALL MOMENT AT A TIME</div>
+  </div>
+</div>
+
+<div id="welcomeScreen" class="screen hidden">
+  <div class="intro-inner intro-page">
+    <div class="intro-brand">QUICK READ MOMENTS</div>
+    <div class="intro-kicker" id="welcomeKicker"></div>
+    <h1 id="welcomeTitle"></h1>
+    <div class="intro-rule"></div>
+    <div class="intro-body left" id="welcomeBody"></div>
+    <div class="timing-box" id="timingBox"></div>
+    <button class="btn primary begin-btn" id="welcomeNext"></button>
+  </div>
+</div>
+
+<div id="howScreen" class="screen hidden">
+  <div class="intro-inner intro-page">
+    <div class="intro-brand">QUICK READ MOMENTS</div>
+    <div class="intro-kicker" id="howKicker"></div>
+    <h1 id="howTitle"></h1>
+    <div class="intro-rule"></div>
+    <div class="intro-body left" id="howBody"></div>
+    <button class="btn primary begin-btn" id="howNext"></button>
+  </div>
+</div>
+
+<div id="practicesScreen" class="screen hidden">
+  <div class="intro-inner intro-page">
+    <div class="intro-brand">QUICK READ MOMENTS</div>
+    <div class="intro-kicker" id="practicesKicker"></div>
+    <h1 id="practicesTitle"></h1>
+    <div class="intro-rule"></div>
+    <div class="practice-intro-grid">
+      <div><strong>01 · <span id="p1name"></span></strong><span id="p1text"></span></div>
+      <div><strong>02 · <span id="p2name"></span></strong><span id="p2text"></span></div>
+      <div><strong>03 · <span id="p3name"></span></strong><span id="p3text"></span></div>
+      <div><strong>04 · <span id="p4name"></span></strong><span id="p4text"></span></div>
+    </div>
+    <button class="btn primary begin-btn" id="startProtocol"></button>
+  </div>
+</div>
+
+<div id="protocolScreen" class="screen hidden">
+<div class="app">
+  <div class="top">
+    <div class="logo">QUICK READ MOMENTS · SMALL MOMENTS METHOD</div>
+    <div class="top-right"><div class="progress" id="progressText">0 / 90 days</div><div class="lang-switch"><button class="lang-btn" id="switchEN">EN</button><button class="lang-btn" id="switchPL">PL</button></div></div>
+  </div>
+
+  <div class="card hero">
+    <div class="eyebrow" id="phaseLabel">PHASE I · IDENTITY</div>
+    <h1 id="dayTitle">Day 1</h1>
+    <div class="day" id="daySubtitle">A 90-Day Practice in Intention, Identity &amp; Manifestation</div>
+    <div class="bar"><div class="fill" id="fill"></div></div>
+    <div class="phases">
+      <div class="phase active" data-start="1">Identity<br>1–21</div>
+      <div class="phase" data-start="22">Vision<br>22–45</div>
+      <div class="phase" data-start="46">Embodiment<br>46–70</div>
+      <div class="phase" data-start="71">Manifestation<br>71–90</div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="section-title">01 · Reset · 3 min</div>
+      <div class="practice-line">Come back to yourself.</div>
+      <div class="prompt">Put on your headphones if you use an audio track. Sit still, breathe slowly and let the noise of the day settle. You are not trying to force anything. You are entering the state in which you can hear yourself.</div>
+      <div class="timer" id="timer">03:00</div>
+      <div class="controls">
+        <button class="btn" id="timerBtn">Start timer</button>
+        <button class="btn" id="resetTimer">Reset</button>
+      </div>
+      <div class="sound-box">
+        <div class="sound-title" id="soundTitle">Choose a sound</div>
+        <div class="sound-buttons">
+          <button class="sound-btn" data-sound="rain">🌧 Rain</button>
+          <button class="sound-btn" data-sound="waves">🌊 Waves</button>
+          <button class="sound-btn" data-sound="birds">🐦 Birds</button>
+          <button class="sound-btn" data-sound="birds-wind">🍃 Birds &amp; Wind</button>
+          <button class="sound-btn" data-sound="stream">💧 Stream</button>
+          <button class="sound-btn" data-sound="beach">🏖 Beach</button>
+        </div>
+        <div class="sound-status" id="soundStatus">Choose a sound, then press play.</div>
+        <audio id="soundPlayer" controls preload="none" style="width:100%;margin-top:10px"></audio>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-title">02 · Choose · 4 min</div>
+      <div class="practice-line">Choose the reality you are creating.</div>
+      <div class="manifest" id="manifestation"></div>
+      <p class="prompt">Write the statement by hand slowly. Read it as something that is already true — or as something that has already happened. Do not use future tense.</p>
+    </div>
+
+    <div class="card">
+      <div class="section-title">03 · See · 5 min</div>
+      <div class="practice-line">See yourself already living it.</div>
+      <div class="prompt" id="mirror"></div>
+    </div>
+
+    <div class="card">
+      <div class="section-title">04 · Live · 3 min</div>
+      <div class="practice-line">Bring it into an ordinary moment.</div>
+      <div class="prompt" id="anchor"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="section-title" id="notesTitle">Your notes</div>
+    <textarea id="notes" placeholder="Write briefly. One word, one sentence, or whatever feels right."></textarea>
+  </div>
+
+  <div class="card complete">
+    <input type="checkbox" id="completed">
+    <label for="completed" id="completedLabel">Day completed</label>
+  </div>
+
+  <div class="card">
+    <div class="section-title">Choose a day</div>
+    <div class="daypicker" id="daypicker"></div>
+  </div>
+
+  <div class="controls" style="justify-content:space-between">
+    <button class="btn" id="prev">← Previous day</button>
+    <button class="btn primary" id="next">Next day →</button>
+  </div>
+
+  <div class="footer">Your progress is saved in this browser. Nothing is uploaded or shared.</div>
+</div>
+</div>
+
+<div id="endScreen" class="screen hidden">
+  <div class="end-inner">
+    <div class="intro-brand">QUICK READ MOMENTS</div>
+    <div class="intro-kicker">90 DAYS COMPLETE</div>
+    <h1>YOU<br>NOTICED.</h1>
+    <p class="intro-quote">90 days.<br>90 small moments.<br>And somewhere along the way, you became more familiar with yourself.</p>
+    <div class="intro-rule"></div>
+    <p class="end-question">What do you want to keep noticing?</p>
+    <textarea id="finalNotes" placeholder="Write a few words for the person you are now."></textarea>
+    <button class="btn primary begin-btn" id="saveFinal">SAVE &amp; CLOSE</button>
+    <div class="intro-practices">RESET · CHOOSE · SEE · LIVE</div>
+  </div>
+</div>
+
+<script>
+const daysEN = [
+["I am becoming more fully myself. I know who I am, and I trust what I feel.","See yourself already living the reality you described. Notice your surroundings, posture, voice and choices.","Do one small thing today exactly as the person you described."],
+["I am calm in my own presence. I no longer need constant noise to feel safe.","Imagine sitting alone and feeling completely comfortable with the silence.","Spend ten minutes without your phone."],
+["I know what matters to me. My choices reflect my values.","Picture a day in which your decisions feel simple because you know what matters.","Choose one thing today because it genuinely matters to you."],
+["I trust myself to recognise what is right for me.","Imagine making a decision without asking anyone else for permission.","Make one small decision without seeking outside validation."],
+["I treat myself with patience and respect.","See yourself responding to a mistake with kindness rather than criticism.","Replace one critical thought with a neutral or kind sentence."],
+["I have created space for the life that feels like mine.","Visualise the physical and mental space around you becoming simpler.","Clear one small area."],
+["I am comfortable taking up space.","Imagine entering a room with relaxed shoulders and no need to shrink yourself.","Change your posture whenever you notice yourself contracting."],
+["My attention belongs to me.","Picture yourself choosing where your attention goes rather than giving it away automatically.","Turn off one unnecessary notification."],
+["I notice the small details that make my life meaningful.","Imagine an ordinary moment becoming vivid because you are fully present.","Notice three details you would normally miss."],
+["I know the difference between what I want and what I think I should want.","Picture the feeling of choosing something because it is genuinely yours.","Write one sentence beginning: 'What I actually want is…'"],
+["I allow myself to change without losing who I am.","Imagine meeting an older version of yourself who feels familiar, not foreign.","Let one outdated habit be different today."],
+["I am not waiting for permission to begin.","See yourself already doing the thing you have been postponing.","Take one tiny first step."],
+["I have more courage than I give myself credit for.","Recall a moment when you handled something difficult.","Use that same courage for one small action today."],
+["My life contains evidence that things can work out.","Picture several past moments that once seemed uncertain but resolved themselves.","Write down three examples."],
+["I am capable of creating beauty from ordinary moments.","Imagine an ordinary room, meal or walk feeling beautiful because of your attention.","Make one ordinary moment beautiful."],
+["I feel at home in my own life.","Visualise waking up and recognising your surroundings as a life that belongs to you.","Do one thing that makes your environment feel more like you."],
+["I listen to my body and respect its signals.","Imagine moving through the day without overriding every signal of tiredness, hunger or tension.","Pause once and ask your body what it needs."],
+["I give myself permission to enjoy my life now.","See yourself enjoying something without needing to justify it.","Do one small enjoyable thing with no productivity attached."],
+["I am becoming more selective about what I allow into my mind.","Imagine your attention as a doorway you can choose to open or close.","Remove one piece of unnecessary mental noise."],
+["I recognise my own progress.","Picture yourself looking back and seeing how much has changed.","Name one thing you do differently now."],
+["I am enough without becoming someone else.","Imagine dropping the need to perform an identity for anyone.","Spend part of today simply being yourself."],
+["My vision feels real because I can see it clearly.","Picture one desired reality in sensory detail: place, sounds, textures and emotions.","Describe it in five concrete details."],
+["I have a clear picture of the life I am creating.","Walk mentally through a normal day in that life from morning to evening.","Write five moments from that day."],
+["The things I desire fit naturally into my identity.","Imagine already possessing the thing you want and notice how normal it feels.","Act today as someone for whom that reality is normal."],
+["I see evidence of possibility everywhere.","Picture small coincidences, opportunities and ideas appearing around you.","Record one piece of evidence that expands your sense of possibility."],
+["My mind is familiar with the reality I desire.","Replay your desired reality until it feels recognisable rather than distant.","Spend five minutes visualising the same scene."],
+["I can hold a clear image without forcing the outcome.","See the desired scene clearly, then let it breathe without trying to control every detail.","Visualise, then consciously release the image."],
+["I am emotionally available for good things.","Imagine receiving something wonderful and allowing yourself to feel it fully.","Notice and accept one pleasant emotion today."],
+["I recognise abundance in what already exists.","Picture your current life as containing more resources, relationships and opportunities than you usually notice.","List five forms of abundance already present."],
+["My desired reality feels safe to me.","Imagine receiving what you want without immediately looking for a problem.","Notice any resistance and answer it gently."],
+["I have room for opportunities that match me.","Visualise yourself noticing the right opportunity because you are no longer distracted by everything else.","Say no to one irrelevant distraction."],
+["I know what my ideal ordinary day feels like.","Walk through the day slowly and focus on the feeling rather than the achievements.","Bring one element of that day into today."],
+["I am connected to the version of me who already lives this life.","Imagine meeting that version of yourself face to face.","Ask: 'What are you doing differently?' Write the first answer."],
+["My imagination gives direction to my attention.","See your desired reality as a compass rather than a demand.","Choose one action aligned with that direction."],
+["I allow desire to be information.","Imagine looking at your desires without judging them.","Choose one desire and ask what it is really pointing toward."],
+["I can desire something without becoming desperate for it.","Picture yourself holding the desire with open hands.","When you notice urgency today, slow your breathing."],
+["My inner picture is becoming clearer.","Imagine adjusting a camera lens until the scene becomes sharp.","Refine one detail of your vision."],
+["I recognise myself in the life I imagine.","Picture yourself noticing familiar qualities in your desired life.","Write three qualities you want the life to contain."],
+["I am already practising the identity of the person I imagined.","See the connection between today's choices and the person in your vision.","Repeat one behaviour that belongs to that identity."],
+["My vision and my daily life are beginning to match.","Imagine your ordinary environment reflecting your deeper priorities.","Change one small environmental detail."],
+["I can see possibility without needing certainty.","Visualise several possible paths leading toward the same deeper intention.","Choose one useful next step without demanding certainty."],
+["I feel a quiet certainty about what I am creating.","Imagine certainty as calmness rather than excitement.","Return to the feeling whenever you feel scattered."],
+["I live from the identity I have chosen.","See yourself behaving naturally as the person you decided to become.","Make one decision from that identity."],
+["My actions are evidence of my new identity.","Imagine looking back and seeing a trail of small consistent choices.","Create one more piece of evidence today."],
+["I move through the world as someone who trusts herself.","Visualise your walk, voice and decisions becoming more grounded.","Walk for five minutes with relaxed confidence."],
+["I make choices that match my desired reality.","Picture yourself recognising choices that belong to the old pattern and choosing differently.","Change one automatic choice."],
+["I embody calm, clarity and self-respect.","Imagine these qualities as physical sensations in your body.","Use posture and breathing to embody them for three minutes."],
+["I am comfortable receiving.","Visualise accepting help, compliments, money, opportunities or affection without immediately deflecting them.","Accept one positive thing without minimising it."],
+["I behave as though my desired reality is familiar.","Imagine the reality as normal rather than extraordinary.","Do one ordinary task with the mindset of your desired self."],
+["My environment supports who I am.","See your surroundings as an extension of your identity.","Remove or change one thing that no longer fits."],
+["I protect my energy and attention.","Imagine a clear boundary around what deserves access to you.","Set one small boundary."],
+["I speak to myself in the language of the reality I inhabit.","Notice the words you use internally.","Replace one limiting phrase with a truthful, empowering one."],
+["I trust repetition to reshape my experience.","Visualise small actions accumulating into a different life.","Repeat one aligned action from yesterday."],
+["I am becoming familiar with success in small forms.","See small wins as normal evidence rather than exceptions.","Notice three small wins."],
+["I allow my nervous system to learn safety around change.","Imagine change happening gently and sustainably.","Slow down one transition today."],
+["I carry myself like someone whose life has value.","Picture yourself treating your time and attention as valuable.","Protect one block of uninterrupted time."],
+["I am aligned with the reality I have chosen.","Imagine your thoughts, words and actions pointing in the same direction.","Check one action for alignment before doing it."],
+["I am no longer rehearsing the version of me I have outgrown.","See an old pattern as something you can observe without entering.","Interrupt one old automatic reaction."],
+["I am building evidence through action.","Imagine your future memories being created by today's choices.","Complete one small task you have been avoiding."],
+["I notice synchronicity without forcing meaning onto it.","Picture yourself noticing useful coincidences while remaining grounded.","Record one interesting coincidence or connection."],
+["I am open to unexpected routes to the same desire.","Imagine your goal arriving through a route you did not predict.","Stay open to one alternative today."],
+["I trust my ability to respond to what appears.","See yourself meeting an unexpected event calmly.","When something changes today, pause before reacting."],
+["I have created a relationship with my own mind that supports me.","Imagine your thoughts becoming a place you can return to.","Spend three quiet minutes observing your thoughts."],
+["I am allowed to receive a life that feels good.","Visualise receiving without guilt or self-sabotage.","Notice one moment when you instinctively reject something good; soften it."],
+["My desires and my actions speak the same language.","Picture your desired reality and today's calendar side by side.","Align one calendar item with a genuine priority."],
+["I recognise when I am acting from fear rather than identity.","Imagine fear stepping back while your chosen identity remains.","Name one fear without obeying it."],
+["I choose the reality I reinforce with my attention.","See attention as a beam of light you can direct.","Move your attention deliberately toward something constructive."],
+["I am consistent with the person I say I am.","Imagine your private choices matching your public intentions.","Keep one small promise to yourself today."],
+["I trust myself with greater responsibility.","Visualise handling more freedom, money, visibility or opportunity calmly.","Take care of one responsibility immediately rather than postponing it."],
+["I am comfortable being seen as myself.","Imagine being visible without performing.","Express one genuine opinion or preference."],
+["I allow my life to expand without abandoning peace.","Picture growth occurring while your inner life remains calm.","Choose growth without adding unnecessary chaos."],
+["I have released the need to chase every possibility.","Imagine possibilities coming toward a person who knows what matters.","Ignore one irrelevant temptation."],
+["I am attentive to what life is showing me.","Picture yourself noticing useful information in ordinary moments.","Write down one thing you learned today."],
+["My desired reality is reflected in small details.","Imagine your future reality visible in your habits, surroundings and choices.","Change one small detail to reflect it."],
+["I feel gratitude for what is already here and openness to what is arriving.","Visualise gratitude and openness existing together.","Name three things already present and one possibility you welcome."],
+["I trust the process I have created for myself.","See the last weeks as a path you have actually walked.","Review one change you can prove."],
+["I have evidence that my inner world affects my outer choices.","Imagine the connection between belief, attention and behaviour.","Notice one example today."],
+["I am living in closer relationship with my intentions.","Picture intention becoming automatic in ordinary decisions.","Before one choice, ask what intention it serves."],
+["I let the reality I want feel ordinary.","Imagine waking up inside the life you desired and feeling calm rather than shocked.","Practise the feeling of normality for five minutes."],
+["I am grateful for the person I have become.","See yourself as a collection of choices, lessons and small moments.","Write three things you respect about yourself."],
+["I am the author of the meaning I give my experiences.","Imagine holding an event in your hands and choosing a useful meaning for it.","Reframe one neutral or difficult moment constructively."],
+["I trust myself to recognise the next aligned step.","Visualise only the next step, not the whole road.","Take that one step."],
+["I have integrated the identity I practised.","Imagine the protocol becoming part of how you naturally think and act.","Do one familiar practice without needing motivation."],
+["My reality reflects what I repeatedly choose to notice, believe and embody.","See your attention, beliefs and actions working together.","Choose one final aligned action today."],
+["I am living as the person I intended to become.","Picture an ordinary moment in your life and notice that nothing needs to be forced.","Move through today without performing the change."],
+["I recognise the reality I have created in the details around me.","Look mentally at your environment, relationships, habits and choices.","Notice five concrete signs of change."],
+["I trust myself to continue creating from clarity rather than urgency.","Imagine moving forward from calm certainty.","Remove one unnecessary source of urgency."],
+["I am open to the reality exceeding the exact picture I once imagined.","Visualise something good arriving in an unexpected form.","Allow one plan to remain flexible."],
+["I have become someone who notices, chooses and acts.","See these three qualities as a natural rhythm.","Notice one thing, choose deliberately, act immediately."],
+["My inner and outer worlds are increasingly coherent.","Imagine your values, words, habits and environment fitting together.","Bring one mismatch into alignment."]
+];
+const daysPL = [
+["Jestem coraz bardziej sobą. Wiem, kim jestem i ufam temu, co czuję.","Zobacz siebie podczas zwyczajnego dnia, pełną spokojnej pewności. Zauważ swoją postawę, głos i wybory.","Zrób dziś jedną małą rzecz dokładnie tak, jak zrobiłaby ją opisana przez Ciebie osoba."],
+["Czuję spokój we własnej obecności. Nie potrzebuję ciągłego hałasu, żeby czuć się bezpiecznie.","Wyobraź sobie, że siedzisz sama i czujesz się całkowicie dobrze z ciszą.","Spędź dziesięć minut bez telefonu."],
+["Wiem, co jest dla mnie ważne. Moje wybory odzwierciedlają moje wartości.","Wyobraź sobie dzień, w którym decyzje są proste, bo wiesz, co naprawdę ma znaczenie.","Wybierz dziś jedną rzecz dlatego, że naprawdę jest dla Ciebie ważna."],
+["Ufam sobie i rozpoznaję, co jest dla mnie właściwe.","Wyobraź sobie, że podejmujesz decyzję bez pytania kogokolwiek o pozwolenie.","Podejmij jedną małą decyzję bez szukania zewnętrznego potwierdzenia."],
+["Traktuję siebie z cierpliwością i szacunkiem.","Zobacz siebie reagującą na błąd życzliwością zamiast krytyką.","Zamień jedną krytyczną myśl na neutralne lub życzliwe zdanie."],
+["Stworzyłam przestrzeń dla życia, które jest naprawdę moje.","Wyobraź sobie, że fizyczna i mentalna przestrzeń wokół Ciebie staje się prostsza.","Uporządkuj jeden mały obszar."],
+["Czuję się dobrze, zajmując swoje miejsce.","Wyobraź sobie, że wchodzisz do pomieszczenia z rozluźnionymi ramionami i bez potrzeby pomniejszania siebie.","Zwracaj uwagę na swoją postawę i rozluźniaj ją, gdy zauważysz napięcie."],
+["Moja uwaga należy do mnie.","Wyobraź sobie, że sama wybierasz, na co kierujesz uwagę, zamiast oddawać ją automatycznie.","Wyłącz jedno niepotrzebne powiadomienie."],
+["Zauważam małe szczegóły, które nadają mojemu życiu znaczenie.","Wyobraź sobie zwyczajną chwilę, która staje się wyraźna, bo jesteś w niej naprawdę obecna.","Zauważ trzy szczegóły, które zwykle Ci umykają."],
+["Rozpoznaję różnicę między tym, czego chcę, a tym, czego wydaje mi się, że powinnam chcieć.","Wyobraź sobie uczucie wyboru czegoś dlatego, że naprawdę jest Twoje.","Napisz jedno zdanie zaczynające się od: „Naprawdę chcę…”"],
+["Pozwalam sobie zmieniać się bez utraty siebie.","Wyobraź sobie spotkanie ze starszą wersją siebie, która jest Ci znajoma, a nie obca.","Pozwól dziś jednemu staremu nawykowi wyglądać inaczej."],
+["Nie czekam na pozwolenie, żeby zacząć.","Zobacz siebie już robiącą rzecz, którą odkładałaś.","Zrób jeden mały pierwszy krok."],
+["Mam w sobie więcej odwagi, niż czasem sobie przypisuję.","Przypomnij sobie moment, w którym poradziłaś sobie z czymś trudnym.","Użyj tej samej odwagi przy jednym małym działaniu."],
+["Moje życie zawiera dowody na to, że rzeczy potrafią układać się dobrze.","Przywołaj kilka momentów, które kiedyś wydawały się niepewne, a jednak znalazły rozwiązanie.","Zapisz trzy takie przykłady."],
+["Potrafię tworzyć piękno ze zwyczajnych chwil.","Wyobraź sobie zwykły pokój, posiłek lub spacer, który staje się piękny dzięki Twojej uwadze.","Uczyń jedną zwyczajną chwilę piękniejszą."],
+["Czuję się u siebie we własnym życiu.","Wyobraź sobie, że budzisz się i rozpoznajesz swoje otoczenie jako życie, które naprawdę do Ciebie należy.","Zrób jedną rzecz, dzięki której Twoje otoczenie będzie bardziej Twoje."],
+["Słucham swojego ciała i szanuję jego sygnały.","Wyobraź sobie dzień, w którym nie ignorujesz automatycznie zmęczenia, głodu ani napięcia.","Zatrzymaj się raz i zapytaj ciało, czego potrzebuje."],
+["Pozwalam sobie cieszyć się życiem już teraz.","Wyobraź sobie, że cieszysz się czymś bez potrzeby uzasadniania tego.","Zrób jedną małą przyjemną rzecz bez związku z produktywnością."],
+["Coraz uważniej wybieram to, co wpuszczam do swojego umysłu.","Wyobraź sobie swoją uwagę jak drzwi, które możesz otworzyć lub zamknąć.","Usuń jedno źródło niepotrzebnego mentalnego hałasu."],
+["Widzę własny postęp.","Wyobraź sobie, że patrzysz wstecz i widzisz, jak wiele się zmieniło.","Nazwij jedną rzecz, którą dziś robisz inaczej."],
+["Jestem wystarczająca bez potrzeby stawania się kimś innym.","Wyobraź sobie, że odkładasz potrzebę odgrywania jakiejś wersji siebie dla innych.","Przez część dnia po prostu bądź sobą."],
+["Moja wizja staje się realna, kiedy widzę ją wyraźnie.","Wyobraź sobie jedną pożądaną rzeczywistość w szczegółach: miejsce, dźwięki, faktury i emocje.","Opisz ją pięcioma konkretnymi szczegółami."],
+["Mam jasny obraz życia, które tworzę.","Przejdź mentalnie przez zwyczajny dzień w tym życiu, od rana do wieczora.","Zapisz pięć momentów z tego dnia."],
+["Rzeczy, których pragnę, naturalnie pasują do mojej tożsamości.","Wyobraź sobie, że już masz to, czego chcesz, i zauważ, jak normalne się to czuje.","Zachowaj się dziś jak osoba, dla której ta rzeczywistość jest czymś naturalnym."],
+["Widzę możliwości wszędzie wokół siebie.","Wyobraź sobie, że pojawiają się wokół Ciebie małe zbiegi okoliczności, okazje i pomysły.","Zapisz jeden sygnał, który poszerza Twoje poczucie możliwości."],
+["Mój umysł zna rzeczywistość, której pragnę.","Wyobraź sobie swoją pożądaną rzeczywistość tak długo, aż stanie się znajoma, a nie odległa.","Przez pięć minut wizualizuj tę samą scenę."],
+["Potrafię utrzymać wyraźny obraz bez wymuszania rezultatu.","Zobacz pożądaną scenę, a potem pozwól jej istnieć bez kontrolowania każdego szczegółu.","Zwizualizuj ją, a następnie świadomie puść ten obraz."],
+["Jestem emocjonalnie otwarta na dobre rzeczy.","Wyobraź sobie, że otrzymujesz coś wspaniałego i pozwalasz sobie w pełni to poczuć.","Zauważ dziś jedną przyjemną emocję i pozwól jej być."],
+["Dostrzegam obfitość w tym, co już istnieje.","Wyobraź sobie swoje obecne życie jako pełne większej liczby zasobów, relacji i możliwości, niż zwykle zauważasz.","Wymień pięć form obfitości, które już są obecne."],
+["Moja pożądana rzeczywistość jest dla mnie bezpieczna.","Wyobraź sobie, że otrzymujesz to, czego chcesz, bez natychmiastowego szukania problemu.","Zauważ opór i odpowiedz na niego łagodnie."],
+["Mam przestrzeń na możliwości, które do mnie pasują.","Wyobraź sobie, że zauważasz właściwą okazję, bo nie rozprasza Cię wszystko inne.","Powiedz „nie” jednemu nieistotnemu rozproszeniu."],
+["Wiem, jak czuje się mój idealny zwyczajny dzień.","Przejdź przez ten dzień powoli i skup się na odczuciu, a nie na osiągnięciach.","Wprowadź jeden element tego dnia do dzisiejszego życia."],
+["Jestem połączona z wersją siebie, która już żyje tym życiem.","Wyobraź sobie spotkanie twarzą w twarz z tą wersją siebie.","Zapytaj: „Co robisz inaczej?” Zapisz pierwszą odpowiedź."],
+["Moja wyobraźnia kieruje moją uwagą.","Zobacz swoją pożądaną rzeczywistość jako kompas, a nie wymaganie.","Wybierz jedno działanie zgodne z tym kierunkiem."],
+["Pozwalam, żeby pragnienia były informacją.","Wyobraź sobie, że patrzysz na swoje pragnienia bez oceniania ich.","Wybierz jedno pragnienie i zapytaj, na co naprawdę wskazuje."],
+["Mogę czegoś pragnąć bez desperackiego przywiązania do tego.","Wyobraź sobie, że trzymasz swoje pragnienie otwartymi dłońmi.","Kiedy zauważysz dziś pośpiech, zwolnij oddech."],
+["Mój wewnętrzny obraz staje się coraz wyraźniejszy.","Wyobraź sobie ustawianie ostrości aparatu, aż scena staje się wyraźna.","Doprecyzuj jeden szczegół swojej wizji."],
+["Rozpoznaję siebie w życiu, które sobie wyobrażam.","Wyobraź sobie, że dostrzegasz znajome cechy w swojej pożądanej rzeczywistości.","Zapisz trzy cechy, które ma zawierać Twoje życie."],
+["Już praktykuję tożsamość osoby, którą sobie wyobraziłam.","Zobacz związek między dzisiejszymi wyborami a osobą z Twojej wizji.","Powtórz jedno zachowanie, które należy do tej tożsamości."],
+["Moja codzienność coraz bardziej pasuje do mojej wizji.","Wyobraź sobie zwyczajne otoczenie odzwierciedlające Twoje głębsze priorytety.","Zmień jeden mały szczegół swojego otoczenia."],
+["Widzę możliwości bez potrzeby posiadania pewności.","Wyobraź sobie kilka różnych dróg prowadzących do tego samego głębszego zamiaru.","Wybierz jeden użyteczny następny krok bez żądania pewności."],
+["Czuję cichą pewność co do tego, co tworzę.","Wyobraź sobie pewność jako spokój, a nie ekscytację.","Wróć do tego uczucia, kiedy poczujesz rozproszenie."],
+["Żyję z poziomu tożsamości, którą wybrałam.","Zobacz siebie zachowującą się naturalnie jak osoba, którą postanowiłaś być.","Podejmij jedną decyzję z poziomu tej tożsamości."],
+["Moje działania są dowodem mojej nowej tożsamości.","Wyobraź sobie, że patrzysz wstecz i widzisz ślad małych, konsekwentnych wyborów.","Stwórz dziś kolejny taki dowód."],
+["Poruszam się po świecie jak osoba, która sobie ufa.","Wyobraź sobie, że Twój chód, głos i decyzje stają się bardziej ugruntowane.","Przez pięć minut idź z rozluźnioną pewnością siebie."],
+["Podejmuję decyzje zgodne z rzeczywistością, którą wybieram.","Wyobraź sobie, że rozpoznajesz wybory należące do starego schematu i wybierasz inaczej.","Zmień jeden automatyczny wybór."],
+["Ucieleśniam spokój, jasność i szacunek do siebie.","Wyobraź sobie te cechy jako fizyczne odczucia w ciele.","Przez trzy minuty użyj postawy i oddechu, aby je ucieleśnić."],
+["Czuję się dobrze, przyjmując.","Wyobraź sobie, że przyjmujesz pomoc, komplementy, pieniądze, możliwości lub czułość bez natychmiastowego odpychania ich.","Przyjmij dziś jedną dobrą rzecz bez jej umniejszania."],
+["Zachowuję się tak, jakby moja pożądana rzeczywistość była czymś znajomym.","Wyobraź sobie tę rzeczywistość jako normalną, a nie niezwykłą.","Wykonaj jedno zwyczajne zadanie z nastawieniem swojej pożądanej wersji siebie."],
+["Moje otoczenie wspiera to, kim jestem.","Zobacz swoje otoczenie jako przedłużenie własnej tożsamości.","Usuń lub zmień jedną rzecz, która już do Ciebie nie pasuje."],
+["Chronię swoją energię i uwagę.","Wyobraź sobie wyraźną granicę wokół tego, co zasługuje na dostęp do Ciebie.","Postaw jedną małą granicę."],
+["Mówię do siebie językiem rzeczywistości, w której żyję.","Zauważ słowa, których używasz wewnętrznie.","Zamień jedno ograniczające sformułowanie na prawdziwe, wzmacniające zdanie."],
+["Ufam, że powtarzanie zmienia moje doświadczenie.","Wyobraź sobie małe działania, które razem tworzą inne życie.","Powtórz jedno działanie zgodne z Twoim kierunkiem z wczoraj."],
+["Coraz lepiej rozpoznaję sukces w małych formach.","Zobacz małe zwycięstwa jako normalne dowody, a nie wyjątki.","Zauważ trzy małe sukcesy."],
+["Pozwalam układowi nerwowemu uczyć się bezpieczeństwa wobec zmian.","Wyobraź sobie zmianę zachodzącą łagodnie i w sposób, który możesz utrzymać.","Zwolnij jedno przejście między zadaniami."],
+["Noszę się jak osoba, której życie ma wartość.","Wyobraź sobie, że traktujesz swój czas i uwagę jak coś wartościowego.","Chroń jeden blok nieprzerwanego czasu."],
+["Jestem w zgodzie z rzeczywistością, którą wybrałam.","Wyobraź sobie, że Twoje myśli, słowa i działania wskazują w tym samym kierunku.","Sprawdź jedno działanie pod kątem zgodności z Twoją intencją."],
+["Nie odgrywam już wersji siebie, z której wyrosłam.","Zobacz stary schemat jako coś, co możesz obserwować bez wchodzenia w niego.","Przerwij jedną starą automatyczną reakcję."],
+["Tworzę dowody poprzez działanie.","Wyobraź sobie, że przyszłe wspomnienia powstają z dzisiejszych wyborów.","Zrób jedno małe zadanie, które odkładasz."],
+["Zauważam synchroniczność bez wymuszania jej znaczenia.","Wyobraź sobie, że dostrzegasz ciekawe zbiegi okoliczności, pozostając ugruntowana.","Zapisz jedną ciekawą zbieżność lub połączenie."],
+["Jestem otwarta na nieoczekiwane drogi prowadzące do tego samego pragnienia.","Wyobraź sobie, że Twój cel pojawia się przez drogę, której nie przewidziałaś.","Pozostań dziś otwarta na jedną alternatywę."],
+["Ufam, że potrafię odpowiedzieć na to, co się pojawia.","Zobacz siebie spokojnie spotykającą coś nieoczekiwanego.","Kiedy coś się dziś zmieni, zatrzymaj się przed reakcją."],
+["Mam ze swoim umysłem relację, która mnie wspiera.","Wyobraź sobie swoje myśli jako miejsce, do którego możesz wracać.","Spędź trzy ciche minuty, obserwując myśli."],
+["Pozwalam sobie przyjąć życie, które dobrze się czuje.","Wyobraź sobie przyjmowanie bez poczucia winy i bez sabotowania siebie.","Zauważ moment, w którym odruchowo odrzucasz coś dobrego, i zmiękcz tę reakcję."],
+["Moje pragnienia i moje działania mówią tym samym językiem.","Wyobraź sobie swoją pożądaną rzeczywistość i dzisiejszy kalendarz obok siebie.","Dopasuj jeden punkt dnia do prawdziwego priorytetu."],
+["Rozpoznaję, kiedy działam ze strachu, a nie z własnej tożsamości.","Wyobraź sobie, że strach cofa się, a wybrana przez Ciebie tożsamość pozostaje.","Nazwij jeden lęk, nie pozwalając mu decydować."],
+["Wybieram rzeczywistość, którą wzmacniam swoją uwagą.","Zobacz uwagę jak wiązkę światła, którą możesz kierować.","Świadomie skieruj uwagę na coś konstruktywnego."],
+["Jestem spójna z osobą, za którą się uważam.","Wyobraź sobie, że Twoje prywatne wybory odpowiadają Twoim deklarowanym intencjom.","Dotrzymaj dziś jednej małej obietnicy złożonej sobie."],
+["Ufam sobie z większą odpowiedzialnością.","Wyobraź sobie spokojne radzenie sobie z większą wolnością, pieniędzmi, widocznością lub możliwościami.","Zajmij się jedną odpowiedzialnością od razu, zamiast ją odkładać."],
+["Czuję się dobrze, będąc widzianą taką, jaka jestem.","Wyobraź sobie widoczność bez odgrywania roli.","Wyraź dziś jedną prawdziwą opinię lub preferencję."],
+["Pozwalam swojemu życiu rozwijać się bez porzucania spokoju.","Wyobraź sobie wzrost, który zachodzi, podczas gdy Twoje wnętrze pozostaje spokojne.","Wybierz rozwój bez dodawania sobie niepotrzebnego chaosu."],
+["Nie muszę gonić za każdą możliwością.","Wyobraź sobie, że możliwości przychodzą do osoby, która wie, co jest ważne.","Zignoruj jedną nieistotną pokusę."],
+["Jestem uważna na to, co pokazuje mi życie.","Wyobraź sobie, że zauważasz użyteczne informacje w zwyczajnych chwilach.","Zapisz jedną rzecz, której dziś się nauczyłaś."],
+["Moja pożądana rzeczywistość odbija się w małych szczegółach.","Wyobraź sobie swoją przyszłą rzeczywistość widoczną w nawykach, otoczeniu i wyborach.","Zmień jeden mały szczegół, aby ją odzwierciedlał."],
+["Jestem wdzięczna za to, co już jest, i otwarta na to, co się pojawia.","Wyobraź sobie wdzięczność i otwartość istniejące jednocześnie.","Nazwij trzy rzeczy, które już są, i jedną możliwość, którą przyjmujesz."],
+["Ufam procesowi, który stworzyłam dla siebie.","Zobacz ostatnie tygodnie jako drogę, którą naprawdę przeszłaś.","Przypomnij sobie jedną zmianę, którą możesz udowodnić."],
+["Mam dowody na to, że mój świat wewnętrzny wpływa na moje wybory na zewnątrz.","Wyobraź sobie połączenie między przekonaniami, uwagą i zachowaniem.","Zauważ dziś jeden taki przykład."],
+["Żyję w coraz bliższej relacji z własnymi intencjami.","Wyobraź sobie, że intencja staje się naturalną częścią zwyczajnych decyzji.","Przed jednym wyborem zapytaj, której intencji on służy."],
+["Pozwalam, żeby życie, którego pragnę, stało się zwyczajne.","Wyobraź sobie przebudzenie w życiu, którego pragnęłaś, i poczucie spokoju zamiast szoku.","Przez pięć minut ćwicz poczucie, że to jest normalne."],
+["Jestem wdzięczna za osobę, którą się stałam.","Zobacz siebie jako sumę wyborów, lekcji i małych chwil.","Zapisz trzy rzeczy, które w sobie szanujesz."],
+["To ja nadaję znaczenie swoim doświadczeniom.","Wyobraź sobie wydarzenie trzymane w dłoniach i wybierz dla niego użyteczne znaczenie.","Nadaj jednemu neutralnemu lub trudnemu momentowi konstruktywną interpretację."],
+["Ufam sobie w rozpoznawaniu kolejnego kroku zgodnego ze mną.","Wyobraź sobie tylko następny krok, a nie całą drogę.","Zrób ten jeden krok."],
+["Zintegrowałam tożsamość, którą praktykowałam.","Wyobraź sobie, że ostatnie praktyki stały się częścią Twojego naturalnego sposobu myślenia i działania.","Wykonaj jedną znaną praktykę bez czekania na motywację."],
+["Moja rzeczywistość odzwierciedla to, co wielokrotnie wybieram, zauważam i ucieleśniam.","Zobacz swoją uwagę, przekonania i działania pracujące razem.","Wybierz dziś jedno ostatnie działanie zgodne z Twoją intencją."],
+["Żyję jako osoba, którą zamierzałam się stać.","Wyobraź sobie zwyczajną chwilę w swoim życiu i zauważ, że niczego nie trzeba wymuszać.","Przejdź przez ten dzień bez udowadniania zmiany."],
+["Rozpoznaję stworzoną przez siebie rzeczywistość w szczegółach wokół mnie.","Spójrz mentalnie na swoje otoczenie, relacje, nawyki i wybory.","Zauważ pięć konkretnych oznak zmiany."],
+["Ufam sobie, że nadal tworzę z poziomu jasności, a nie pośpiechu.","Wyobraź sobie poruszanie się przez życie ze spokojną pewnością.","Usuń jedno niepotrzebne źródło pośpiechu."],
+["Jestem otwarta na to, że rzeczywistość przekracza dokładny obraz, który kiedyś sobie wyobrażałam.","Wyobraź sobie, że coś dobrego przychodzi w nieoczekiwanej formie.","Pozostaw dziś jeden plan elastyczny."],
+["Stałam się osobą, która zauważa, wybiera i działa.","Zobacz te trzy jakości jako naturalny rytm.","Zauważ jedną rzecz, wybierz świadomie i działaj od razu."],
+["Mój świat wewnętrzny i zewnętrzny są coraz bardziej spójne.","Wyobraź sobie, że Twoje wartości, słowa, nawyki i otoczenie pasują do siebie.","Dopasuj jeden element, który jeszcze nie jest spójny."]
+];
+let language = localStorage.getItem("smmLanguage") || "";
+
+let current=Number(localStorage.getItem("manifestDay")||1);
+let done=JSON.parse(localStorage.getItem("manifestDone")||"{}");
+let notes=JSON.parse(localStorage.getItem("manifestNotes")||"{}");
+let timerSeconds=180,timerId=null;
+const FREE_DAYS=7;
+const SOUND_FILES={
+  rain:"/audio/rain.mp3",
+  waves:"/audio/waves.mp3",
+  birds:"/audio/birds.mp3",
+  "birds-wind":"/audio/birds-wind.mp3",
+  stream:"/audio/stream.mp3",
+  beach:"/audio/beach.mp3"
+};
+
+
+function setLanguage(lang){
+  language=lang;
+  localStorage.setItem("smmLanguage",lang);
+  document.documentElement.lang=lang==="pl"?"pl":"en";
+  const pl=lang==="pl";
+  document.getElementById("phaseLabel").textContent=pl
+    ?({1:"ETAP I · TOŻSAMOŚĆ",2:"ETAP II · WIZJA",3:"ETAP III · UCIELEŚNIENIE",4:"ETAP IV · MANIFESTACJA"})[phaseFor(current)[1]]
+    :phaseFor(current)[0];
+  document.getElementById("daySubtitle").textContent=pl
+    ?"90-dniowa praktyka intencji, tożsamości i manifestacji"
+    :"A 90-Day Practice in Intention, Identity & Manifestation";
+  document.getElementById("completedLabel").textContent=pl?"Dzień ukończony":"Day completed";
+  document.getElementById("notesTitle").textContent=pl?"Twoje notatki":"Your notes";
+  document.getElementById("notes").placeholder=pl
+    ?"Pisz krótko. Jedno słowo, jedno zdanie albo cokolwiek, co wydaje się właściwe."
+    :"Write briefly. One word, one sentence, or whatever feels right.";
+  document.getElementById("prev").textContent=pl?"← Poprzedni dzień":"← Previous day";
+  document.getElementById("next").textContent=pl?"Następny dzień →":"Next day →";
+  document.getElementById("timerBtn").textContent=pl?"Uruchom timer":"Start timer";
+  document.getElementById("resetTimer").textContent=pl?"Reset":"Reset";
+  document.getElementById("notesTitle").textContent=pl?"Twoje notatki":"Your notes";
+  document.getElementById("soundTitle").textContent=pl?"Wybierz dźwięk":"Choose a sound";
+  render();
+  document.getElementById("switchEN").classList.toggle("active",!pl);
+  document.getElementById("switchPL").classList.toggle("active",pl);
+}
+
+function phaseFor(d){if(d<=21)return["PHASE I · IDENTITY",1];if(d<=45)return["PHASE II · VISION",2];if(d<=70)return["PHASE III · EMBODIMENT",3];return["PHASE IV · MANIFESTATION",4];}
+function save(){localStorage.setItem("manifestDay",current);localStorage.setItem("manifestDone",JSON.stringify(done));localStorage.setItem("manifestNotes",JSON.stringify(notes));}
+function highestUnlockedDay(){
+ let d=1;
+ while(d<90 && done[d]) d++;
+ return d;
+}
+function canOpenDay(day){
+ return day<=highestUnlockedDay() && day<=FREE_DAYS;
+}
+function showDayLockedMessage(day){
+ const pl=language==="pl";
+ if(day>FREE_DAYS){
+   alert(pl
+     ?"Dni 1–7 są dostępne bezpłatnie. Dzień 8 będzie dostępny po odblokowaniu pełnej wersji."
+     :"Days 1–7 are available free. Day 8 will be available after unlocking the full version.");
+ }else{
+   alert(pl?`Najpierw ukończ Dzień ${day-1}.`:`Complete Day ${day-1} first.`);
+ }
+}
+function render(){
+ if(current>FREE_DAYS) current=FREE_DAYS;
+ const activeDays=language==="pl"?daysPL:daysEN; const [phase,n]=phaseFor(current), item=activeDays[current-1]||activeDays[0];
+ document.getElementById("phaseLabel").textContent=phase;
+ document.getElementById("dayTitle").textContent=(language==="pl"?"Dzień ":"Day ")+current;
+ document.getElementById("progressText").textContent=Object.keys(done).filter(k=>done[k]).length+" / "+(language==="pl"?"90 dni":"90 days");
+ document.getElementById("fill").style.width=(current/90*100)+"%";
+ document.getElementById("manifestation").textContent=item[0];
+ document.getElementById("mirror").textContent=item[1];
+ document.getElementById("anchor").textContent=item[2];
+ document.getElementById("completed").checked=!!done[current];
+ document.getElementById("notes").value=notes[current]||"";
+ document.getElementById("prev").disabled=current===1;
+ document.getElementById("next").disabled=current===90 || current>=FREE_DAYS;
+ document.querySelectorAll(".phase").forEach((x,i)=>x.classList.toggle("active",i+1===n));
+ document.querySelectorAll(".num").forEach(x=>{
+   let d=+x.dataset.day;
+   const unlocked=canOpenDay(d);
+   x.classList.toggle("done",!!done[d]);
+   x.classList.toggle("current",d===current);
+   x.classList.toggle("locked",!unlocked);
+   x.disabled=!unlocked;
+ });
+ resetTimer();
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+function buildPicker(){
+ let p=document.getElementById("daypicker");p.innerHTML="";
+ for(let i=1;i<=90;i++){
+   let b=document.createElement("button");
+   b.className="num"; b.dataset.day=i; b.textContent=i;
+   const unlocked=canOpenDay(i);
+   b.disabled=!unlocked;
+   b.classList.toggle("locked",!unlocked);
+   b.onclick=()=>{if(!canOpenDay(i)){showDayLockedMessage(i);return;}current=i;save();render();};
+   p.appendChild(b);
+ }
+}
+document.getElementById("prev").onclick=()=>{
+ if(current>1){current--;save();render();}
+};
+document.getElementById("next").onclick=()=>{
+ if(current>=FREE_DAYS){showDayLockedMessage(current+1);return;}
+ if(!done[current]){showDayLockedMessage(current+1);return;}
+ current++;save();render();
+};
+document.getElementById("completed").onchange=e=>{
+ done[current]=e.target.checked;save();buildPicker();render();
+};
+document.getElementById("notes").oninput=e=>{notes[current]=e.target.value;save()};
+document.querySelectorAll(".phase").forEach(p=>p.onclick=()=>{
+ const target=+p.dataset.start;
+ if(!canOpenDay(target)){showDayLockedMessage(target);return;}
+ current=target;save();render();
+});
+
+function showTimer(){let m=String(Math.floor(timerSeconds/60)).padStart(2,"0"),s=String(timerSeconds%60).padStart(2,"0");document.getElementById("timer").textContent=m+":"+s}
+function resetTimer(){clearInterval(timerId);timerId=null;timerSeconds=180;document.getElementById("timerBtn").textContent="Start timer";showTimer()}
+document.getElementById("resetTimer").onclick=resetTimer;
+document.getElementById("timerBtn").onclick=()=>{
+ if(timerId){clearInterval(timerId);timerId=null;document.getElementById("timerBtn").textContent="Resume timer";return}
+ document.getElementById("timerBtn").textContent="Pause";
+ timerId=setInterval(()=>{timerSeconds--;showTimer();if(timerSeconds<=0){clearInterval(timerId);timerId=null;document.getElementById("timerBtn").textContent="Finished"}},1000)
+};
+
+
+function setupSounds(){
+ const player=document.getElementById("soundPlayer");
+ const status=document.getElementById("soundStatus");
+ document.querySelectorAll(".sound-btn").forEach(btn=>{
+   btn.onclick=()=>{
+     const key=btn.dataset.sound;
+     player.src=SOUND_FILES[key];
+     player.load();
+     document.querySelectorAll(".sound-btn").forEach(x=>x.classList.remove("active"));
+     btn.classList.add("active");
+     status.textContent=language==="pl"?"Dźwięk wybrany — uruchom odtwarzanie.":"Sound selected — press play.";
+   };
+ });
+}
+setupSounds();
+
+document.getElementById("enBtn").onclick=()=>{setLanguage("en");localStorage.setItem("manifestStarted","1");showProtocol();};
+document.getElementById("plBtn").onclick=()=>{setLanguage("pl");localStorage.setItem("manifestStarted","1");showProtocol();};
+document.getElementById("switchEN").onclick=()=>setLanguage("en");
+document.getElementById("switchPL").onclick=()=>setLanguage("pl");
+
+const introScreen=document.getElementById("introScreen");
+const protocolScreen=document.getElementById("protocolScreen");
+const endScreen=document.getElementById("endScreen");
+const finalNotes=document.getElementById("finalNotes");
+
+function showProtocol(){
+  const pl=language==="pl";
+  document.getElementById("introScreen").querySelector(".intro-kicker").textContent=pl?"90 DNI":"90 DAYS";
+  document.getElementById("introScreen").querySelector(".intro-subtitle").textContent=pl?"90-dniowa praktyka intencji, tożsamości i manifestacji":"A 90-Day Practice in Intention, Identity & Manifestation";
+  document.getElementById("introScreen").querySelector(".intro-quote").innerHTML=pl?"Nie musisz zmieniać całego swojego życia naraz.<br>Jeden mały moment wystarczy, żeby zacząć.":"You do not have to change your whole life at once.<br>One small moment is enough to begin.";
+  document.getElementById("beginBtn").textContent=pl?"ROZPOCZNIJ SWOJE 90 DNI →":"BEGIN YOUR 90 DAYS →";
+
+  introScreen.classList.add("hidden");
+  endScreen.classList.add("hidden");
+  protocolScreen.classList.remove("hidden");
+  render();
+}
+function showIntro(){
+  protocolScreen.classList.add("hidden");
+  endScreen.classList.add("hidden");
+  introScreen.classList.remove("hidden");
+}
+function showEnd(){
+  protocolScreen.classList.add("hidden");
+  introScreen.classList.add("hidden");
+  endScreen.classList.remove("hidden");
+  finalNotes.value=localStorage.getItem("manifestFinalNotes")||"";
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+document.getElementById("beginBtn").onclick=showProtocol;
+document.getElementById("saveFinal").onclick=()=>{
+  localStorage.setItem("manifestFinalNotes",finalNotes.value);
+  finalNotes.blur();
+};
+
+buildPicker();render();
+
+if(localStorage.getItem("manifestStarted")==="1" && language){ setLanguage(language); showProtocol(); }
+document.getElementById("beginBtn").addEventListener("click",()=>localStorage.setItem("manifestStarted","1"));
 
 </script>
 </body></html>
