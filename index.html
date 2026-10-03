@@ -336,6 +336,235 @@ const supabaseClient = supabase.createClient(
   SUPABASE_PUBLISHABLE_KEY
 );
 </script>
+<style>
+.auth-actions{
+  display:flex;
+  gap:6px;
+  align-items:center;
+}
+
+.auth-modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.45);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  z-index:1000;
+}
+
+.auth-modal.hidden{
+  display:none;
+}
+
+.auth-box{
+  position:relative;
+  width:100%;
+  max-width:420px;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:34px 30px;
+  box-shadow:0 10px 40px rgba(0,0,0,.15);
+}
+
+.auth-kicker{
+  font-size:10px;
+  letter-spacing:2px;
+  font-weight:700;
+  color:var(--muted);
+  margin-bottom:14px;
+}
+
+.auth-box h2{
+  font-family:Georgia,serif;
+  font-size:32px;
+  font-weight:400;
+  margin:0 0 12px;
+}
+
+.auth-box p{
+  color:var(--muted);
+  line-height:1.6;
+  margin-bottom:24px;
+}
+
+.auth-box label{
+  display:block;
+  font-size:12px;
+  font-weight:700;
+  margin:14px 0 6px;
+}
+
+.auth-box input{
+  width:100%;
+  box-sizing:border-box;
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:12px;
+  font:inherit;
+  background:#fafafa;
+}
+
+.auth-box .btn{
+  width:100%;
+  margin-top:20px;
+}
+
+.auth-close{
+  position:absolute;
+  top:12px;
+  right:14px;
+  border:0;
+  background:none;
+  font-size:28px;
+  color:var(--muted);
+  cursor:pointer;
+}
+
+.auth-switch,
+.auth-forgot{
+  display:block;
+  width:100%;
+  border:0;
+  background:none;
+  cursor:pointer;
+  font-size:11px;
+  letter-spacing:1px;
+  margin-top:18px;
+}
+
+.auth-forgot{
+  color:var(--muted);
+  margin-top:12px;
+}
+
+.auth-message{
+  margin-top:16px;
+  font-size:13px;
+  line-height:1.5;
+  text-align:center;
+}
+
+@media(max-width:720px){
+  .auth-actions{
+    gap:3px;
+  }
+
+  .auth-actions .lang-btn{
+    font-size:9px;
+  }
+}
+</style>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  let authMode = "signin";
+
+  const modal = document.getElementById("authModal");
+  const title = document.getElementById("authTitle");
+  const intro = document.getElementById("authIntro");
+  const submit = document.getElementById("authSubmit");
+  const modeSwitch = document.getElementById("authModeSwitch");
+  const forgot = document.getElementById("forgotPassword");
+  const form = document.getElementById("authForm");
+  const message = document.getElementById("authMessage");
+
+  function openAuth(mode) {
+    authMode = mode;
+    message.textContent = "";
+
+    if (mode === "signup") {
+      title.textContent = "CREATE ACCOUNT";
+      intro.textContent = "Create an account to save your progress and continue on another device.";
+      submit.textContent = "CREATE ACCOUNT";
+      modeSwitch.textContent = "SIGN IN";
+      forgot.style.display = "none";
+    } else {
+      title.textContent = "SIGN IN";
+      intro.textContent = "Sign in to continue your Small Moments Method.";
+      submit.textContent = "SIGN IN";
+      modeSwitch.textContent = "CREATE ACCOUNT";
+      forgot.style.display = "block";
+    }
+
+    modal.classList.remove("hidden");
+  }
+
+  function closeAuth() {
+    modal.classList.add("hidden");
+    form.reset();
+    message.textContent = "";
+  }
+
+  document.getElementById("signInBtn").onclick = () => openAuth("signin");
+  document.getElementById("signUpBtn").onclick = () => openAuth("signup");
+  document.getElementById("authClose").onclick = closeAuth;
+
+  modeSwitch.onclick = () => {
+    openAuth(authMode === "signin" ? "signup" : "signin");
+  };
+
+  form.onsubmit = async (event) => {
+    event.preventDefault();
+
+    const email = document.getElementById("authEmail").value.trim();
+    const password = document.getElementById("authPassword").value;
+
+    submit.disabled = true;
+    message.textContent = "Please wait...";
+
+    if (authMode === "signup") {
+      const { error } = await supabaseClient.auth.signUp({
+        email,
+        password
+      });
+
+      if (error) {
+        message.textContent = error.message;
+      } else {
+        message.textContent =
+          "Account created. Please check your email to confirm your account.";
+      }
+
+    } else {
+      const { error } = await supabaseClient.auth.signInWithPassword({
+        email,
+        password
+      });
+
+      if (error) {
+        message.textContent = error.message;
+      } else {
+        message.textContent = "Signed in successfully.";
+        setTimeout(closeAuth, 800);
+      }
+    }
+
+    submit.disabled = false;
+  };
+
+  forgot.onclick = async () => {
+    const email = document.getElementById("authEmail").value.trim();
+
+    if (!email) {
+      message.textContent = "Enter your email address first.";
+      return;
+    }
+
+    const { error } = await supabaseClient.auth.resetPasswordForEmail(email);
+
+    if (error) {
+      message.textContent = error.message;
+    } else {
+      message.textContent =
+        "If an account exists for this email, a password reset email will be sent.";
+    }
+  };
+
+});
+</script>
 </head>
 <body>
 <div id="introScreen" class="screen">
@@ -395,7 +624,19 @@ const supabaseClient = supabase.createClient(
 <div class="app">
   <div class="top">
     <div class="logo">QUICK READ MOMENTS · SMALL MOMENTS METHOD</div>
-    <div class="top-right"><div class="progress" id="progressText">0 / 90 days</div><div class="lang-switch"><button class="lang-btn" id="switchEN">EN</button><button class="lang-btn" id="switchPL">PL</button></div></div>
+   <div class="top-right">
+  <div class="progress" id="progressText">0 / 90 days</div>
+
+  <div class="auth-actions">
+    <button class="lang-btn" id="signInBtn">SIGN IN</button>
+    <button class="lang-btn" id="signUpBtn">CREATE ACCOUNT</button>
+  </div>
+
+  <div class="lang-switch">
+    <button class="lang-btn" id="switchEN">EN</button>
+    <button class="lang-btn" id="switchPL">PL</button>
+  </div>
+</div>
   </div>
 
   <div class="card hero">
@@ -477,7 +718,36 @@ const supabaseClient = supabase.createClient(
   <div class="footer">Your progress is saved in this browser. Nothing is uploaded or shared.</div>
 </div>
 </div>
+<div id="authModal" class="auth-modal hidden">
+  <div class="auth-box">
+    <button class="auth-close" id="authClose" aria-label="Close">×</button>
 
+    <div class="auth-kicker">SMALL MOMENTS METHOD</div>
+    <h2 id="authTitle">SIGN IN</h2>
+
+    <p id="authIntro">Save your progress and continue on another device.</p>
+
+    <form id="authForm">
+      <label for="authEmail">Email</label>
+      <input type="email" id="authEmail" autocomplete="email" required>
+
+      <label for="authPassword">Password</label>
+      <input type="password" id="authPassword" autocomplete="current-password" required>
+
+      <button type="submit" class="btn primary" id="authSubmit">SIGN IN</button>
+    </form>
+
+    <button class="auth-switch" id="authModeSwitch">
+      CREATE ACCOUNT
+    </button>
+
+    <button class="auth-forgot" id="forgotPassword">
+      FORGOT PASSWORD?
+    </button>
+
+    <div id="authMessage" class="auth-message"></div>
+  </div>
+</div>
 <div id="endScreen" class="screen hidden">
   <div class="end-inner">
     <div class="intro-brand">QUICK READ MOMENTS</div>
