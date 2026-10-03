@@ -565,6 +565,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 </script>
+<script>
+document.addEventListener("DOMContentLoaded", async () => {
+
+  const signInBtn = document.getElementById("signInBtn");
+  const signUpBtn = document.getElementById("signUpBtn");
+
+  const { data: { session } } = await supabaseClient.auth.getSession();
+
+  if (session) {
+    signInBtn.textContent = "SIGNED IN";
+    signUpBtn.textContent = "SIGN OUT";
+  }
+
+});
+</script>
 </head>
 <body>
 <div id="introScreen" class="screen">
