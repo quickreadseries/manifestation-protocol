@@ -326,6 +326,16 @@ function fillIntro(lang){
  document.getElementById("startProtocol").textContent=d.start;
 }
 </script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+const SUPABASE_URL = "https://chsxmuszraapvucarazb.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_Ajs0NpgpAaKTo1PyzQLm4g_kvP1x-JT";
+
+const supabaseClient = supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_PUBLISHABLE_KEY
+);
+</script>
 </head>
 <body>
 <div id="introScreen" class="screen">
