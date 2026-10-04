@@ -1493,6 +1493,27 @@ function setupTimer(){
 </script>
 <script>
 document.addEventListener("DOMContentLoaded",()=>{
+  // Mood check-in: independent handler so it still works if another initialization block fails.
+  const moodRow=document.querySelector(".mood-row");
+  if(moodRow){
+    moodRow.addEventListener("click",(event)=>{
+      const btn=event.target.closest(".mood-btn");
+      if(!btn)return;
+      const m=btn.dataset.mood;
+      if(!m)return;
+      let moods={};
+      try{moods=JSON.parse(localStorage.getItem("manifestMoods")||"{}")||{};}catch(e){}
+      moods["mood_"+current]=m;
+      localStorage.setItem("manifestMoods",JSON.stringify(moods));
+      moodRow.querySelectorAll(".mood-btn").forEach(x=>x.classList.toggle("selected",x===btn));
+      const after=document.getElementById("moodAfter");
+      if(after)after.textContent=currentSession
+        ? (language==="pl"?"Zapisano na Twoim koncie.":"Saved to your account.")
+        : (language==="pl"?"Zapisano tylko w tej przeglądarce.":"Saved only in this browser.");
+      queueCloudSave();
+    });
+  }
+
   const timer=document.getElementById("timer");
   const timerBtn=document.getElementById("timerBtn");
   const resetBtn=document.getElementById("resetTimer");
