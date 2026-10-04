@@ -57,7 +57,14 @@ textarea{width:100%;min-height:120px;border:1px solid var(--line);border-radius:
 .timing-box{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:22px 8px;margin:25px auto 30px;max-width:620px;text-align:left}
 .timing-box strong{font-size:11px;letter-spacing:2px}
 .timing-box p{font-family:Georgia,serif;font-size:16px;line-height:1.6;color:#5f5b55;margin:13px 0}
-.practice-intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;text-align:left;max-width:620px;margin:25px auto 30px}
+.practice-intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;text-align:left;max-width:620px;margin:25px auto 30px}.phase-overview{max-width:620px;margin:28px auto 32px;text-align:left}
+.phase-overview-title{font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:12px}
+.phase-overview-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.phase-overview-grid>div{border-top:1px solid var(--line);padding:12px 6px 8px}
+.phase-overview-grid strong{display:block;font-size:10px;letter-spacing:1px;text-transform:uppercase;margin-bottom:5px}
+.phase-overview-grid span{font-size:11px;color:var(--muted)}
+.protocolScreen .phases{display:none}
+@media(max-width:650px){.phase-overview-grid{grid-template-columns:1fr 1fr}.phase-overview-grid>div{padding:10px 4px}}
 .practice-intro-grid div{border-top:1px solid var(--line);padding:15px 5px 10px}
 .practice-intro-grid strong{display:block;font-size:11px;letter-spacing:1.5px;margin-bottom:8px}
 .practice-intro-grid span{display:block;font-family:Georgia,serif;font-size:16px;line-height:1.45;color:#5f5b55}
@@ -332,6 +339,9 @@ function fillIntro(lang){
  document.getElementById("howKicker").textContent=d.howKicker;
  document.getElementById("howTitle").innerHTML=d.howTitle;
  document.getElementById("howBody").innerHTML=d.howBody;
+ const phaseNames=lang==="pl"?["Tożsamość","Wizja","Ucieleśnienie","Manifestacja"]:["Identity","Vision","Embodiment","Manifestation"];
+ document.getElementById("phaseOverviewTitle").textContent=lang==="pl"?"Cztery etapy":"Four phases";
+ phaseNames.forEach((name,i)=>document.getElementById("introPhase"+(i+1)).textContent=name);
  document.getElementById("howNext").textContent=d.howNext;
  document.getElementById("practicesKicker").textContent=d.practicesKicker;
  document.getElementById("practicesTitle").innerHTML=d.practicesTitle;
@@ -696,6 +706,15 @@ button:disabled{cursor:not-allowed}
     <h1 id="howTitle"></h1>
     <div class="intro-rule"></div>
     <div class="intro-body left" id="howBody"></div>
+    <div class="phase-overview">
+      <div class="phase-overview-title" id="phaseOverviewTitle"></div>
+      <div class="phase-overview-grid">
+        <div><strong id="introPhase1"></strong><span>1–21</span></div>
+        <div><strong id="introPhase2"></strong><span>22–45</span></div>
+        <div><strong id="introPhase3"></strong><span>46–70</span></div>
+        <div><strong id="introPhase4"></strong><span>71–90</span></div>
+      </div>
+    </div>
     <button class="btn primary begin-btn" id="howNext"></button>
   </div>
 </div>
