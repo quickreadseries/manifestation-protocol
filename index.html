@@ -977,6 +977,11 @@ async function loadCloudProgress(){
   }
 }
 
+function updateCompletedLabel(){
+  const el=document.getElementById("completedLabel");
+  if(!el)return;
+  el.textContent=language==="pl"?"Dzień ukończony":"Day completed";
+}
 function updateAuthUI(session){
   currentSession = session || null;
   const signInBtn = document.getElementById("signInBtn");
@@ -1090,7 +1095,8 @@ function render(){
     ?"Pisz krótko. Jedno słowo, jedno zdanie albo cokolwiek, co wydaje się właściwe."
     :"Write briefly. One word, one sentence, or whatever feels right.";
   document.getElementById("notes").value=notes[current]||"";
-  document.getElementById("completedLabel").textContent=pl?"Dzień ukończony":"Day completed";
+  updateCompletedLabel();
+
   document.getElementById("completed").checked=!!done[current];
   document.getElementById("prev").textContent=pl?"← Poprzedni dzień":"← Previous day";
   document.getElementById("next").textContent=pl?"Następny dzień →":"Next day →";
