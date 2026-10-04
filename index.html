@@ -640,6 +640,18 @@ button:disabled{cursor:not-allowed}
 .final-compare strong{display:block;font-size:10px;letter-spacing:2px;color:var(--muted);margin-bottom:10px}
 .final-compare blockquote{margin:0;font-family:Georgia,serif;font-size:18px;line-height:1.5}
 .export-controls{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.legal-links{margin-top:14px;font-size:11px;letter-spacing:.4px}
+.legal-links button{border:0;background:none;padding:0;margin:0 8px 0 0;color:var(--muted);font:inherit;text-decoration:underline;cursor:pointer}
+.legal-modal{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;padding:20px;z-index:1100}
+.legal-modal.hidden{display:none}
+.legal-box{width:100%;max-width:760px;max-height:85vh;overflow:auto;background:#fff;border:1px solid var(--line);border-radius:14px;padding:34px 30px;box-shadow:0 10px 40px rgba(0,0,0,.15)}
+.legal-box h2{font-family:Georgia,serif;font-size:32px;font-weight:400;margin:0 0 10px}
+.legal-box h3{font-size:14px;margin:24px 0 8px}
+.legal-box p,.legal-box li{font-size:13px;line-height:1.65;color:var(--muted)}
+.legal-box ul{padding-left:20px}
+.legal-close{float:right;border:0;background:none;font-size:28px;color:var(--muted);cursor:pointer}
+.legal-updated{font-size:11px;color:var(--muted);margin-bottom:22px}
+@media(max-width:650px){.legal-box{padding:28px 20px;max-height:90vh}}
 @media(max-width:650px){.final-compare{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
 </style>
@@ -822,8 +834,22 @@ button:disabled{cursor:not-allowed}
 <div class="footer">
   <span id="storageNote">Your progress is saved in this browser. Nothing is uploaded or shared.</span><br>
   <span id="safetyNote">Small Moments Method is a reflection and personal practice. It is not therapy, medical advice, or a substitute for professional care.</span>
+  <div class="legal-links">
+    <button id="privacyLink">Privacy Policy</button>
+    <button id="dataProtectionLink">Data Protection</button>
+    <button id="termsLink">Terms of Use</button>
+    <button id="contactLink">Contact</button>
+  </div>
 </div>
 </div>
+</div>
+<div id="legalModal" class="legal-modal hidden" role="dialog" aria-modal="true" aria-labelledby="legalTitle">
+  <div class="legal-box">
+    <button class="legal-close" id="legalClose" aria-label="Close">×</button>
+    <h2 id="legalTitle"></h2>
+    <div class="legal-updated" id="legalUpdated"></div>
+    <div id="legalBody"></div>
+  </div>
 </div>
 <div id="authModal" class="auth-modal hidden">
   <div class="auth-box">
@@ -1009,6 +1035,95 @@ function updateCompletedLabel(){
   const el=document.getElementById("completedLabel");
   if(!el)return;
   el.textContent=language==="pl"?"Dzień ukończony":"Day completed";
+}
+
+const legalContent={
+  en:{
+    privacyTitle:"Privacy Policy",
+    dataTitle:"Data Protection",
+    termsTitle:"Terms of Use",
+    contactTitle:"Contact",
+    updated:"Last updated: 4 October 2026",
+    privacy:[
+      ["1. Who is responsible for your data","Small Moments Method is a Quick Read Moments project. The data controller is the person or legal entity responsible for Quick Read Moments. The controller's final legal name and privacy contact details should be confirmed before public launch."],
+      ["2. What we collect","If you create an account, we process your email address and account identifier. When you use the Method, we may store your selected language, current day, completed days, written notes, optional mood check-ins and final reflection. We do not ask you to provide medical information, and you should not use the notes field to submit highly sensitive information."],
+      ["3. Why we use your data","We use this information to create and manage your account, save your Small Moments Method progress, synchronise your progress between devices, provide the features you request, maintain security and troubleshoot the service."],
+      ["4. Legal basis","Depending on the processing, the legal basis may include performance of a contract (providing the account and progress-sync service), legitimate interests (security, maintenance and service improvement), or consent where consent is specifically requested. The applicable basis should be reviewed if the service or its features change."],
+      ["5. Where your data is stored","When you are signed in, progress is stored using Supabase, our database/authentication service provider. Supabase supports EU-region hosting and GDPR-related contractual arrangements, but the exact region and any international transfers depend on the project's configuration and applicable service infrastructure. We do not claim that all processing is exclusively within the EU unless this is verified in the project settings."],
+      ["6. Local browser storage","When you are not signed in, your progress is stored in your browser using local storage. It is not synchronised to your account. Clearing browser storage or using another browser/device may remove or hide that local progress."],
+      ["7. Retention","Account and progress data are kept while needed to provide the service and until deletion is requested, subject to legal or security requirements. We will review retention periods as the service develops."],
+      ["8. Your rights","Under the GDPR, you may have rights including access, rectification, erasure, restriction of processing, data portability and objection, subject to applicable legal limitations. Where processing is based on consent, you may withdraw consent. You may also complain to the Data Protection Commission in Ireland."],
+      ["9. How to exercise your rights","Privacy requests, including requests for access or deletion, should be sent to the privacy contact published by Quick Read Moments. A dedicated privacy email address should be confirmed before the service is publicly launched."],
+      ["10. Security","We use access controls and row-level security for the application's cloud progress table. No internet service can guarantee absolute security."],
+      ["11. Changes","This notice may be updated when the service, data processing or legal requirements change. The date above shows when this notice was last updated."]
+    ],
+    data:[
+      ["Your data protection in practice","We aim to collect only the information needed to provide the Small Moments Method. Your written reflections are part of your private account data when you are signed in. They are not used to create advertising profiles."],
+      ["No sale of personal data","We do not sell your personal data."],
+      ["Service provider","Supabase provides authentication and database infrastructure. It acts as a service provider/processor for the application's cloud data, subject to the applicable contractual and legal framework."],
+      ["Your choices","You can use the Method without creating an account, but cloud synchronisation between devices requires an account. You can request access, correction or deletion of your account data through the privacy contact."]
+    ],
+    terms:[
+      ["1. What Small Moments Method is","Small Moments Method is a guided reflection and personal-development practice built around small daily moments. It is not therapy, medical advice, diagnosis or a substitute for professional care."],
+      ["2. Your account","You are responsible for keeping your login credentials secure and for using an email address you control. You may stop using the service at any time."],
+      ["3. Your notes","You retain responsibility for the content you enter. Do not enter information that you are not comfortable storing with an online service. We do not review your private reflections for therapeutic or diagnostic purposes."],
+      ["4. Availability","We aim to keep the service available and functional, but online services may be interrupted for maintenance, technical failures or circumstances outside our control."],
+      ["5. Changes","We may change, improve or discontinue features. Where changes materially affect privacy or data processing, the relevant notices will be updated."],
+      ["6. Acceptance","By using the service, you agree to use it lawfully and responsibly."]
+    ],
+    contact:[
+      ["Privacy and data requests","A dedicated privacy contact email should be confirmed before public launch. Until that address is confirmed, do not publish this version as the final legal notice."],
+      ["Quick Read Moments","For general information about Quick Read Moments, visit the main website."]
+    ]
+  },
+  pl:{
+    privacyTitle:"Polityka prywatności",
+    dataTitle:"Ochrona danych",
+    termsTitle:"Warunki korzystania",
+    contactTitle:"Kontakt",
+    updated:"Ostatnia aktualizacja: 4 października 2026",
+    privacy:[
+      ["1. Kto odpowiada za Twoje dane","Small Moments Method jest projektem Quick Read Moments. Administratorem danych jest osoba lub podmiot prawny odpowiedzialny za Quick Read Moments. Ostateczna nazwa prawna administratora i dane kontaktowe dotyczące prywatności powinny zostać potwierdzone przed publicznym uruchomieniem."],
+      ["2. Jakie dane zbieramy","Jeśli zakładasz konto, przetwarzamy Twój adres e-mail i identyfikator konta. Podczas korzystania z Metody możemy przechowywać wybrany język, aktualny dzień, ukończone dni, Twoje notatki, opcjonalne oceny samopoczucia oraz końcową refleksję. Nie prosimy o podawanie informacji medycznych i nie należy wpisywać do notatek szczególnie wrażliwych informacji."],
+      ["3. Dlaczego używamy danych","Używamy tych informacji do utworzenia i obsługi konta, zapisywania postępu, synchronizacji między urządzeniami, udostępniania funkcji, o które prosisz, zapewnienia bezpieczeństwa oraz rozwiązywania problemów technicznych."],
+      ["4. Podstawa prawna","W zależności od rodzaju przetwarzania podstawą prawną może być wykonanie umowy (konto i synchronizacja postępu), prawnie uzasadniony interes (bezpieczeństwo, utrzymanie i ulepszanie usługi) lub zgoda, jeśli jest wyraźnie wymagana. Podstawy należy ponownie zweryfikować, jeśli usługa lub jej funkcje się zmienią."],
+      ["5. Gdzie przechowujemy dane","Po zalogowaniu postęp jest przechowywany przy użyciu Supabase, naszego dostawcy infrastruktury bazy danych i uwierzytelniania. Supabase obsługuje hosting w regionach UE i rozwiązania związane z GDPR, ale dokładny region oraz ewentualne transfery międzynarodowe zależą od konfiguracji projektu i infrastruktury usługi. Nie deklarujemy, że całe przetwarzanie odbywa się wyłącznie w UE, dopóki nie zostanie to potwierdzone w ustawieniach projektu."],
+      ["6. Lokalna pamięć przeglądarki","Gdy nie jesteś zalogowana, postęp jest przechowywany w przeglądarce przy użyciu pamięci lokalnej. Nie jest wtedy synchronizowany z kontem. Wyczyszczenie danych przeglądarki lub użycie innej przeglądarki/urządzenia może usunąć lub ukryć ten lokalny postęp."],
+      ["7. Okres przechowywania","Dane konta i postępu przechowujemy tak długo, jak jest to potrzebne do świadczenia usługi, oraz do momentu zgłoszenia żądania usunięcia, z uwzględnieniem obowiązków prawnych i bezpieczeństwa. Okresy przechowywania będziemy ponownie oceniać wraz z rozwojem usługi."],
+      ["8. Twoje prawa","Na podstawie GDPR możesz mieć m.in. prawo dostępu do danych, ich sprostowania, usunięcia, ograniczenia przetwarzania, przenoszenia oraz sprzeciwu, z uwzględnieniem ograniczeń przewidzianych prawem. Jeśli przetwarzanie opiera się na zgodzie, możesz ją wycofać. Możesz również złożyć skargę do irlandzkiej Data Protection Commission."],
+      ["9. Jak korzystać z praw","Żądania dotyczące prywatności, w tym dostępu do danych lub ich usunięcia, należy kierować na adres kontaktowy dotyczący prywatności opublikowany przez Quick Read Moments. Dedykowany adres e-mail do spraw prywatności powinien zostać potwierdzony przed publicznym uruchomieniem usługi."],
+      ["10. Bezpieczeństwo","Stosujemy mechanizmy kontroli dostępu oraz Row Level Security dla tabeli przechowującej postęp w chmurze. Żadna usługa internetowa nie może zagwarantować absolutnego bezpieczeństwa."],
+      ["11. Zmiany","Niniejsza informacja może być aktualizowana, gdy zmieni się usługa, sposób przetwarzania danych lub wymagania prawne. Data powyżej wskazuje, kiedy informacja została ostatnio zaktualizowana."]
+    ],
+    data:[
+      ["Ochrona danych w praktyce","Staramy się zbierać tylko informacje potrzebne do działania Small Moments Method. Twoje refleksje są częścią prywatnych danych konta, jeśli jesteś zalogowana. Nie wykorzystujemy ich do tworzenia profili reklamowych."],
+      ["Brak sprzedaży danych","Nie sprzedajemy Twoich danych osobowych."],
+      ["Dostawca usługi","Supabase zapewnia infrastrukturę uwierzytelniania i bazy danych. Działa jako dostawca/procesor danych aplikacji zgodnie z odpowiednimi zasadami umownymi i prawnymi."],
+      ["Twoje wybory","Możesz korzystać z Metody bez zakładania konta, ale synchronizacja między urządzeniami wymaga konta. Możesz poprosić o dostęp do danych, ich poprawienie lub usunięcie za pośrednictwem kontaktu dotyczącego prywatności."]
+    ],
+    terms:[
+      ["1. Czym jest Small Moments Method","Small Moments Method to praktyka refleksji i rozwoju osobistego oparta na małych codziennych momentach. Nie jest terapią, poradą medyczną, diagnozą ani zamiennikiem profesjonalnej pomocy."],
+      ["2. Konto","Odpowiadasz za bezpieczeństwo swoich danych logowania oraz korzystanie z adresu e-mail, do którego masz dostęp. Możesz przestać korzystać z usługi w dowolnym momencie."],
+      ["3. Twoje notatki","Odpowiadasz za treść, którą wpisujesz. Nie wpisuj informacji, których nie chcesz przechowywać w usłudze internetowej. Nie analizujemy prywatnych refleksji w celach terapeutycznych ani diagnostycznych."],
+      ["4. Dostępność","Staramy się zapewnić działanie usługi, ale usługi internetowe mogą być czasowo niedostępne z powodu konserwacji, awarii technicznych lub okoliczności niezależnych od nas."],
+      ["5. Zmiany","Możemy zmieniać, ulepszać lub wycofywać funkcje. Jeśli zmiany istotnie wpłyną na prywatność lub przetwarzanie danych, odpowiednie informacje zostaną zaktualizowane."],
+      ["6. Korzystanie z usługi","Korzystając z usługi, zobowiązujesz się korzystać z niej zgodnie z prawem i w odpowiedzialny sposób."]
+    ],
+    contact:[
+      ["Prywatność i żądania dotyczące danych","Dedykowany adres e-mail do spraw prywatności powinien zostać potwierdzony przed publicznym uruchomieniem. Do tego czasu tej wersji nie należy traktować jako ostatecznej informacji prawnej."],
+      ["Quick Read Moments","Informacje ogólne o Quick Read Moments znajdziesz na stronie głównej projektu."]
+    ]
+  }
+};
+
+function openLegal(type){
+  const d=legalContent[language==="pl"?"pl":"en"];
+  const title=type==="privacy"?d.privacyTitle:type==="data"?d.dataTitle:type==="terms"?d.termsTitle:d.contactTitle;
+  const sections=type==="privacy"?d.privacy:type==="data"?d.data:type==="terms"?d.terms:d.contact;
+  document.getElementById("legalTitle").textContent=title;
+  document.getElementById("legalUpdated").textContent=d.updated;
+  document.getElementById("legalBody").innerHTML=sections.map(([h,p])=>"<h3>"+h+"</h3><p>"+p+"</p>").join("");
+  document.getElementById("legalModal").classList.remove("hidden");
 }
 function updateAuthUI(session){
   currentSession = session || null;
@@ -1198,6 +1313,15 @@ function setupSounds(){
 }
 
 document.addEventListener("DOMContentLoaded",()=>{
+  document.getElementById("privacyLink").onclick=()=>openLegal("privacy");
+  document.getElementById("dataProtectionLink").onclick=()=>openLegal("data");
+  document.getElementById("termsLink").onclick=()=>openLegal("terms");
+  document.getElementById("contactLink").onclick=()=>openLegal("contact");
+  document.getElementById("legalClose").onclick=()=>document.getElementById("legalModal").classList.add("hidden");
+  document.getElementById("legalModal").addEventListener("click",e=>{
+    if(e.target.id==="legalModal") e.currentTarget.classList.add("hidden");
+  });
+
   document.getElementById("enBtn").onclick=()=>{language="en";localStorage.setItem("smmLanguage","en");fillIntro("en");updateAuthUI(currentSession);showScreen("welcomeScreen")};
   document.getElementById("plBtn").onclick=()=>{language="pl";localStorage.setItem("smmLanguage","pl");fillIntro("pl");updateAuthUI(currentSession);showScreen("welcomeScreen")};
 
