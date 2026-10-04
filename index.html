@@ -520,10 +520,11 @@ document.addEventListener("DOMContentLoaded", () => {
   };
   document.getElementById("signUpBtn").onclick = async () => {
     if(currentSession){
+      signingOut = true;
       await supabaseClient.auth.signOut();
       currentSession = null;
       updateAuthUI(null);
-      message.textContent = "";
+      signingOut = false;
       return;
     }
     openAuth("signup");
@@ -598,6 +599,11 @@ document.addEventListener("DOMContentLoaded", () => {
 document.addEventListener("DOMContentLoaded", async () => {
   await loadCloudProgress();
   supabaseClient.auth.onAuthStateChange((_event, session) => {
+    if(signingOut){
+      currentSession = null;
+      updateAuthUI(null);
+      return;
+    }
     updateAuthUI(session);
     if(session) setTimeout(()=>loadCloudProgress(),0);
   });
@@ -873,6 +879,7 @@ function phaseFor(d){
 }
 let cloudSaveTimer = null;
 let currentSession = null;
+let signingOut = false;
 
 function updateStorageNote(){
   const pl = language === "pl";
