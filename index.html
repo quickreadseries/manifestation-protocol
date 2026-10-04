@@ -523,9 +523,6 @@ document.addEventListener("DOMContentLoaded", () => {
       await supabaseClient.auth.signOut();
       currentSession = null;
       updateAuthUI(null);
-      if(language) {
-        localStorage.removeItem("smmLanguage");
-      }
       message.textContent = "";
       return;
     }
@@ -600,9 +597,9 @@ document.addEventListener("DOMContentLoaded", () => {
 <script>
 document.addEventListener("DOMContentLoaded", async () => {
   await loadCloudProgress();
-  supabaseClient.auth.onAuthStateChange(async (_event, session) => {
+  supabaseClient.auth.onAuthStateChange((_event, session) => {
     updateAuthUI(session);
-    if(session) await loadCloudProgress();
+    if(session) setTimeout(()=>loadCloudProgress(),0);
   });
 });
 </script>
