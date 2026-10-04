@@ -1043,8 +1043,11 @@ async function loadCloudProgress(){
 
 function updateCompletedLabel(){
   const el=document.getElementById("completedLabel");
-  if(!el)return;
-  el.textContent=language==="pl"?"Dzień ukończony":"Day completed";
+  if(el)el.textContent=language==="pl"?"Dzień ukończony":"Day completed";
+  const help=document.getElementById("completionHelp");
+  if(help)help.textContent=language==="pl"
+    ?"Pominięty dzień nie przerywa Twojego postępu. Możesz wrócić, kiedy będziesz gotowa."
+    :"A missed day does not break your progress. You can return whenever you are ready.";
 }
 
 const legalContent={
