@@ -1214,9 +1214,7 @@ function render(){
     ?(["ETAP I · TOŻSAMOŚĆ","ETAP II · WIZJA","ETAP III · UCIELEŚNIENIE","ETAP IV · MANIFESTACJA"][n-1])
     :phase;
   document.getElementById("dayTitle").textContent=(pl?"Dzień ":"Day ")+current;
-  document.getElementById("daySubtitle").textContent=pl
-    ?"90-dniowa praktyka intencji, tożsamości i manifestacji"
-    :"A 90-Day Practice in Intention, Identity & Manifestation";
+  document.getElementById("daySubtitle").textContent="";
   const phaseStarts=[1,22,46,71];
   const phaseEnds=[21,45,70,90];
   const phaseIndex=n-1;
