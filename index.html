@@ -272,7 +272,7 @@ en:{
  phases:["Identity","Vision","Embodiment","Manifestation"],
  subtitle:"A 90-Day Practice in Intention, Identity & Manifestation",
  reset:["01 · Reset · 3 min","Come back to yourself.","Put on your headphones if you use an audio track. Sit still, breathe slowly and let the noise of the day settle. You are not trying to force anything. You are entering the state in which you can hear yourself."],
- choose:["02 · Choose · 4 min","Choose the reality you are creating.","Write or adapt the statement slowly. Use it as written if it feels honest. If “I am…” feels too strong, use “I am becoming…”, “I am learning…”, “I am practising…” or another present-tense version that feels true. Avoid future tense."],
+ choose:["02 · Choose · 4 min","Choose the reality you are creating.","Write or adapt the statement slowly. Use it as written if it feels honest. If “I am…” feels too strong, use “I am becoming…”, “I am learning…”, “I am practising…” or another present-tense version that feels natural and true to you. Avoid future tense."],
  see:["03 · See · 5 min","See yourself already living it."],
  live:["04 · Live · 3 min","Bring it into an ordinary moment."],
  notes:"Your notes",placeholder:"Write briefly. One word, one sentence, or whatever feels right.",
@@ -285,7 +285,7 @@ pl:{
  phases:["Tożsamość","Wizja","Ucieleśnienie","Manifestacja"],
  subtitle:"90-dniowa praktyka intencji, tożsamości i manifestacji",
  reset:["01 · RESET · 3 MIN","Wróć do siebie.","Jeśli korzystasz z nagrania, załóż słuchawki. Usiądź spokojnie, oddychaj powoli i pozwól, żeby hałas dnia ucichł. Nie próbujesz niczego wymuszać. Wchodzisz w stan, w którym możesz usłyszeć siebie."],
- choose:["02 · WYBIERZ · 4 MIN","Wybierz rzeczywistość, którą tworzysz.","Zapisz lub dostosuj zdanie powoli. Użyj go w tej formie, jeśli jest dla Ciebie prawdziwe. Jeśli „Jestem…” brzmi zbyt mocno, możesz użyć „Staję się…”, „Uczę się…”, „Praktykuję…” lub innej formy w czasie teraźniejszym, która jest uczciwa. Unikaj czasu przyszłego."],
+ choose:["02 · WYBIERZ · 4 MIN","Wybierz rzeczywistość, którą tworzysz.","Zapisz lub dostosuj zdanie powoli. Użyj go w tej formie, jeśli jest dla Ciebie prawdziwe. Jeśli „Jestem…” brzmi zbyt mocno, możesz użyć „Staję się…”, „Uczę się…”, „Praktykuję…” lub innej formy w czasie teraźniejszym, która brzmi dla Ciebie naturalnie i prawdziwie. Unikaj czasu przyszłego."],
  see:["03 · ZOBACZ · 5 MIN","Zobacz siebie, jak już w tym żyjesz."],
  live:["04 · ŻYJ · 3 MIN","Wprowadź to do zwyczajnego momentu."],
  notes:"Twoje notatki",placeholder:"Pisz krótko. Jedno słowo, jedno zdanie albo cokolwiek, co wydaje się właściwe.",
@@ -397,8 +397,7 @@ const supabaseClient = supabase.createClient(
 
 .auth-kicker{
   font-size:10px;
-  letter-spacing:2px;
-  font-weight:700;
+  letter-spacing:2px;  font-weight:700;
   color:var(--muted);
   margin-bottom:14px;
 }
@@ -768,16 +767,16 @@ button:disabled{cursor:not-allowed}
       <div class="prompt">Make yourself comfortable. If you like, put on your headphones and choose a sound to help you slow down. You do not need to achieve anything or do this perfectly. Just give yourself three quiet minutes to breathe, settle and notice how you feel right now.</div>
       <div class="timer" id="timer">03:00</div>
       <div class="controls">
-        <button class="btn" id="timerBtn">Start timer</button>
-        <button class="btn" id="resetTimer">Reset</button>
+        <button class="btn" id="timerBtn" type="button">Start timer</button>
+        <button class="btn" id="resetTimer" type="button">Reset</button>
       </div>
       <div class="sound-box">
         <div class="sound-title" id="soundTitle">Choose a sound</div>
         <div class="sound-buttons">
-          <button class="sound-btn" data-sound="heavy-rain">🌧 Heavy Rain</button>
-          <button class="sound-btn" data-sound="beach">🏖 Beach</button>
-          <button class="sound-btn" data-sound="birds-wind">🍃 Birds &amp; Wind</button>
-          <button class="sound-btn" data-sound="waves">🌊 Waves</button>
+          <button class="sound-btn" data-sound="heavy-rain" type="button">🌧 Heavy Rain</button>
+          <button class="sound-btn" data-sound="beach" type="button">🏖 Beach</button>
+          <button class="sound-btn" data-sound="birds-wind" type="button">🍃 Birds &amp; Wind</button>
+          <button class="sound-btn" data-sound="waves" type="button">🌊 Waves</button>
         </div>
         <div class="sound-status" id="soundStatus">Choose a sound, then press ▶ to begin.</div>
         <audio id="soundPlayer" controls preload="none" style="width:100%;margin-top:10px"></audio>
@@ -797,8 +796,7 @@ button:disabled{cursor:not-allowed}
       <div class="prompt" id="mirror"></div>
     </div>
 
-    <div class="card">
-      <div class="section-title">04 · Live · 3 min</div>
+    <div class="card">      <div class="section-title">04 · Live · 3 min</div>
       <div class="practice-line">Bring it into an ordinary moment.</div>
       <div class="prompt" id="anchor"></div>
     </div>
@@ -1197,8 +1195,7 @@ function resetTimer(){
   clearInterval(timerId);
   timerId=null;
   timerSeconds=180;
-  const timer=document.getElementById("timer");
-  const button=document.getElementById("timerBtn");
+  const timer=document.getElementById("timer");  const button=document.getElementById("timerBtn");
   if(timer)timer.textContent="03:00";
   if(button)button.textContent=language==="pl"?"Uruchom timer":"Start timer";
 }
@@ -1448,8 +1445,7 @@ function setupTimer(){
     current=target;save();render();
   });
 
-  setupTimer();
-  setupSounds();
+  // Timer and sound controls are wired by the final DOMContentLoaded handler.
   populateFinalCompare();
   buildPicker();
 
@@ -1457,6 +1453,79 @@ function setupTimer(){
   // Returning visitors: keep them on the protocol instead of resetting to intro.
   if(!(language==="en" || language==="pl")){
     showScreen("introScreen");
+  }
+});
+
+</script>
+<script>
+document.addEventListener("DOMContentLoaded",()=>{
+  const timer=document.getElementById("timer");
+  const timerBtn=document.getElementById("timerBtn");
+  const resetBtn=document.getElementById("resetTimer");
+
+  if(timer && timerBtn && resetBtn){
+    let localTimerId=null;
+    let localSeconds=180;
+
+    const setTimerLabel=()=>{
+      timer.textContent=String(Math.floor(Math.max(localSeconds,0)/60)).padStart(2,"0")+":"+String(Math.max(localSeconds,0)%60).padStart(2,"0");
+    };
+
+    resetBtn.addEventListener("click",()=>{
+      if(localTimerId) clearInterval(localTimerId);
+      localTimerId=null;
+      localSeconds=180;
+      setTimerLabel();
+      timerBtn.textContent=language==="pl"?"Uruchom timer":"Start timer";
+    });
+
+    timerBtn.addEventListener("click",()=>{
+      if(localTimerId){
+        clearInterval(localTimerId);
+        localTimerId=null;
+        timerBtn.textContent=language==="pl"?"Wznów timer":"Resume timer";
+        return;
+      }
+      if(localSeconds<=0) localSeconds=180;
+      timerBtn.textContent=language==="pl"?"Pauza":"Pause";
+      localTimerId=setInterval(()=>{
+        localSeconds--;
+        setTimerLabel();
+        if(localSeconds<=0){
+          clearInterval(localTimerId);
+          localTimerId=null;
+          timerBtn.textContent=language==="pl"?"Gotowe":"Finished";
+          playTimerChime();
+        }
+      },1000);
+    });
+  }
+
+  const player=document.getElementById("soundPlayer");
+  const status=document.getElementById("soundStatus");
+  if(player && status){
+    player.addEventListener("error",()=>{
+      status.textContent=language==="pl"?"Nie udało się załadować tego dźwięku.":"This sound could not be loaded.";
+    });
+
+    document.querySelectorAll(".sound-btn").forEach(btn=>{
+      btn.addEventListener("click",async()=>{
+        const key=btn.dataset.sound;
+        const src=new URL(SOUND_FILES[key],document.baseURI).href;
+        player.pause();
+        player.src=src;
+        player.load();
+        document.querySelectorAll(".sound-btn").forEach(x=>x.classList.remove("active"));
+        btn.classList.add("active");
+        status.textContent=language==="pl"?"Ładowanie dźwięku…":"Loading sound…";
+        try{
+          await player.play();
+          status.textContent=language==="pl"?"Odtwarzanie":"Playing";
+        }catch(e){
+          status.textContent=language==="pl"?"Dźwięk wybrany — użyj przycisku ▶ w odtwarzaczu, aby rozpocząć.":"Sound selected — press ▶ in the player to begin.";
+        }
+      });
+    });
   }
 });
 </script>
