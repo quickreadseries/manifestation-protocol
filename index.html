@@ -1254,7 +1254,12 @@ document.addEventListener("DOMContentLoaded",()=>{
   setupSounds();
   populateFinalCompare();
   buildPicker();
-  showScreen("introScreen");
+
+  // First visit: show language selection.
+  // Returning visitors: keep them on the protocol instead of resetting to intro.
+  if(!(language==="en" || language==="pl")){
+    showScreen("introScreen");
+  }
 });
 </script>
 </body></html>
