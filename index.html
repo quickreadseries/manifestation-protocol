@@ -290,6 +290,8 @@ pl:{
 const INTRO={
 en:{
  welcomeKicker:"BEFORE YOU BEGIN",welcomeTitle:"A SMALL<br>BEGINNING.",
+ aboutTitle:"WHAT IS THE SMALL MOMENTS METHOD?",aboutBody:"<p>Small Moments Method is a 90-day practice built around one simple idea: meaningful change can begin with a small moment of attention.</p><p>Each day gives you a few quiet minutes to pause, notice, reflect and choose. The four stages — Identity, Vision, Embodiment and Manifestation — give those moments a direction.</p>",
+ whyTitle:"WHY THIS APPROACH?",whyBody:"<p>Small moments create opportunities to notice. Noticing creates awareness. Awareness gives you a choice. Repeated choices can become patterns.</p><p>This is not a promise that thinking something makes it happen. It is a practice for becoming more aware of what you choose, what you reinforce and how you act.</p>",
  welcomeBody:"<p>This is not a challenge to become a different person.</p><p>It is 90 days of small moments in which you notice yourself, choose your direction, see the reality you are creating, and bring it into ordinary life.</p><p>You do not have to change your whole life at once. One small moment is enough to begin.</p>",
  timingBox:"<strong>WHEN TO PRACTISE</strong><p>The most natural times are just after waking, before the noise of the day begins, or just before sleep, when the day has become quiet.</p><p>You can divide the practice into two small moments:</p><p><b>MORNING — RESET + CHOOSE</b><br>Start the day by returning to yourself and choosing the reality you are creating.</p><p><b>EVENING — SEE + LIVE</b><br>Before sleep, see yourself already living it and bring one small part of it into your day.</p>",
  continue:"CONTINUE →",howKicker:"HOW IT WORKS",howTitle:"ONE DAY.<br>ONE MOMENT.",
@@ -299,6 +301,8 @@ en:{
 },
 pl:{
  welcomeKicker:"ZANIM ZACZNIESZ",welcomeTitle:"MAŁY<br>POCZĄTEK.",
+ aboutTitle:"CZYM JEST SMALL MOMENTS METHOD?",aboutBody:"<p>Small Moments Method to 90-dniowa praktyka oparta na jednej prostej idei: znacząca zmiana może zacząć się od małego momentu uważności.</p><p>Każdy dzień daje Ci kilka spokojnych minut na zatrzymanie się, zauważenie, refleksję i wybór. Cztery etapy — Tożsamość, Wizja, Ucieleśnienie i Manifestacja — nadają tym momentom kierunek.</p>",
+ whyTitle:"DLACZEGO TO PODEJŚCIE?",whyBody:"<p>Małe momenty tworzą okazję do zauważania. Zauważanie tworzy świadomość. Świadomość daje wybór. Powtarzane wybory mogą stawać się wzorcami.</p><p>To nie jest obietnica, że samo myślenie sprawi, że coś się wydarzy. To praktyka większej świadomości tego, co wybierasz, co wzmacniasz i jak działasz.</p>",
  welcomeBody:"<p>To nie jest wyzwanie, którego celem jest stanie się kimś innym.</p><p>To 90 dni małych momentów, w których zauważasz siebie, wybierasz kierunek, widzisz rzeczywistość, którą tworzysz, i wprowadzasz ją do zwyczajnego życia.</p><p>Nie musisz zmieniać całego swojego życia naraz. Jeden mały moment wystarczy, żeby zacząć.</p>",
  timingBox:"<strong>KIEDY PRAKTYKOWAĆ</strong><p>Najbardziej naturalne momenty to chwila zaraz po przebudzeniu, zanim zacznie się hałas dnia, albo tuż przed snem, kiedy dzień już ucichł.</p><p>Możesz podzielić praktykę na dwa małe momenty:</p><p><b>RANO — RESET + WYBIERZ</b><br>Zacznij dzień od powrotu do siebie i wybrania rzeczywistości, którą tworzysz.</p><p><b>WIECZOREM — ZOBACZ + ŻYJ</b><br>Przed snem zobacz siebie, jak już żyjesz wybraną rzeczywistością, i zauważ jeden mały sposób, w jaki wniosłaś ją do swojego dnia.</p>",
  continue:"DALEJ →",howKicker:"JAK TO DZIAŁA",howTitle:"JEDEN DZIEŃ.<br>JEDEN MOMENT.",
@@ -320,6 +324,10 @@ function fillIntro(lang){
  document.getElementById("welcomeTitle").innerHTML=d.welcomeTitle;
  document.getElementById("welcomeBody").innerHTML=d.welcomeBody;
  document.getElementById("timingBox").innerHTML=d.timingBox;
+ document.getElementById("aboutTitle").textContent=d.aboutTitle;
+ document.getElementById("aboutBody").innerHTML=d.aboutBody;
+ document.getElementById("whyTitle").textContent=d.whyTitle;
+ document.getElementById("whyBody").innerHTML=d.whyBody;
  document.getElementById("welcomeNext").textContent=d.continue;
  document.getElementById("howKicker").textContent=d.howKicker;
  document.getElementById("howTitle").innerHTML=d.howTitle;
@@ -634,15 +642,13 @@ button:disabled{cursor:not-allowed}
     <div class="intro-rule"></div>
     <div class="intro-body left" id="welcomeBody"></div>
     <div class="timing-box" id="timingBox"></div>
-    <button class="btn primary begin-btn" id="welcomeNext"></button>
-  </div>
-</div>
     <div class="card" style="margin-top:25px;text-align:left">
       <div class="section-title" id="aboutTitle"></div>
       <div class="prompt" id="aboutBody"></div>
       <div class="section-title" id="whyTitle" style="margin-top:24px"></div>
       <div class="prompt" id="whyBody"></div>
     </div>
+    <button class="btn primary begin-btn" id="welcomeNext"></button>
   </div>
 </div>
 
@@ -874,6 +880,7 @@ function canOpenDay(day){
 function phaseEnd(day){ return [21,45,70].includes(day); }
 function showMilestone(day){
   const pl=language==="pl";
+  current=day;
   const titles={21:pl?"TOŻSAMOŚĆ UKOŃCZONA":"IDENTITY COMPLETE",45:pl?"WIZJA UKOŃCZONA":"VISION COMPLETE",70:pl?"UCIELEŚNIENIE UKOŃCZONE":"EMBODIMENT COMPLETE"};
   const messages={21:pl?"21 małych momentów. Zauważyłaś, kim jesteś i co jest dla Ciebie ważne.":"21 small moments. You noticed who you are and what matters to you.",45:pl?"45 małych momentów. Nadałaś kształt swojej wizji.":"45 small moments. You gave shape to your vision.",70:pl?"70 małych momentów. Zaczęłaś ucieleśniać wybraną rzeczywistość.":"70 small moments. You began to embody the reality you chose."};
   const el=document.getElementById("milestone");
@@ -1011,6 +1018,14 @@ function buildPicker(){
     p.appendChild(b);
   }
 }
+function populateFinalCompare(){
+  const pl=language==="pl";
+  const first=(pl?daysPL:daysEN)[0]?.[0]||"";
+  const last=(pl?daysPL:daysEN)[89]?.[0]||"";
+  const el=document.getElementById("finalCompare");
+  if(!el)return;
+  el.innerHTML="<div><strong>"+(pl?"DZIEŃ 1":"DAY 1")+"</strong><blockquote>“"+first+"”</blockquote></div><div><strong>"+(pl?"DZIEŃ 90":"DAY 90")+"</strong><blockquote>“"+last+"”</blockquote></div>";
+}
 function setupSounds(){
   const player=document.getElementById("soundPlayer");
   const status=document.getElementById("soundStatus");
@@ -1032,8 +1047,10 @@ document.addEventListener("DOMContentLoaded",()=>{
   document.getElementById("welcomeNext").onclick=()=>showScreen("howScreen");
   document.getElementById("howNext").onclick=()=>showScreen("practicesScreen");
   document.getElementById("startProtocol").onclick=()=>{showScreen("protocolScreen");buildPicker();render()};
-  document.getElementById("switchEN").onclick=()=>{language="en";localStorage.setItem("smmLanguage","en");render()};
-  document.getElementById("switchPL").onclick=()=>{language="pl";localStorage.setItem("smmLanguage","pl");render()};
+  document.getElementById("switchEN").setAttribute("aria-label","Switch to English");
+  document.getElementById("switchPL").setAttribute("aria-label","Przełącz na polski");
+  document.getElementById("switchEN").onclick=()=>{language="en";localStorage.setItem("smmLanguage","en");populateFinalCompare();render()};
+  document.getElementById("switchPL").onclick=()=>{language="pl";localStorage.setItem("smmLanguage","pl");populateFinalCompare();render()};
 
   document.getElementById("prev").onclick=()=>{
     if(current>1){current--;save();render();}
@@ -1047,8 +1064,9 @@ document.addEventListener("DOMContentLoaded",()=>{
     done[current]=e.target.checked;
     save();
     buildPicker();
-    if(e.target.checked && phaseEnd(current)) showMilestone(current);
     render();
+    if(e.target.checked && phaseEnd(current)) showMilestone(current);
+    if(e.target.checked && current===90) showScreen("endScreen");
   };
   document.getElementById("milestoneContinue").onclick=()=>{ document.getElementById("milestone").style.display="none"; };
   document.querySelectorAll(".mood-btn").forEach(btn=>{
@@ -1103,6 +1121,7 @@ document.addEventListener("DOMContentLoaded",()=>{
   });
 
   setupSounds();
+  populateFinalCompare();
   buildPicker();
   showScreen("introScreen");
 });
