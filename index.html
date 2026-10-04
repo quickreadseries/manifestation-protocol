@@ -721,7 +721,7 @@ button:disabled{cursor:not-allowed}
   <div class="top">
     <div class="logo">QUICK READ MOMENTS · SMALL MOMENTS METHOD</div>
    <div class="top-right">
-  <div class="progress" id="progressText">0 / 90 days</div>
+  <div class="progress" id="progressText">PHASE I</div>
 
   <div class="auth-actions">
     <button class="lang-btn" id="signInBtn">SIGN IN</button>
@@ -1205,8 +1205,15 @@ function render(){
   document.getElementById("daySubtitle").textContent=pl
     ?"90-dniowa praktyka intencji, tożsamości i manifestacji"
     :"A 90-Day Practice in Intention, Identity & Manifestation";
-  document.getElementById("progressText").textContent=Object.keys(done).filter(k=>done[k]).length+" / "+(pl?"90 dni":"90 days");
-  document.getElementById("fill").style.width=(current/90*100)+"%";
+  const phaseStarts=[1,22,46,71];
+  const phaseEnds=[21,45,70,90];
+  const phaseIndex=n-1;
+  const phaseDay=current-phaseStarts[phaseIndex]+1;
+  const phaseLength=phaseEnds[phaseIndex]-phaseStarts[phaseIndex]+1;
+  document.getElementById("progressText").textContent=pl
+    ? "ETAP "+["I","II","III","IV"][phaseIndex]
+    : "PHASE "+["I","II","III","IV"][phaseIndex];
+  document.getElementById("fill").style.width=(phaseDay/phaseLength*100)+"%";
 
   const phases=pl?["Tożsamość","Wizja","Ucieleśnienie","Manifestacja"]:["Identity","Vision","Embodiment","Manifestation"];
   document.querySelectorAll(".phase").forEach((e,i)=>{
