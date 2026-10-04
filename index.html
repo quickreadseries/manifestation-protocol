@@ -757,14 +757,8 @@ button:disabled{cursor:not-allowed}
   <div class="card hero">
     <div class="eyebrow" id="phaseLabel">PHASE I · IDENTITY</div>
     <h1 id="dayTitle">Day 1</h1>
-    <div class="day" id="daySubtitle">A 90-Day Practice in Intention, Identity &amp; Manifestation</div>
+    <div class="day" id="daySubtitle"></div>
     <div class="bar"><div class="fill" id="fill"></div></div>
-    <div class="phases">
-      <div class="phase active" data-start="1">Identity<br>1–21</div>
-      <div class="phase" data-start="22">Vision<br>22–45</div>
-      <div class="phase" data-start="46">Embodiment<br>46–70</div>
-      <div class="phase" data-start="71">Manifestation<br>71–90</div>
-    </div>
   </div>
 
   <div class="grid">
@@ -922,10 +916,10 @@ let notes=JSON.parse(localStorage.getItem("manifestNotes")||"{}");
 let timerSeconds=180,timerId=null;
 const FREE_DAYS=7;
 const SOUND_FILES={
-  "heavy-rain":"/audio/heavy-rain.mp3",
-  beach:"/audio/beach.mp3",
-  "birds-wind":"/audio/birds-wind.mp3",
-  waves:"/audio/waves.mp3"
+  "heavy-rain":"audio/heavy-rain.mp3",
+  beach:"audio/beach.mp3",
+  "birds-wind":"audio/birds-wind.mp3",
+  waves:"audio/waves.mp3"
 };
 
 function phaseFor(d){
@@ -1325,14 +1319,26 @@ function populateFinalCompare(){
 function setupSounds(){
   const player=document.getElementById("soundPlayer");
   const status=document.getElementById("soundStatus");
+  if(!player)return;
+  player.onerror=()=>{
+    status.textContent=language==="pl"?"Nie udało się załadować tego dźwięku. Spróbuj ponownie.":"This sound could not be loaded. Please try again.";
+  };
   document.querySelectorAll(".sound-btn").forEach(btn=>{
-    btn.onclick=()=>{
+    btn.onclick=async()=>{
       const key=btn.dataset.sound;
-      player.src=SOUND_FILES[key];
+      const src=new URL(SOUND_FILES[key],document.baseURI).href;
+      player.pause();
+      player.src=src;
       player.load();
       document.querySelectorAll(".sound-btn").forEach(x=>x.classList.remove("active"));
       btn.classList.add("active");
-      status.textContent=language==="pl"?"Wybrano dźwięk — naciśnij ▶, aby rozpocząć.":"Sound selected — press ▶ to begin.";
+      status.textContent=language==="pl"?"Ładowanie dźwięku…":"Loading sound…";
+      try{
+        await player.play();
+        status.textContent=language==="pl"?"Odtwarzanie":"Playing";
+      }catch(e){
+        status.textContent=language==="pl"?"Dźwięk wybrany — naciśnij ▶, aby rozpocząć.":"Sound selected — press ▶ to begin.";
+      }
     };
   });
 }
@@ -1408,27 +1414,35 @@ document.addEventListener("DOMContentLoaded",()=>{
   document.getElementById("exportPdfPrint").onclick=()=>window.print();
   document.getElementById("notes").oninput=e=>{notes[current]=e.target.value;save()};
 
-  document.getElementById("resetTimer").onclick=resetTimer;
-  document.getElementById("timerBtn").onclick=()=>{
-    const button=document.getElementById("timerBtn");
+function setupTimer(){
+  const resetButton=document.getElementById("resetTimer");
+  const button=document.getElementById("timerBtn");
+  if(!resetButton || !button)return;
+  resetButton.onclick=resetTimer;
+  button.onclick=()=>{
     if(timerId){
-      clearInterval(timerId);timerId=null;
+      clearInterval(timerId);
+      timerId=null;
       button.textContent=language==="pl"?"Wznów timer":"Resume timer";
       return;
     }
+    if(timerSeconds<=0) timerSeconds=180;
     button.textContent=language==="pl"?"Pauza":"Pause";
     timerId=setInterval(()=>{
       timerSeconds--;
       const m=String(Math.floor(Math.max(timerSeconds,0)/60)).padStart(2,"0");
       const s=String(Math.max(timerSeconds,0)%60).padStart(2,"0");
-      document.getElementById("timer").textContent=m+":"+s;
+      const timer=document.getElementById("timer");
+      if(timer)timer.textContent=m+":"+s;
       if(timerSeconds<=0){
-        clearInterval(timerId);timerId=null;
+        clearInterval(timerId);
+        timerId=null;
         button.textContent=language==="pl"?"Gotowe":"Finished";
         playTimerChime();
       }
     },1000);
   };
+}
 
   document.querySelectorAll(".phase").forEach(p=>p.onclick=()=>{
     const target=+p.dataset.start;
@@ -1436,6 +1450,7 @@ document.addEventListener("DOMContentLoaded",()=>{
     current=target;save();render();
   });
 
+  setupTimer();
   setupSounds();
   populateFinalCompare();
   buildPicker();
