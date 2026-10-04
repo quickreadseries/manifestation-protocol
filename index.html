@@ -526,6 +526,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if(data && data.session){
       signingOut = true;
       closeAuth();
+      clearTimeout(cloudSaveTimer);
+      await syncToCloud();
       const { error } = await supabaseClient.auth.signOut();
       currentSession = null;
       updateAuthUI(null);
@@ -629,6 +631,7 @@ button:disabled{cursor:not-allowed}
 .mood-btn.selected{background:#222;color:#fff;border-color:#222}
 .mood-label{font-size:12px;color:var(--muted)}
 .action-note{font-size:12px;color:var(--muted);line-height:1.5;margin-top:10px}
+.note-save-status{font-size:11px;color:var(--muted);min-height:1em;margin-top:8px}
 .milestone{display:none;text-align:center;padding:30px}
 .milestone h2{font-family:Georgia,serif;font-size:30px;font-weight:400;margin:8px 0 12px}
 .milestone p{color:var(--muted);line-height:1.6}
@@ -779,6 +782,7 @@ button:disabled{cursor:not-allowed}
   <div class="card">
     <div class="section-title" id="notesTitle">Your notes</div>
     <textarea id="notes" placeholder="Write briefly. One word, one sentence, or whatever feels right."></textarea>
+    <div class="note-save-status" id="noteSaveStatus" aria-live="polite"></div>
   </div>
 
   <div class="card milestone" id="milestone" aria-live="polite">
@@ -905,8 +909,22 @@ function updateStorageNote(){
   }
 }
 
+function setNoteSaveStatus(state){
+  const el=document.getElementById("noteSaveStatus");
+  if(!el)return;
+  const pl=language==="pl";
+  if(state==="saving") el.textContent=pl?"Zapisywanie…":"Saving…";
+  else if(state==="saved") el.textContent=pl?"Zapisano ✓":"Saved ✓";
+  else if(state==="local") el.textContent=pl?"Zapisano w tej przeglądarce.":"Saved in this browser.";
+  else if(state==="error") el.textContent=pl?"Nie udało się zsynchronizować. Spróbuj ponownie.":"Could not sync. Please try again.";
+  else el.textContent="";
+}
+
 async function syncToCloud(){
-  if(!currentSession) return;
+  if(!currentSession){
+    setNoteSaveStatus("local");
+    return false;
+  }
   const moods = JSON.parse(localStorage.getItem("manifestMoods")||"{}");
   const payload = {
     user_id: currentSession.user.id,
@@ -918,12 +936,22 @@ async function syncToCloud(){
     final_notes: localStorage.getItem("manifestFinalNotes") || "",
     updated_at: new Date().toISOString()
   };
-  const {error} = await supabaseClient.from("smm_progress").upsert(payload,{onConflict:"user_id"});
-  if(error) console.error("Small Moments cloud save:", error.message);
+  setNoteSaveStatus("saving");
+  try{
+    const {error} = await supabaseClient.from("smm_progress").upsert(payload,{onConflict:"user_id"});
+    if(error) throw error;
+    setNoteSaveStatus("saved");
+    return true;
+  }catch(error){
+    console.error("Small Moments cloud save:", error);
+    setNoteSaveStatus("error");
+    return false;
+  }
 }
 
 function queueCloudSave(){
   clearTimeout(cloudSaveTimer);
+  setNoteSaveStatus(currentSession ? "saving" : "local");
   cloudSaveTimer = setTimeout(()=>syncToCloud(),600);
 }
 
@@ -1095,6 +1123,7 @@ function render(){
     ?"Pisz krótko. Jedno słowo, jedno zdanie albo cokolwiek, co wydaje się właściwe."
     :"Write briefly. One word, one sentence, or whatever feels right.";
   document.getElementById("notes").value=notes[current]||"";
+  setNoteSaveStatus(currentSession ? "saved" : "local");
   updateCompletedLabel();
 
   document.getElementById("completed").checked=!!done[current];
