@@ -1210,6 +1210,31 @@ function render(){
   document.getElementById("phaseLabel").textContent=pl
     ?(["ETAP I · TOŻSAMOŚĆ","ETAP II · WIZJA","ETAP III · UCIELEŚNIENIE","ETAP IV · MANIFESTACJA"][n-1])
     :phase;
+
+  // Translate all fixed protocol controls and labels with the selected language.
+  document.getElementById("timerBtn").textContent=pl?"Uruchom timer":"Start timer";
+  document.getElementById("resetTimer").textContent=pl?"Resetuj":"Reset";
+  document.getElementById("soundTitle").textContent=pl?"Wybierz dźwięk":"Choose a sound";
+  const soundLabels=pl
+    ?{"heavy-rain":"🌧 Deszcz","beach":"🏖 Plaża","birds-wind":"🍃 Ptaki i wiatr","waves":"🌊 Fale"}
+    :{"heavy-rain":"🌧 Heavy Rain","beach":"🏖 Beach","birds-wind":"🍃 Birds & Wind","waves":"🌊 Waves"};
+  document.querySelectorAll(".sound-btn").forEach(btn=>{btn.textContent=soundLabels[btn.dataset.sound]||btn.textContent;});
+  document.getElementById("soundStatus").textContent=pl?"Wybierz dźwięk, a następnie naciśnij ▶, aby rozpocząć.":"Choose a sound, then press ▶ to begin.";
+
+  document.querySelector(".daypicker").previousElementSibling.textContent=pl?"Wybierz dzień":"Choose a day";
+  document.getElementById("exportTxt").textContent=pl?"Eksportuj moją podróż":"Export my journey";
+  document.getElementById("exportPdfPrint").textContent=pl?"Drukuj / zapisz jako PDF":"Print / save as PDF";
+  document.getElementById("prev").textContent=pl?"← Poprzedni dzień":"← Previous day";
+  document.getElementById("next").textContent=pl?"Następny dzień →":"Next day →";
+  document.getElementById("moodTitle").textContent=pl?"Jak się teraz czujesz?":"How do you feel right now?";
+  document.getElementById("moodHint").textContent=pl?"Opcjonalnie · 1 = nisko, 5 = dobrze":"Optional · 1 = low, 5 = good";
+  document.getElementById("privacyLink").textContent=pl?"Polityka prywatności":"Privacy Policy";
+  document.getElementById("dataProtectionLink").textContent=pl?"Ochrona danych":"Data Protection";
+  document.getElementById("termsLink").textContent=pl?"Warunki korzystania":"Terms of Use";
+  document.getElementById("contactLink").textContent=pl?"Kontakt":"Contact";
+  document.getElementById("safetyNote").textContent=pl
+    ?"Small Moments Method to praktyka refleksji i pracy własnej. Nie jest terapią, poradą medyczną ani zamiennikiem profesjonalnej opieki."
+    :"Small Moments Method is a reflection and personal practice. It is not therapy, medical advice, or a substitute for professional care.";
   document.getElementById("dayTitle").textContent=(pl?"Dzień ":"Day ")+current;
   document.getElementById("daySubtitle").textContent="";
   const phaseStarts=[1,22,46,71];
@@ -1259,9 +1284,6 @@ function render(){
   document.getElementById("completionHelp").textContent=pl
     ?"Pominięty dzień nie przerywa Twojego postępu. Możesz wrócić, kiedy będziesz gotowa."
     :"A missed day does not break your progress. You can return whenever you are ready.";
-  document.getElementById("prev").textContent=pl?"← Poprzedni dzień":"← Previous day";
-  document.getElementById("next").textContent=pl?"Następny dzień →":"Next day →";
-  document.querySelector(".daypicker").previousElementSibling.textContent=pl?"Wybierz dzień":"Choose a day";
   updateStorageNote();
   document.getElementById("soundTitle").textContent=pl?"Wybierz dźwięk do RESETU":"Choose a sound for RESET";
   document.getElementById("safetyNote").textContent=pl
