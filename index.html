@@ -514,8 +514,23 @@ document.addEventListener("DOMContentLoaded", () => {
     message.textContent = "";
   }
 
-  document.getElementById("signInBtn").onclick = () => openAuth("signin");
-  document.getElementById("signUpBtn").onclick = () => openAuth("signup");
+  document.getElementById("signInBtn").onclick = () => {
+    if(currentSession){ return; }
+    openAuth("signin");
+  };
+  document.getElementById("signUpBtn").onclick = async () => {
+    if(currentSession){
+      await supabaseClient.auth.signOut();
+      currentSession = null;
+      updateAuthUI(null);
+      if(language) {
+        localStorage.removeItem("smmLanguage");
+      }
+      message.textContent = "";
+      return;
+    }
+    openAuth("signup");
+  };
   document.getElementById("authClose").onclick = closeAuth;
 
   modeSwitch.onclick = () => {
@@ -553,7 +568,8 @@ document.addEventListener("DOMContentLoaded", () => {
       if (error) {
         message.textContent = error.message;
       } else {
-        message.textContent = "Signed in successfully.";
+        message.textContent = language==="pl" ? "Zalogowano pomyślnie." : "Signed in successfully.";
+        await loadCloudProgress();
         setTimeout(closeAuth, 800);
       }
     }
@@ -583,17 +599,11 @@ document.addEventListener("DOMContentLoaded", () => {
 </script>
 <script>
 document.addEventListener("DOMContentLoaded", async () => {
-
-  const signInBtn = document.getElementById("signInBtn");
-  const signUpBtn = document.getElementById("signUpBtn");
-
-  const { data: { session } } = await supabaseClient.auth.getSession();
-
-  if (session) {
-    signInBtn.textContent = "SIGNED IN";
-    signUpBtn.textContent = "SIGN OUT";
-  }
-
+  await loadCloudProgress();
+  supabaseClient.auth.onAuthStateChange(async (_event, session) => {
+    updateAuthUI(session);
+    if(session) await loadCloudProgress();
+  });
 });
 </script>
 
@@ -864,10 +874,109 @@ function phaseFor(d){
   if(d<=70)return["PHASE III · EMBODIMENT",3];
   return["PHASE IV · MANIFESTATION",4];
 }
+let cloudSaveTimer = null;
+let currentSession = null;
+
+function updateStorageNote(){
+  const pl = language === "pl";
+  const el = document.getElementById("storageNote");
+  if(!el) return;
+  if(currentSession){
+    el.textContent = pl
+      ? "Twój postęp jest zapisywany na Twoim koncie i dostępny po zalogowaniu na innym urządzeniu."
+      : "Your progress is saved to your account and available when you sign in on another device.";
+  }else{
+    el.textContent = pl
+      ? "Twój postęp jest zapisywany w tej przeglądarce. Zaloguj się, aby zachować go na różnych urządzeniach."
+      : "Your progress is saved in this browser. Sign in to keep it across devices.";
+  }
+}
+
+async function syncToCloud(){
+  if(!currentSession) return;
+  const moods = JSON.parse(localStorage.getItem("manifestMoods")||"{}");
+  const payload = {
+    user_id: currentSession.user.id,
+    language: language || "en",
+    current_day: current,
+    done,
+    notes,
+    moods,
+    final_notes: localStorage.getItem("manifestFinalNotes") || "",
+    updated_at: new Date().toISOString()
+  };
+  const {error} = await supabaseClient.from("smm_progress").upsert(payload,{onConflict:"user_id"});
+  if(error) console.error("Small Moments cloud save:", error.message);
+}
+
+function queueCloudSave(){
+  clearTimeout(cloudSaveTimer);
+  cloudSaveTimer = setTimeout(()=>syncToCloud(),600);
+}
+
 function save(){
   localStorage.setItem("manifestDay",current);
   localStorage.setItem("manifestDone",JSON.stringify(done));
   localStorage.setItem("manifestNotes",JSON.stringify(notes));
+  queueCloudSave();
+}
+
+async function loadCloudProgress(){
+  const {data:{session}} = await supabaseClient.auth.getSession();
+  currentSession = session || null;
+  updateAuthUI(currentSession);
+  if(!currentSession) {
+    updateStorageNote();
+    return;
+  }
+
+  const {data,error} = await supabaseClient
+    .from("smm_progress")
+    .select("*")
+    .eq("user_id",currentSession.user.id)
+    .maybeSingle();
+
+  if(error){
+    console.error("Small Moments cloud load:", error.message);
+    updateStorageNote();
+    return;
+  }
+
+  if(data){
+    language = data.language || language || "en";
+    current = Math.min(90,Math.max(1,Number(data.current_day)||1));
+    done = data.done && typeof data.done === "object" ? data.done : {};
+    notes = data.notes && typeof data.notes === "object" ? data.notes : {};
+    localStorage.setItem("smmLanguage",language);
+    localStorage.setItem("manifestDay",current);
+    localStorage.setItem("manifestDone",JSON.stringify(done));
+    localStorage.setItem("manifestNotes",JSON.stringify(notes));
+    localStorage.setItem("manifestMoods",JSON.stringify(data.moods && typeof data.moods === "object" ? data.moods : {}));
+    localStorage.setItem("manifestFinalNotes",data.final_notes || "");
+  }else{
+    await syncToCloud();
+  }
+
+  updateStorageNote();
+  if(document.getElementById("protocolScreen") && !document.getElementById("protocolScreen").classList.contains("hidden")){
+    buildPicker();
+    render();
+  }
+}
+
+function updateAuthUI(session){
+  currentSession = session || null;
+  const signInBtn = document.getElementById("signInBtn");
+  const signUpBtn = document.getElementById("signUpBtn");
+  if(!signInBtn || !signUpBtn) return;
+  if(session){
+    signInBtn.textContent = language==="pl" ? "ZALOGOWANO" : "SIGNED IN";
+    signUpBtn.textContent = language==="pl" ? "WYLOGUJ" : "SIGN OUT";
+  }else{
+    signInBtn.textContent = language==="pl" ? "ZALOGUJ" : "SIGN IN";
+    signUpBtn.textContent = language==="pl" ? "ZAŁÓŻ KONTO" : "CREATE ACCOUNT";
+  }
+  updateStorageNote();
 }
 function highestUnlockedDay(){
   let d=1;
@@ -973,9 +1082,7 @@ function render(){
   document.getElementById("prev").textContent=pl?"← Poprzedni dzień":"← Previous day";
   document.getElementById("next").textContent=pl?"Następny dzień →":"Next day →";
   document.querySelector(".daypicker").previousElementSibling.textContent=pl?"Wybierz dzień":"Choose a day";
-  document.querySelector(".footer").textContent=pl
-    ?"Twój postęp jest zapisywany w tej przeglądarce. Nic nie jest przesyłane ani udostępniane."
-    :"Your progress is saved in this browser. Nothing is uploaded or shared.";
+  updateStorageNote();
   document.getElementById("soundTitle").textContent=pl?"Wybierz dźwięk do RESETU":"Choose a sound for RESET";
   document.getElementById("safetyNote").textContent=pl
     ?"Small Moments Method to praktyka refleksji i pracy własnej. Nie jest terapią, poradą medyczną ani zamiennikiem profesjonalnej pomocy."
@@ -1042,15 +1149,15 @@ function setupSounds(){
 }
 
 document.addEventListener("DOMContentLoaded",()=>{
-  document.getElementById("enBtn").onclick=()=>{language="en";localStorage.setItem("smmLanguage","en");fillIntro("en");showScreen("welcomeScreen")};
-  document.getElementById("plBtn").onclick=()=>{language="pl";localStorage.setItem("smmLanguage","pl");fillIntro("pl");showScreen("welcomeScreen")};
+  document.getElementById("enBtn").onclick=()=>{language="en";localStorage.setItem("smmLanguage","en");fillIntro("en");updateAuthUI(currentSession);showScreen("welcomeScreen")};
+  document.getElementById("plBtn").onclick=()=>{language="pl";localStorage.setItem("smmLanguage","pl");fillIntro("pl");updateAuthUI(currentSession);showScreen("welcomeScreen")};
   document.getElementById("welcomeNext").onclick=()=>showScreen("howScreen");
   document.getElementById("howNext").onclick=()=>showScreen("practicesScreen");
   document.getElementById("startProtocol").onclick=()=>{showScreen("protocolScreen");buildPicker();render()};
   document.getElementById("switchEN").setAttribute("aria-label","Switch to English");
   document.getElementById("switchPL").setAttribute("aria-label","Przełącz na polski");
-  document.getElementById("switchEN").onclick=()=>{language="en";localStorage.setItem("smmLanguage","en");populateFinalCompare();render()};
-  document.getElementById("switchPL").onclick=()=>{language="pl";localStorage.setItem("smmLanguage","pl");populateFinalCompare();render()};
+  document.getElementById("switchEN").onclick=()=>{language="en";localStorage.setItem("smmLanguage","en");updateAuthUI(currentSession);populateFinalCompare();render();save()};
+  document.getElementById("switchPL").onclick=()=>{language="pl";localStorage.setItem("smmLanguage","pl");updateAuthUI(currentSession);populateFinalCompare();render();save()};
 
   document.getElementById("prev").onclick=()=>{
     if(current>1){current--;save();render();}
@@ -1077,7 +1184,10 @@ document.addEventListener("DOMContentLoaded",()=>{
       moods[key]=m;
       localStorage.setItem("manifestMoods",JSON.stringify(moods));
       document.querySelectorAll(".mood-btn").forEach(x=>x.classList.toggle("selected",x===btn));
-      document.getElementById("moodAfter").textContent=language==="pl"?"Zapisano tylko w tej przeglądarce.":"Saved only in this browser.";
+      document.getElementById("moodAfter").textContent=currentSession
+        ? (language==="pl"?"Zapisano na Twoim koncie.":"Saved to your account.")
+        : (language==="pl"?"Zapisano tylko w tej przeglądarce.":"Saved only in this browser.");
+      queueCloudSave();
     };
   });
   document.getElementById("exportTxt").onclick=()=>{
