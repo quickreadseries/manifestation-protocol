@@ -738,7 +738,7 @@ button:disabled{cursor:not-allowed}
       <div class="section-title">02 · Choose · 4 min</div>
       <div class="practice-line">Choose the reality you are creating.</div>
       <div class="manifest" id="manifestation"></div>
-      <p class="prompt">Write the statement by hand slowly. Read it as something that is already true — or as something that has already happened. Do not use future tense.</p>
+      <p class="prompt" id="chooseInstruction">Write or adapt the statement slowly. Use it as written if it feels honest. If “I am…” feels too strong, use “I am becoming…”, “I am learning…”, “I am practising…” or another present-tense version that feels true. Avoid future tense.</p>
     </div>
 
     <div class="card">
@@ -953,8 +953,8 @@ function render(){
   document.querySelector(".grid .card:nth-child(2) .section-title").textContent=pl?"02 · WYBIERZ · 4 MIN":"02 · CHOOSE · 4 MIN";
   document.querySelector(".grid .card:nth-child(2) .practice-line").textContent=pl?"Wybierz rzeczywistość, którą tworzysz.":"Choose the reality you are creating.";
   document.querySelector(".grid .card:nth-child(2) .prompt").textContent=pl
-    ?"Zapisz zdanie powoli odręcznie. Przeczytaj je jak coś, co już jest prawdą — albo jak coś, co już się wydarzyło. Nie używaj czasu przyszłego."
-    :"Write the statement by hand slowly. Read it as something that is already true — or as something that has already happened. Do not use future tense.";
+    ?"Zapisz lub dostosuj zdanie powoli. Użyj go w tej formie, jeśli jest dla Ciebie prawdziwe. Jeśli „Jestem…” brzmi zbyt mocno, możesz użyć „Staję się…”, „Uczę się…”, „Praktykuję…” lub innej formy w czasie teraźniejszym, która jest uczciwa. Unikaj czasu przyszłego."
+    :"Write or adapt the statement slowly. Use it as written if it feels honest. If “I am…” feels too strong, use “I am becoming…”, “I am learning…”, “I am practising…” or another present-tense version that feels true. Avoid future tense.";
   document.querySelector(".grid .card:nth-child(3) .section-title").textContent=pl?"03 · ZOBACZ · 5 MIN":"03 · SEE · 5 MIN";
   document.querySelector(".grid .card:nth-child(3) .practice-line").textContent=pl?"Zobacz siebie, jak już w tym żyjesz.":"See yourself already living it.";
   document.querySelector(".grid .card:nth-child(4) .section-title").textContent=pl?"04 · ŻYJ · 3 MIN":"04 · LIVE · 3 MIN";
