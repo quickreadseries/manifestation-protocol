@@ -1135,9 +1135,7 @@ function render(){
   document.getElementById("safetyNote").textContent=pl
     ?"Small Moments Method to praktyka refleksji i pracy własnej. Nie jest terapią, poradą medyczną ani zamiennikiem profesjonalnej pomocy."
     :"Small Moments Method is a reflection and personal practice. It is not therapy, medical advice, or a substitute for professional care.";
-  document.getElementById("storageNote").textContent=pl
-    ?"Twój postęp jest zapisywany w tej przeglądarce. Nic nie jest przesyłane ani udostępniane."
-    :"Your progress is saved in this browser. Nothing is uploaded or shared.";
+  updateStorageNote();
   document.getElementById("moodTitle").textContent=pl?"Jak się teraz czujesz?":"How do you feel right now?";
   document.getElementById("moodHint").textContent=pl?"Opcjonalnie · 1 = gorzej, 5 = dobrze":"Optional · 1 = low, 5 = good";
 
