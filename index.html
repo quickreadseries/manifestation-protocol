@@ -1148,6 +1148,14 @@ function setupSounds(){
 document.addEventListener("DOMContentLoaded",()=>{
   document.getElementById("enBtn").onclick=()=>{language="en";localStorage.setItem("smmLanguage","en");fillIntro("en");updateAuthUI(currentSession);showScreen("welcomeScreen")};
   document.getElementById("plBtn").onclick=()=>{language="pl";localStorage.setItem("smmLanguage","pl");fillIntro("pl");updateAuthUI(currentSession);showScreen("welcomeScreen")};
+
+  // Returning visitors go straight to their current day.
+  if(language==="en" || language==="pl"){
+    fillIntro(language);
+    showScreen("protocolScreen");
+    buildPicker();
+    render();
+  }
   document.getElementById("welcomeNext").onclick=()=>showScreen("howScreen");
   document.getElementById("howNext").onclick=()=>showScreen("practicesScreen");
   document.getElementById("startProtocol").onclick=()=>{showScreen("protocolScreen");buildPicker();render()};
