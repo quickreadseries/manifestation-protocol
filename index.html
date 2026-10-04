@@ -1127,6 +1127,9 @@ function render(){
   updateCompletedLabel();
 
   document.getElementById("completed").checked=!!done[current];
+  document.getElementById("completionHelp").textContent=pl
+    ?"Pominięty dzień nie przerywa Twojego postępu. Możesz wrócić, kiedy będziesz gotowa."
+    :"A missed day does not break your progress. You can return whenever you are ready.";
   document.getElementById("prev").textContent=pl?"← Poprzedni dzień":"← Previous day";
   document.getElementById("next").textContent=pl?"Następny dzień →":"Next day →";
   document.querySelector(".daypicker").previousElementSibling.textContent=pl?"Wybierz dzień":"Choose a day";
