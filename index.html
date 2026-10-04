@@ -20,7 +20,7 @@ h1{font-family:Georgia,serif;font-size:42px;font-weight:400;margin:10px 0}.day{f
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.section-title{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin-bottom:7px}.practice-line{font-family:Georgia,serif;font-size:17px;font-style:italic;margin-bottom:18px;color:#4d4943}.manifest{font-family:Georgia,serif;font-size:27px;line-height:1.38}.prompt{line-height:1.65}.timer{font-size:28px;font-variant-numeric:tabular-nums;margin:12px 0}.controls{display:flex;gap:10px;flex-wrap:wrap}.btn{border:1px solid var(--line);background:transparent;border-radius:10px;padding:11px 15px;cursor:pointer;color:var(--ink)}.btn.primary{background:#222;color:#fff;border-color:#222}.btn:disabled{opacity:.35;cursor:not-allowed}
 textarea{width:100%;min-height:120px;border:1px solid var(--line);border-radius:12px;background:#faf8f3;padding:14px;font:15px/1.5 inherit;resize:vertical}
 .daypicker{display:flex;flex-wrap:wrap;gap:6px;max-height:180px;overflow:auto}.num{width:38px;height:34px;border:1px solid var(--line);background:transparent;border-radius:8px;cursor:pointer}.num.done{background:#222;color:white}.num.current{outline:2px solid #222;outline-offset:2px}
-.complete{display:flex;align-items:center;justify-content:center;gap:12px;font-size:14px;padding:17px}.complete input{width:20px;height:20px}
+.complete{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;font-size:14px;padding:17px}.complete label{display:flex;align-items:center;gap:9px;cursor:pointer}.complete input{width:20px;height:20px;margin:0}.complete .action-note{font-size:12px;color:var(--muted);text-align:center;order:2}
 .footer{text-align:center;color:var(--muted);font-size:12px;margin-top:30px}
 @media(max-width:720px){.grid{grid-template-columns:1fr}.phases{grid-template-columns:1fr 1fr}h1{font-size:34px}.top{align-items:flex-start}.hero{padding:25px 15px}}
 
@@ -804,9 +804,8 @@ button:disabled{cursor:not-allowed}
   <button class="btn primary" id="milestoneContinue">Continue →</button>
 </div>
 <div class="card complete">
-    <input type="checkbox" id="completed" aria-describedby="completionHelp">
+    <label for="completed" id="completedLabel"><input type="checkbox" id="completed" aria-describedby="completionHelp"><span>Day completed</span></label>
     <span id="completionHelp" class="action-note">A missed day does not break your progress. You can return whenever you are ready.</span>
-    <label for="completed" id="completedLabel">Day completed</label>
   </div>
 
   <div class="card">
