@@ -514,17 +514,26 @@ document.addEventListener("DOMContentLoaded", () => {
     message.textContent = "";
   }
 
-  document.getElementById("signInBtn").onclick = () => {
-    if(currentSession){ return; }
+  document.getElementById("signInBtn").onclick = async () => {
+    const { data } = await supabaseClient.auth.getSession();
+    if(data && data.session){
+      return;
+    }
     openAuth("signin");
   };
   document.getElementById("signUpBtn").onclick = async () => {
-    if(currentSession){
+    const { data } = await supabaseClient.auth.getSession();
+    if(data && data.session){
       signingOut = true;
-      await supabaseClient.auth.signOut();
+      closeAuth();
+      const { error } = await supabaseClient.auth.signOut();
       currentSession = null;
       updateAuthUI(null);
       signingOut = false;
+      if(error){
+        console.error("Small Moments sign out:", error.message);
+        alert(language==="pl" ? "Nie udało się wylogować. Spróbuj ponownie." : "Sign out failed. Please try again.");
+      }
       return;
     }
     openAuth("signup");
