@@ -829,8 +829,8 @@ button:disabled{cursor:not-allowed}
   </div>
 
   <div class="controls" style="justify-content:space-between">
-    <button class="btn" id="prev">← Previous day</button>
-    <button class="btn primary" id="next">Next day →</button>
+    <button type="button" class="btn" id="prev">← Previous day</button>
+    <button type="button" class="btn primary" id="next">Next day →</button>
   </div>
 
   <div class="card" id="moodCard">
@@ -1493,7 +1493,34 @@ function setupTimer(){
 </script>
 <script>
 document.addEventListener("DOMContentLoaded",()=>{
-  // Mood check-in: independent handler so it still works if another initialization block fails.
+  // Navigation: independent handlers so the day controls keep working even if another block fails.
+  const prevButton=document.getElementById("prev");
+  const nextButton=document.getElementById("next");
+  if(prevButton){
+    prevButton.addEventListener("click",()=>{
+      if(current<=1)return;
+      current--;
+      save();
+      render();
+    });
+  }
+  if(nextButton){
+    nextButton.addEventListener("click",()=>{
+      if(current>=FREE_DAYS){
+        showDayLockedMessage(current+1);
+        return;
+      }
+      if(!done[current]){
+        showDayLockedMessage(current+1);
+        return;
+      }
+      current++;
+      save();
+      render();
+    });
+  }
+
+  // Mood check-in: independent handler so it still works if another block fails.
   const moodRow=document.querySelector(".mood-row");
   if(moodRow){
     moodRow.addEventListener("click",(event)=>{
