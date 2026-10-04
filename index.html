@@ -837,7 +837,7 @@ button:disabled{cursor:not-allowed}
   <div class="section-title" id="moodTitle">How do you feel right now?</div>
   <div class="mood-label" id="moodHint">Optional · 1 = low, 5 = good</div>
   <div class="mood-row" role="group" aria-label="Mood check">
-    <button class="mood-btn" data-mood="1">1</button><button class="mood-btn" data-mood="2">2</button><button class="mood-btn" data-mood="3">3</button><button class="mood-btn" data-mood="4">4</button><button class="mood-btn" data-mood="5">5</button>
+    <button type="button" class="mood-btn" data-mood="1">1</button><button type="button" class="mood-btn" data-mood="2">2</button><button type="button" class="mood-btn" data-mood="3">3</button><button type="button" class="mood-btn" data-mood="4">4</button><button type="button" class="mood-btn" data-mood="5">5</button>
   </div>
   <div class="action-note" id="moodAfter" aria-live="polite"></div>
 </div>
@@ -1412,16 +1412,25 @@ document.addEventListener("DOMContentLoaded",()=>{
     btn.onclick=()=>{
       const m=btn.dataset.mood;
       const key="mood_"+current;
-      const moods=JSON.parse(localStorage.getItem("manifestMoods")||"{}");
+      let moods={};
+      try{moods=JSON.parse(localStorage.getItem("manifestMoods")||"{}")||{};}catch(e){}
       moods[key]=m;
       localStorage.setItem("manifestMoods",JSON.stringify(moods));
-      document.querySelectorAll(".mood-btn").forEach(x=>x.classList.toggle("selected",x===btn));
-      document.getElementById("moodAfter").textContent=currentSession
+      document.querySelectorAll(".mood-btn").forEach(x=>x.classList.toggle("selected",x.dataset.mood===m));
+      const after=document.getElementById("moodAfter");
+      if(after) after.textContent=currentSession
         ? (language==="pl"?"Zapisano na Twoim koncie.":"Saved to your account.")
         : (language==="pl"?"Zapisano tylko w tej przeglądarce.":"Saved only in this browser.");
       queueCloudSave();
     };
   });
+  // Restore the saved mood whenever the current day is rendered.
+  let savedMood=null;
+  try{
+    const moods=JSON.parse(localStorage.getItem("manifestMoods")||"{}")||{};
+    savedMood=moods["mood_"+current]||null;
+  }catch(e){}
+  document.querySelectorAll(".mood-btn").forEach(x=>x.classList.toggle("selected",x.dataset.mood===savedMood));
   document.getElementById("exportTxt").onclick=()=>{
     const lines=[];
     for(let i=1;i<=90;i++){
