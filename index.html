@@ -1,5 +1,13 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><style>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="description" content="Small Moments Method — a 90-day practice of identity, vision, embodiment and manifestation, one small moment at a time.">
+<meta property="og:title" content="Small Moments Method · 90 Days">
+<meta property="og:description" content="A 90-day practice of identity, vision, embodiment and manifestation. One small moment at a time.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="og-image.svg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Small Moments Method · 90 Days">
+<meta name="twitter:description" content="One small moment at a time."><style>
 :root{--bg:#f4f1eb;--card:#fffdf9;--ink:#20201e;--muted:#77736c;--line:#ded9d0;--accent:#222;--soft:#ebe7df}
 *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,Arial,sans-serif;letter-spacing:.01em}
 .app{max-width:1100px;margin:auto;padding:28px 20px 60px}.top{display:flex;justify-content:space-between;align-items:center;gap:20px;margin-bottom:28px}
@@ -580,6 +588,28 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 });
 </script>
+
+<style>
+/* Accessibility + interaction polish */
+:focus-visible{outline:3px solid #222;outline-offset:3px}
+button:disabled{cursor:not-allowed}
+[aria-live]{min-height:1em}
+.mood-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.mood-btn{width:42px;height:38px;border:1px solid var(--line);background:transparent;border-radius:9px;cursor:pointer}
+.mood-btn.selected{background:#222;color:#fff;border-color:#222}
+.mood-label{font-size:12px;color:var(--muted)}
+.action-note{font-size:12px;color:var(--muted);line-height:1.5;margin-top:10px}
+.milestone{display:none;text-align:center;padding:30px}
+.milestone h2{font-family:Georgia,serif;font-size:30px;font-weight:400;margin:8px 0 12px}
+.milestone p{color:var(--muted);line-height:1.6}
+.final-compare{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:25px auto;max-width:700px;text-align:left}
+.final-compare>div{border-top:1px solid var(--line);padding-top:14px}
+.final-compare strong{display:block;font-size:10px;letter-spacing:2px;color:var(--muted);margin-bottom:10px}
+.final-compare blockquote{margin:0;font-family:Georgia,serif;font-size:18px;line-height:1.5}
+.export-controls{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+@media(max-width:650px){.final-compare{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+</style>
 </head>
 <body>
 <div id="introScreen" class="screen">
@@ -605,6 +635,14 @@ document.addEventListener("DOMContentLoaded", async () => {
     <div class="intro-body left" id="welcomeBody"></div>
     <div class="timing-box" id="timingBox"></div>
     <button class="btn primary begin-btn" id="welcomeNext"></button>
+  </div>
+</div>
+    <div class="card" style="margin-top:25px;text-align:left">
+      <div class="section-title" id="aboutTitle"></div>
+      <div class="prompt" id="aboutBody"></div>
+      <div class="section-title" id="whyTitle" style="margin-top:24px"></div>
+      <div class="prompt" id="whyBody"></div>
+    </div>
   </div>
 </div>
 
@@ -715,14 +753,25 @@ document.addEventListener("DOMContentLoaded", async () => {
     <textarea id="notes" placeholder="Write briefly. One word, one sentence, or whatever feels right."></textarea>
   </div>
 
-  <div class="card complete">
-    <input type="checkbox" id="completed">
+  <div class="card milestone" id="milestone" aria-live="polite">
+  <div class="eyebrow">SMALL MOMENT</div>
+  <h2 id="milestoneTitle"></h2>
+  <p id="milestoneText"></p>
+  <button class="btn primary" id="milestoneContinue">Continue →</button>
+</div>
+<div class="card complete">
+    <input type="checkbox" id="completed" aria-describedby="completionHelp">
+    <span id="completionHelp" class="action-note">A missed day does not break your progress. You can return whenever you are ready.</span>
     <label for="completed" id="completedLabel">Day completed</label>
   </div>
 
   <div class="card">
     <div class="section-title">Choose a day</div>
     <div class="daypicker" id="daypicker"></div>
+    <div class="export-controls">
+      <button class="btn" id="exportTxt">Export my journey</button>
+      <button class="btn" id="exportPdfPrint">Print / save as PDF</button>
+    </div>
   </div>
 
   <div class="controls" style="justify-content:space-between">
@@ -730,7 +779,18 @@ document.addEventListener("DOMContentLoaded", async () => {
     <button class="btn primary" id="next">Next day →</button>
   </div>
 
-  <div class="footer">Your progress is saved in this browser. Nothing is uploaded or shared.</div>
+  <div class="card" id="moodCard">
+  <div class="section-title" id="moodTitle">How do you feel right now?</div>
+  <div class="mood-label" id="moodHint">Optional · 1 = low, 5 = good</div>
+  <div class="mood-row" role="group" aria-label="Mood check">
+    <button class="mood-btn" data-mood="1">1</button><button class="mood-btn" data-mood="2">2</button><button class="mood-btn" data-mood="3">3</button><button class="mood-btn" data-mood="4">4</button><button class="mood-btn" data-mood="5">5</button>
+  </div>
+  <div class="action-note" id="moodAfter" aria-live="polite"></div>
+</div>
+<div class="footer">
+  <span id="storageNote">Your progress is saved in this browser. Nothing is uploaded or shared.</span><br>
+  <span id="safetyNote">Small Moments Method is a reflection and personal practice. It is not therapy, medical advice, or a substitute for professional care.</span>
+</div>
 </div>
 </div>
 <div id="authModal" class="auth-modal hidden">
@@ -770,6 +830,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     <h1>YOU<br>NOTICED.</h1>
     <p class="intro-quote">90 days.<br>90 small moments.<br>And somewhere along the way, you became more familiar with yourself.</p>
     <div class="intro-rule"></div>
+    <div class="final-compare" id="finalCompare"></div>
     <p class="end-question">What do you want to keep noticing?</p>
     <textarea id="finalNotes" placeholder="Write a few words for the person you are now."></textarea>
     <button class="btn primary begin-btn" id="saveFinal">SAVE &amp; CLOSE</button>
@@ -810,6 +871,18 @@ function highestUnlockedDay(){
 function canOpenDay(day){
   return day<=highestUnlockedDay() && day<=FREE_DAYS;
 }
+function phaseEnd(day){ return [21,45,70].includes(day); }
+function showMilestone(day){
+  const pl=language==="pl";
+  const titles={21:pl?"TOŻSAMOŚĆ UKOŃCZONA":"IDENTITY COMPLETE",45:pl?"WIZJA UKOŃCZONA":"VISION COMPLETE",70:pl?"UCIELEŚNIENIE UKOŃCZONE":"EMBODIMENT COMPLETE"};
+  const messages={21:pl?"21 małych momentów. Zauważyłaś, kim jesteś i co jest dla Ciebie ważne.":"21 small moments. You noticed who you are and what matters to you.",45:pl?"45 małych momentów. Nadałaś kształt swojej wizji.":"45 small moments. You gave shape to your vision.",70:pl?"70 małych momentów. Zaczęłaś ucieleśniać wybraną rzeczywistość.":"70 small moments. You began to embody the reality you chose."};
+  const el=document.getElementById("milestone");
+  if(!el)return;
+  document.getElementById("milestoneTitle").textContent=titles[day];
+  document.getElementById("milestoneText").textContent=messages[day];
+  el.style.display="block";
+  setTimeout(()=>el.scrollIntoView({behavior:"smooth",block:"center"}),50);
+}
 function showDayLockedMessage(day){
   const pl=language==="pl";
   if(day>FREE_DAYS){
@@ -819,6 +892,17 @@ function showDayLockedMessage(day){
   }else if(day>1){
     alert(pl?`Najpierw ukończ Dzień ${day-1}.`:`Complete Day ${day-1} first.`);
   }
+}
+function playTimerChime(){
+  try{
+    const C=window.AudioContext||window.webkitAudioContext;
+    if(!C)return;
+    const ctx=new C(),osc=ctx.createOscillator(),gain=ctx.createGain();
+    osc.frequency.value=660; gain.gain.setValueAtTime(.0001,ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(.08,ctx.currentTime+.03);
+    gain.gain.exponentialRampToValueAtTime(.0001,ctx.currentTime+.8);
+    osc.connect(gain);gain.connect(ctx.destination);osc.start();osc.stop(ctx.currentTime+.8);
+  }catch(e){}
 }
 function resetTimer(){
   clearInterval(timerId);
@@ -886,6 +970,14 @@ function render(){
     ?"Twój postęp jest zapisywany w tej przeglądarce. Nic nie jest przesyłane ani udostępniane."
     :"Your progress is saved in this browser. Nothing is uploaded or shared.";
   document.getElementById("soundTitle").textContent=pl?"Wybierz dźwięk do RESETU":"Choose a sound for RESET";
+  document.getElementById("safetyNote").textContent=pl
+    ?"Small Moments Method to praktyka refleksji i pracy własnej. Nie jest terapią, poradą medyczną ani zamiennikiem profesjonalnej pomocy."
+    :"Small Moments Method is a reflection and personal practice. It is not therapy, medical advice, or a substitute for professional care.";
+  document.getElementById("storageNote").textContent=pl
+    ?"Twój postęp jest zapisywany w tej przeglądarce. Nic nie jest przesyłane ani udostępniane."
+    :"Your progress is saved in this browser. Nothing is uploaded or shared.";
+  document.getElementById("moodTitle").textContent=pl?"Jak się teraz czujesz?":"How do you feel right now?";
+  document.getElementById("moodHint").textContent=pl?"Opcjonalnie · 1 = gorzej, 5 = dobrze":"Optional · 1 = low, 5 = good";
 
   document.getElementById("prev").disabled=current===1;
   document.getElementById("next").disabled=current>=FREE_DAYS;
@@ -897,7 +989,8 @@ function render(){
     x.classList.toggle("locked",!unlocked);
     x.disabled=!unlocked;
   });
-  resetTimer();
+  const milestone=document.getElementById("milestone");
+  if(milestone) milestone.style.display="none";
   window.scrollTo({top:0,behavior:"smooth"});
 }
 function buildPicker(){
@@ -954,8 +1047,31 @@ document.addEventListener("DOMContentLoaded",()=>{
     done[current]=e.target.checked;
     save();
     buildPicker();
+    if(e.target.checked && phaseEnd(current)) showMilestone(current);
     render();
   };
+  document.getElementById("milestoneContinue").onclick=()=>{ document.getElementById("milestone").style.display="none"; };
+  document.querySelectorAll(".mood-btn").forEach(btn=>{
+    btn.onclick=()=>{
+      const m=btn.dataset.mood;
+      const key="mood_"+current;
+      const moods=JSON.parse(localStorage.getItem("manifestMoods")||"{}");
+      moods[key]=m;
+      localStorage.setItem("manifestMoods",JSON.stringify(moods));
+      document.querySelectorAll(".mood-btn").forEach(x=>x.classList.toggle("selected",x===btn));
+      document.getElementById("moodAfter").textContent=language==="pl"?"Zapisano tylko w tej przeglądarce.":"Saved only in this browser.";
+    };
+  });
+  document.getElementById("exportTxt").onclick=()=>{
+    const lines=[];
+    for(let i=1;i<=90;i++){
+      const item=(language==="pl"?daysPL:daysEN)[i-1];
+      lines.push((language==="pl"?"Dzień ":"Day ")+i+"\n"+item[0]+"\n"+item[1]+"\n"+item[2]+"\n"+(notes[i]||"") );
+    }
+    const blob=new Blob([lines.join("\n\n")],{type:"text/plain;charset=utf-8"});
+    const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download="small-moments-method-journey.txt"; a.click(); URL.revokeObjectURL(a.href);
+  };
+  document.getElementById("exportPdfPrint").onclick=()=>window.print();
   document.getElementById("notes").oninput=e=>{notes[current]=e.target.value;save()};
 
   document.getElementById("resetTimer").onclick=resetTimer;
@@ -975,6 +1091,7 @@ document.addEventListener("DOMContentLoaded",()=>{
       if(timerSeconds<=0){
         clearInterval(timerId);timerId=null;
         button.textContent=language==="pl"?"Gotowe":"Finished";
+        playTimerChime();
       }
     },1000);
   };
