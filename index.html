@@ -20,6 +20,9 @@ h1{font-family:Georgia,serif;font-size:42px;font-weight:400;margin:10px 0}.day{f
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.section-title{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin-bottom:7px}.practice-line{font-family:Georgia,serif;font-size:17px;font-style:italic;margin-bottom:18px;color:#4d4943}.manifest{font-family:Georgia,serif;font-size:27px;line-height:1.38}.prompt{line-height:1.65}.timer{font-size:28px;font-variant-numeric:tabular-nums;margin:12px 0}.controls{display:flex;gap:10px;flex-wrap:wrap}.btn{border:1px solid var(--line);background:transparent;border-radius:10px;padding:11px 15px;cursor:pointer;color:var(--ink)}.btn.primary{background:#222;color:#fff;border-color:#222}.btn:disabled{opacity:.35;cursor:not-allowed}
 textarea{width:100%;min-height:120px;border:1px solid var(--line);border-radius:12px;background:#faf8f3;padding:14px;font:15px/1.5 inherit;resize:vertical}
 .daypicker{display:flex;flex-wrap:wrap;gap:6px;max-height:180px;overflow:auto}.num{width:38px;height:34px;border:1px solid var(--line);background:transparent;border-radius:8px;cursor:pointer}.num.done{background:var(--soft);color:var(--ink);font-weight:600}.num.current,.num.current.done{background:#222!important;color:#fff!important;border:2px solid #222!important;font-weight:700;outline:2px solid #222;outline-offset:2px;box-shadow:inset 0 0 0 2px #fff}.num.locked{opacity:.35}#printJourney{display:none}@media print{body *{visibility:hidden!important}#printJourney,#printJourney *{visibility:visible!important}#printJourney{display:block!important;position:absolute;left:0;top:0;width:100%;padding:24px;font-family:Arial,sans-serif;color:#111;background:#fff}.print-day{break-inside:avoid;page-break-inside:avoid;border-bottom:1px solid #ccc;padding:0 0 18px;margin:0 0 18px}.print-day h2{font-size:16px;margin:0 0 8px}.print-day h3{font-size:11px;text-transform:uppercase;margin:7px 0 3px}.print-day p{font-size:12px;line-height:1.45;margin:3px 0}.print-note{white-space:pre-wrap}.print-complete{font-size:10px;color:#555;margin-top:6px}}
+.welcome-back{max-width:760px;margin:0 auto 18px;padding:14px 18px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);text-align:center;color:var(--muted);font-size:13px;line-height:1.5}
+.welcome-back strong{display:block;color:var(--ink);font-size:10px;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px}
+.welcome-back span{display:block}
 .complete{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;font-size:14px;padding:17px}.complete label{display:flex;align-items:center;gap:9px;cursor:pointer}.complete input{width:20px;height:20px;margin:0}.complete .action-note{font-size:12px;color:var(--muted);text-align:center;order:2}
 .footer{text-align:center;color:var(--muted);font-size:12px;margin-top:30px}
 @media(max-width:720px){.grid{grid-template-columns:1fr}.phases{grid-template-columns:1fr 1fr}h1{font-size:34px}.top{align-items:flex-start}.hero{padding:25px 15px}}
@@ -278,7 +281,7 @@ en:{
  notes:"Your notes",placeholder:"Write briefly. One word, one sentence, or whatever feels right.",
  completed:"Day completed",picker:"Choose a day",prev:"← Previous day",next:"Next day →",
  start:"Start timer",reset:"Reset",pause:"Pause",resume:"Resume timer",finished:"Finished",
- footer:"Your progress is saved in this browser. Nothing is uploaded or shared."
+ footer:"Without an account, your progress stays in this browser. If you sign in, your progress is saved to your account and can be accessed on another device."
 },
 pl:{
  phase:["ETAP I · TOŻSAMOŚĆ","ETAP II · WIZJA","ETAP III · UCIELEŚNIENIE","ETAP IV · MANIFESTACJA"],
@@ -291,7 +294,7 @@ pl:{
  notes:"Twoje notatki",placeholder:"Pisz krótko. Jedno słowo, jedno zdanie albo cokolwiek, co wydaje się właściwe.",
  completed:"Dzień ukończony",picker:"Wybierz dzień",prev:"← Poprzedni dzień",next:"Następny dzień →",
  start:"Uruchom timer",reset:"Reset",pause:"Pauza",resume:"Wznów timer",finished:"Gotowe",
- footer:"Twój postęp jest zapisywany w tej przeglądarce. Nic nie jest przesyłane ani udostępniane."
+ footer:"Bez konta Twój postęp pozostaje w tej przeglądarce. Po zalogowaniu jest zapisywany na Twoim koncie i może być dostępny na innym urządzeniu."
 }};
 
 const INTRO={
@@ -760,6 +763,10 @@ button:disabled{cursor:not-allowed}
     <div class="day" id="daySubtitle"></div>
     <div class="bar"><div class="fill" id="fill"></div></div>
   </div>
+  <div class="welcome-back hidden" id="welcomeBack" aria-live="polite">
+    <strong id="welcomeBackTitle"></strong>
+    <span id="welcomeBackText"></span>
+  </div>
 
   <div class="grid">
     <div class="card">
@@ -930,6 +937,27 @@ function phaseFor(d){
 let cloudSaveTimer = null;
 let currentSession = null;
 let signingOut = false;
+
+function todayKey(){
+  return new Date().toISOString().slice(0,10);
+}
+
+function updateWelcomeBack(){
+  const el=document.getElementById("welcomeBack");
+  if(!el)return;
+  const lastVisit=localStorage.getItem("manifestLastVisitDate")||"";
+  const today=todayKey();
+  const shouldShow=!!lastVisit && lastVisit!==today && !done[current];
+  el.classList.toggle("hidden",!shouldShow);
+  if(shouldShow){
+    const pl=language==="pl";
+    document.getElementById("welcomeBackTitle").textContent=pl?"WITAJ PONOWNIE":"WELCOME BACK";
+    document.getElementById("welcomeBackText").textContent=pl
+      ?"Nie musisz niczego nadrabiać. Po prostu wróć do swojego kolejnego małego momentu."
+      :"There is nothing to catch up on. Simply continue with your next small moment.";
+  }
+  localStorage.setItem("manifestLastVisitDate",today);
+}
 
 function updateStorageNote(){
   const pl = language === "pl";
@@ -1289,6 +1317,7 @@ function render(){
     ?"Pominięty dzień nie przerywa Twojego postępu. Możesz wrócić, kiedy będziesz gotowa."
     :"A missed day does not break your progress. You can return whenever you are ready.";
   updateStorageNote();
+  updateWelcomeBack();
   document.getElementById("soundTitle").textContent=pl?"Wybierz dźwięk do RESETU":"Choose a sound for RESET";
   document.getElementById("safetyNote").textContent=pl
     ?"Small Moments Method to praktyka refleksji i pracy własnej. Nie jest terapią, poradą medyczną ani zamiennikiem profesjonalnej pomocy."
@@ -1365,6 +1394,8 @@ function populateFinalCompare(){
   const el=document.getElementById("finalCompare");
   if(!el)return;
   el.innerHTML="<div><strong>"+(pl?"DZIEŃ 1":"DAY 1")+"</strong><blockquote>“"+first+"”</blockquote></div><div><strong>"+(pl?"DZIEŃ 90":"DAY 90")+"</strong><blockquote>“"+last+"”</blockquote></div>";
+  const finalNotes=document.getElementById("finalNotes");
+  if(finalNotes) finalNotes.value=localStorage.getItem("manifestFinalNotes")||"";
 }
 function setupSounds(){
   const player=document.getElementById("soundPlayer");
@@ -1431,6 +1462,7 @@ document.addEventListener("DOMContentLoaded",()=>{
   };
   document.getElementById("completed").onchange=e=>{
     done[current]=e.target.checked;
+    if(e.target.checked) localStorage.setItem("manifestLastPracticeDate",todayKey());
     save();
     buildPicker();
     render();
@@ -1462,6 +1494,13 @@ document.addEventListener("DOMContentLoaded",()=>{
   }catch(e){}
   document.querySelectorAll(".mood-btn").forEach(x=>x.classList.toggle("selected",x.dataset.mood===savedMood));
   document.getElementById("notes").oninput=e=>{notes[current]=e.target.value;save()};
+  document.getElementById("saveFinal").onclick=async()=>{
+    const value=document.getElementById("finalNotes").value.trim();
+    localStorage.setItem("manifestFinalNotes",value);
+    if(currentSession) await syncToCloud();
+    showScreen("protocolScreen");
+    populateFinalCompare();
+  };
 
 function setupTimer(){
   const resetButton=document.getElementById("resetTimer");
