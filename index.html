@@ -19,7 +19,7 @@ h1{font-family:Georgia,serif;font-size:42px;font-weight:400;margin:10px 0}.day{f
 .phases{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:18px}.phase{padding:12px 8px;border:1px solid var(--line);border-radius:10px;text-align:center;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);cursor:pointer}.phase.active{background:#222;color:white;border-color:#222}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.section-title{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin-bottom:7px}.practice-line{font-family:Georgia,serif;font-size:17px;font-style:italic;margin-bottom:18px;color:#4d4943}.manifest{font-family:Georgia,serif;font-size:27px;line-height:1.38}.prompt{line-height:1.65}.timer{font-size:28px;font-variant-numeric:tabular-nums;margin:12px 0}.controls{display:flex;gap:10px;flex-wrap:wrap}.btn{border:1px solid var(--line);background:transparent;border-radius:10px;padding:11px 15px;cursor:pointer;color:var(--ink)}.btn.primary{background:#222;color:#fff;border-color:#222}.btn:disabled{opacity:.35;cursor:not-allowed}
 textarea{width:100%;min-height:120px;border:1px solid var(--line);border-radius:12px;background:#faf8f3;padding:14px;font:15px/1.5 inherit;resize:vertical}
-.daypicker{display:flex;flex-wrap:wrap;gap:6px;max-height:180px;overflow:auto}.num{width:38px;height:34px;border:1px solid var(--line);background:transparent;border-radius:8px;cursor:pointer}.num.done{background:#222;color:white}.num.current{outline:2px solid #222;outline-offset:2px}
+.daypicker{display:flex;flex-wrap:wrap;gap:6px;max-height:180px;overflow:auto}.num{width:38px;height:34px;border:1px solid var(--line);background:transparent;border-radius:8px;cursor:pointer}.num.done{background:#222;color:white}.num.current,.num.current.done{background:#fff!important;color:#222!important;border:2px solid #222!important;font-weight:700;outline:2px solid #222;outline-offset:2px;box-shadow:inset 0 0 0 2px #fff}#printJourney{display:none}@media print{body *{visibility:hidden!important}#printJourney,#printJourney *{visibility:visible!important}#printJourney{display:block!important;position:absolute;left:0;top:0;width:100%;padding:24px;font-family:Arial,sans-serif;color:#111;background:#fff}.print-day{break-inside:avoid;page-break-inside:avoid;border-bottom:1px solid #ccc;padding:0 0 18px;margin:0 0 18px}.print-day h2{font-size:16px;margin:0 0 8px}.print-day h3{font-size:11px;text-transform:uppercase;margin:7px 0 3px}.print-day p{font-size:12px;line-height:1.45;margin:3px 0}.print-note{white-space:pre-wrap}.print-complete{font-size:10px;color:#555;margin-top:6px}}
 .complete{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;font-size:14px;padding:17px}.complete label{display:flex;align-items:center;gap:9px;cursor:pointer}.complete input{width:20px;height:20px;margin:0}.complete .action-note{font-size:12px;color:var(--muted);text-align:center;order:2}
 .footer{text-align:center;color:var(--muted);font-size:12px;margin-top:30px}
 @media(max-width:720px){.grid{grid-template-columns:1fr}.phases{grid-template-columns:1fr 1fr}h1{font-size:34px}.top{align-items:flex-start}.hero{padding:25px 15px}}
@@ -1124,7 +1124,7 @@ const legalContent={
       ["6. Korzystanie z usługi","Korzystając z usługi, zobowiązujesz się korzystać z niej zgodnie z prawem i w odpowiedzialny sposób."]
     ],
     contact:[
-      ["Prywatność i żądania dotyczące danych","Dedykowany adres e-mail do spraw prywatności powinien zostać potwierdzony przed publicznym uruchomieniem. Do tego czasu tej wersji nie należy traktować jako ostatecznej informacji prawnej."],
+      ["Prywatność i żądania dotyczące danych","Żądania dotyczące prywatności i ochrony danych możesz kierować na adres hello@quickreadmoments.com."],
       ["Quick Read Moments","Informacje ogólne o Quick Read Moments znajdziesz na stronie głównej projektu."]
     ]
   }
@@ -1307,6 +1307,7 @@ function render(){
     x.classList.toggle("locked",!unlocked);
     x.disabled=!unlocked;
     x.setAttribute("aria-current",d===current?"page":"false");
+    x.setAttribute("aria-pressed",d===current?"true":"false");
   });
   const milestone=document.getElementById("milestone");
   if(milestone) milestone.style.display="none";
@@ -1323,6 +1324,9 @@ function buildPicker(){
     const unlocked=canOpenDay(i);
     b.disabled=!unlocked;
     b.classList.toggle("locked",!unlocked);
+    b.classList.toggle("current",i===current);
+    b.setAttribute("aria-current",i===current?"page":"false");
+    b.setAttribute("aria-pressed",i===current?"true":"false");
     b.onclick=()=>{
       if(!canOpenDay(i)){showDayLockedMessage(i);return;}
       current=i;save();render();
@@ -1439,7 +1443,7 @@ document.addEventListener("DOMContentLoaded",()=>{
       const item=(language==="pl"?daysPL:daysEN)[i-1];
       lines.push((language==="pl"?"Dzień ":"Day ")+i+"\n"+item[0]+"\n"+item[1]+"\n"+item[2]+"\n"+(notes[i]||"") );
     }
-    const blob=new Blob([lines.join("\n\n")],{type:"text/plain;charset=utf-8"});
+    const blob=new Blob(["\\uFEFF"+lines.join("\n\n")],{type:"text/plain;charset=utf-8"});
     const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download="small-moments-method-journey.txt"; a.click(); URL.revokeObjectURL(a.href);
   };
   document.getElementById("exportPdfPrint").onclick=()=>window.print();
@@ -1518,6 +1522,24 @@ document.addEventListener("DOMContentLoaded",()=>{
   }
   if(exportPdfButton){
     exportPdfButton.addEventListener("click",()=>{
+      const printArea=document.getElementById("printJourney");
+      if(!printArea)return;
+      const activeDays=language==="pl"?daysPL:daysEN;
+      let html="";
+      for(let i=1;i<=90;i++){
+        const item=activeDays[i-1]||["","",""];
+        const note=notes[i]||"";
+        const completed=!!done[i];
+        html+=`<section class="print-day">
+          <h2>${language==="pl"?"Dzień ":"Day "}${i}</h2>
+          <h3>${language==="pl"?"Wybierz":"Choose"}</h3><p>${item[0]}</p>
+          <h3>${language==="pl"?"Zobacz":"See"}</h3><p>${item[1]}</p>
+          <h3>${language==="pl"?"Żyj":"Live"}</h3><p>${item[2]}</p>
+          ${note?`<h3>${language==="pl"?"Moje notatki":"My notes"}</h3><p class="print-note">${note.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}</p>`:""}
+          ${completed?`<p class="print-complete">✓ ${language==="pl"?"Dzień ukończony":"Day completed"}</p>`:""}
+        </section>`;
+      }
+      printArea.innerHTML=html;
       window.print();
     });
   }
@@ -1640,4 +1662,4 @@ document.addEventListener("DOMContentLoaded",()=>{
   }
 });
 </script>
-</body></html>
+<div id="printJourney" aria-hidden="true"></div></body></html>
