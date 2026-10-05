@@ -1519,7 +1519,7 @@ document.addEventListener("DOMContentLoaded",()=>{
   if(exportTxtButton){
     exportTxtButton.addEventListener("click",()=>{
       const lines=[];
-      const progressEnd=Math.min(90,Math.max(1,current,Math.max(0,...Object.keys(done).filter(k=>done[k]).map(Number))));
+      const progressEnd=Math.min(FREE_DAYS,Math.max(1,current));
       for(let i=1;i<=progressEnd;i++){
         const item=(language==="pl"?daysPL:daysEN)[i-1];
         lines.push((language==="pl"?"Dzień ":"Day ")+i+"\n"+item[0]+"\n"+item[1]+"\n"+item[2]+"\n"+(notes[i]||""));
@@ -1541,7 +1541,7 @@ document.addEventListener("DOMContentLoaded",()=>{
       if(!printArea)return;
       const activeDays=language==="pl"?daysPL:daysEN;
       let html="";
-      const progressEnd=Math.min(90,Math.max(1,current,Math.max(0,...Object.keys(done).filter(k=>done[k]).map(Number))));
+      const progressEnd=Math.min(FREE_DAYS,Math.max(1,current));
       for(let i=1;i<=progressEnd;i++){
         const item=activeDays[i-1]||["","",""];
         const note=notes[i]||"";
