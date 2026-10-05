@@ -353,6 +353,30 @@ function fillIntro(lang){
   document.getElementById(x+"text").textContent=d[x+"t"];
  });
  document.getElementById("startProtocol").textContent=d.start;
+ const end=lang==="pl"
+   ? {
+       kicker:"90 DNI UKOŃCZONE",
+       title:"ZWAŻYŁAŚ<br>UWAGĘ.",
+       quote:"90 dni.<br>90 małych momentów.<br>I gdzieś po drodze stałaś się bliższa samej sobie.",
+       question:"Co chcesz nadal zauważać?",
+       placeholder:"Zapisz kilka słów dla osoby, którą jesteś teraz.",
+       save:"ZAPISZ I ZAMKNIJ"
+     }
+   : {
+       kicker:"90 DAYS COMPLETE",
+       title:"YOU<br>NOTICED.",
+       quote:"90 days.<br>90 small moments.<br>And somewhere along the way, you became more familiar with yourself.",
+       question:"What do you want to keep noticing?",
+       placeholder:"Write a few words for the person you are now.",
+       save:"SAVE & CLOSE"
+     };
+ document.getElementById("endKicker").textContent=end.kicker;
+ document.getElementById("endTitle").innerHTML=end.title;
+ document.getElementById("endQuote").innerHTML=end.quote;
+ document.getElementById("endQuestion").textContent=end.question;
+ document.getElementById("finalNotes").placeholder=end.placeholder;
+ document.getElementById("saveFinal").textContent=end.save;
+ document.getElementById("endPractices").textContent="RESET · "+(lang==="pl"?"WYBIERZ · ZOBACZ · ŻYJ":"CHOOSE · SEE · LIVE");
 }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -902,15 +926,15 @@ button:disabled{cursor:not-allowed}
 <div id="endScreen" class="screen hidden">
   <div class="end-inner">
     <div class="intro-brand">QUICK READ MOMENTS</div>
-    <div class="intro-kicker">90 DAYS COMPLETE</div>
-    <h1>YOU<br>NOTICED.</h1>
-    <p class="intro-quote">90 days.<br>90 small moments.<br>And somewhere along the way, you became more familiar with yourself.</p>
+    <div class="intro-kicker" id="endKicker">90 DAYS COMPLETE</div>
+    <h1 id="endTitle">YOU<br>NOTICED.</h1>
+    <p class="intro-quote" id="endQuote">90 days.<br>90 small moments.<br>And somewhere along the way, you became more familiar with yourself.</p>
     <div class="intro-rule"></div>
     <div class="final-compare" id="finalCompare"></div>
-    <p class="end-question">What do you want to keep noticing?</p>
+    <p class="end-question" id="endQuestion">What do you want to keep noticing?</p>
     <textarea id="finalNotes" placeholder="Write a few words for the person you are now."></textarea>
     <button class="btn primary begin-btn" id="saveFinal">SAVE &amp; CLOSE</button>
-    <div class="intro-practices">RESET · CHOOSE · SEE · LIVE</div>
+    <div class="intro-practices" id="endPractices">RESET · CHOOSE · SEE · LIVE</div>
   </div>
 </div>
 
@@ -939,7 +963,8 @@ let currentSession = null;
 let signingOut = false;
 
 function todayKey(){
-  return new Date().toISOString().slice(0,10);
+  const d=new Date();
+  return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
 }
 
 function updateWelcomeBack(){
