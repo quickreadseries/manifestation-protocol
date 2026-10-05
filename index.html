@@ -1309,9 +1309,29 @@ function render(){
     x.setAttribute("aria-current",d===current?"page":"false");
     x.setAttribute("aria-pressed",d===current?"true":"false");
   });
+  updateDayPickerSelection();
   const milestone=document.getElementById("milestone");
   if(milestone) milestone.style.display="none";
   window.scrollTo({top:0,behavior:"smooth"});
+}
+function updateDayPickerSelection(){
+  document.querySelectorAll("#daypicker .num").forEach(x=>{
+    const selected=Number(x.dataset.day)===current;
+    x.classList.toggle("current",selected);
+    x.setAttribute("aria-current",selected?"page":"false");
+    x.setAttribute("aria-pressed",selected?"true":"false");
+    if(selected){
+      x.style.background="#222";
+      x.style.color="#fff";
+      x.style.borderColor="#222";
+      x.style.fontWeight="700";
+    }else{
+      x.style.background="";
+      x.style.color="";
+      x.style.borderColor="";
+      x.style.fontWeight="";
+    }
+  });
 }
 function buildPicker(){
   const p=document.getElementById("daypicker");
@@ -1329,7 +1349,11 @@ function buildPicker(){
     b.setAttribute("aria-pressed",i===current?"true":"false");
     b.onclick=()=>{
       if(!canOpenDay(i)){showDayLockedMessage(i);return;}
-      current=i;save();render();
+      current=i;
+      save();
+      updateDayPickerSelection();
+      render();
+      updateDayPickerSelection();
     };
     p.appendChild(b);
   }
@@ -1544,7 +1568,9 @@ document.addEventListener("DOMContentLoaded",()=>{
       if(current<=1)return;
       current--;
       save();
+      updateDayPickerSelection();
       render();
+      updateDayPickerSelection();
     });
   }
   if(nextButton){
@@ -1559,7 +1585,9 @@ document.addEventListener("DOMContentLoaded",()=>{
       }
       current++;
       save();
+      updateDayPickerSelection();
       render();
+      updateDayPickerSelection();
     });
   }
 
