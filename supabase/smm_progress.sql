@@ -43,3 +43,33 @@ to authenticated
 using ((select auth.uid()) = user_id);
 
 create index if not exists smm_progress_user_id_idx on public.smm_progress(user_id);
+
+
+-- Anonymous tester feedback collected after Day 7.
+-- Feedback is write-only from the public app; review it in the Supabase dashboard.
+create table if not exists public.smm_feedback (
+  id uuid primary key default gen_random_uuid(),
+  created_at timestamptz not null default now(),
+  language text not null default 'en',
+  days_completed text not null,
+  helpful_step text not null,
+  least_helpful_step text not null,
+  issue text not null default '',
+  continue_choice text not null,
+  price text not null default '',
+  missing text not null default '',
+  email text null,
+  quote_permission text not null
+);
+
+alter table public.smm_feedback enable row level security;
+
+revoke all on table public.smm_feedback from anon, authenticated;
+grant insert on table public.smm_feedback to anon, authenticated;
+
+drop policy if exists "Public can submit Small Moments feedback" on public.smm_feedback;
+create policy "Public can submit Small Moments feedback"
+on public.smm_feedback
+for insert
+to anon, authenticated
+with check (true);
