@@ -1570,20 +1570,16 @@ document.addEventListener("DOMContentLoaded",()=>{
   document.getElementById("switchEN").onclick=()=>{language="en";localStorage.setItem("smmLanguage","en");updateAuthUI(currentSession);populateFinalCompare();render();save()};
   document.getElementById("switchPL").onclick=()=>{language="pl";localStorage.setItem("smmLanguage","pl");updateAuthUI(currentSession);populateFinalCompare();render();save()};
 
-  document.getElementById("prev").onclick=()=>{
-    if(current>1){current--;save();render();}
-  };
-  document.getElementById("next").onclick=()=>{
-    if(current>=dayLimit()){showDayLockedMessage(current+1);return;}
-    if(!done[current]){showDayLockedMessage(current+1);return;}
-    current++;save();render();
-  };
   document.getElementById("completed").onchange=e=>{
+    const scrollY=window.scrollY;
     done[current]=e.target.checked;
     if(e.target.checked) localStorage.setItem("manifestLastPracticeDate",todayKey());
     save();
     buildPicker();
     render();
+    if(e.target.checked && !phaseEnd(current)){
+      requestAnimationFrame(()=>window.scrollTo(0,scrollY));
+    }
     if(e.target.checked && phaseEnd(current)) showMilestone(current);
     if(e.target.checked && current===7){
       const fb=document.getElementById("feedbackOpenBtn");
