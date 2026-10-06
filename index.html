@@ -1579,6 +1579,7 @@ document.addEventListener("DOMContentLoaded",()=>{
   document.getElementById("switchPL").onclick=()=>{language="pl";localStorage.setItem("smmLanguage","pl");updateAuthUI(currentSession);populateFinalCompare();render();save()};
 
   document.getElementById("completed").onchange=e=>{
+    const scrollX=window.scrollX;
     const scrollY=window.scrollY;
     done[current]=e.target.checked;
     if(e.target.checked) localStorage.setItem("manifestLastPracticeDate",todayKey());
@@ -1586,7 +1587,7 @@ document.addEventListener("DOMContentLoaded",()=>{
     buildPicker();
     render();
     if(e.target.checked && !phaseEnd(current)){
-      requestAnimationFrame(()=>window.scrollTo(0,scrollY));
+      requestAnimationFrame(()=>window.scrollTo({left:scrollX,top:scrollY,behavior:"auto"}));
     }
     if(e.target.checked && phaseEnd(current)) showMilestone(current);
     if(e.target.checked && current===7){
