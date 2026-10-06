@@ -946,6 +946,22 @@ let done=JSON.parse(localStorage.getItem("manifestDone")||"{}");
 let notes=JSON.parse(localStorage.getItem("manifestNotes")||"{}");
 let timerSeconds=180,timerId=null;
 const FREE_DAYS=7;
+// Temporary test access for phone testing. This is not a production security control.
+const TEST_PASSWORD="SMALLMOMENTS90";
+let testUnlocked=localStorage.getItem("smmTestUnlocked")==="1";
+function dayLimit(){ return testUnlocked ? 90 : FREE_DAYS; }
+function unlockTestAccess(){
+  const pl=language==="pl";
+  const entered=window.prompt(pl?"Hasło testowe:":"Test password:");
+  if(entered===TEST_PASSWORD){
+    testUnlocked=true;
+    localStorage.setItem("smmTestUnlocked","1");
+    alert(pl?"Dostęp testowy odblokowany. Możesz teraz przejść do wszystkich 90 dni.":"Test access unlocked. You can now access all 90 days.");
+    return true;
+  }
+  if(entered!==null) alert(pl?"Nieprawidłowe hasło.":"Incorrect password.");
+  return false;
+}
 const SOUND_FILES={
   "heavy-rain":"audio/heavy-rain.mp3",
   beach:"audio/beach.mp3",
@@ -1213,6 +1229,7 @@ function highestUnlockedDay(){
   return d;
 }
 function canOpenDay(day){
+  if(testUnlocked) return day>=1 && day<=90;
   return day<=highestUnlockedDay() && day<=FREE_DAYS;
 }
 function phaseEnd(day){ return [21,45,70].includes(day); }
@@ -1231,10 +1248,15 @@ function showMilestone(day){
 function showDayLockedMessage(day){
   const pl=language==="pl";
   if(day>FREE_DAYS){
-    alert(pl
-      ?"Dni 1–7 są dostępne bezpłatnie. Dzień 8 będzie dostępny po odblokowaniu pełnej wersji."
-      :"Days 1–7 are available free. Day 8 will be available after unlocking the full version.");
-  }else if(day>1){
+    if(unlockTestAccess()){
+      current=Math.min(day,90);
+      save();
+      buildPicker();
+      render();
+    }
+    return;
+  }
+  if(day>1){
     alert(pl?`Najpierw ukończ Dzień ${day-1}.`:`Complete Day ${day-1} first.`);
   }
 }
@@ -1259,7 +1281,7 @@ function resetTimer(){
 }
 function render(){
   if(current<1)current=1;
-  if(current>FREE_DAYS)current=FREE_DAYS;
+  if(current>dayLimit())current=FREE_DAYS;
   const activeDays=language==="pl"?daysPL:daysEN;
   const [phase,n]=phaseFor(current);
   const item=activeDays[current-1]||activeDays[0];
@@ -1357,7 +1379,7 @@ function render(){
   document.getElementById("moodHint").textContent=pl?"Opcjonalnie · 1 = gorzej, 5 = dobrze":"Optional · 1 = low, 5 = good";
 
   document.getElementById("prev").disabled=current===1;
-  document.getElementById("next").disabled=current>=FREE_DAYS;
+  document.getElementById("next").disabled=current>=dayLimit();
   document.querySelectorAll(".num").forEach(x=>{
     const d=+x.dataset.day;
     const unlocked=canOpenDay(d);
@@ -1493,7 +1515,7 @@ document.addEventListener("DOMContentLoaded",()=>{
     if(current>1){current--;save();render();}
   };
   document.getElementById("next").onclick=()=>{
-    if(current>=FREE_DAYS){showDayLockedMessage(current+1);return;}
+    if(current>=dayLimit()){showDayLockedMessage(current+1);return;}
     if(!done[current]){showDayLockedMessage(current+1);return;}
     current++;save();render();
   };
@@ -1595,7 +1617,7 @@ document.addEventListener("DOMContentLoaded",()=>{
   if(exportTxtButton){
     exportTxtButton.addEventListener("click",()=>{
       const lines=[];
-      const progressEnd=Math.min(FREE_DAYS,Math.max(1,current));
+      const progressEnd=Math.min(dayLimit(),Math.max(1,current));
       for(let i=1;i<=progressEnd;i++){
         const item=(language==="pl"?daysPL:daysEN)[i-1];
         lines.push((language==="pl"?"Dzień ":"Day ")+i+"\n"+item[0]+"\n"+item[1]+"\n"+item[2]+"\n"+(notes[i]||""));
@@ -1617,7 +1639,7 @@ document.addEventListener("DOMContentLoaded",()=>{
       if(!printArea)return;
       const activeDays=language==="pl"?daysPL:daysEN;
       let html="";
-      const progressEnd=Math.min(FREE_DAYS,Math.max(1,current));
+      const progressEnd=Math.min(dayLimit(),Math.max(1,current));
       for(let i=1;i<=progressEnd;i++){
         const item=activeDays[i-1]||["","",""];
         const note=notes[i]||"";
@@ -1651,7 +1673,7 @@ document.addEventListener("DOMContentLoaded",()=>{
   }
   if(nextButton){
     nextButton.addEventListener("click",()=>{
-      if(current>=FREE_DAYS){
+      if(current>=dayLimit()){
         showDayLockedMessage(current+1);
         return;
       }
