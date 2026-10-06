@@ -1394,8 +1394,15 @@ function updateDayPickerSelection(){
 }
 function buildPicker(){
   const p=document.getElementById("daypicker");
+  if(!p)return;
   p.innerHTML="";
-  for(let i=1;i<=90;i++){
+  const phaseStarts=[1,22,46,71];
+  const phaseEnds=[21,45,70,90];
+  let phaseIndex=phaseStarts.findIndex((start,i)=>current>=start && current<=phaseEnds[i]);
+  if(phaseIndex<0)phaseIndex=0;
+  const start=phaseStarts[phaseIndex];
+  const end=phaseEnds[phaseIndex];
+  for(let i=start;i<=end;i++){
     const b=document.createElement("button");
     b.className="num";
     b.dataset.day=i;
