@@ -677,7 +677,7 @@ button:disabled{cursor:not-allowed}
 .final-compare strong{display:block;font-size:10px;letter-spacing:2px;color:var(--muted);margin-bottom:10px}
 .final-compare blockquote{margin:0;font-family:Georgia,serif;font-size:18px;line-height:1.5}
 .export-controls{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
-.legal-links{margin-top:14px;font-size:11px;letter-spacing:.4px}
+.legal-links{margin-top:14px;font-size:11px;letter-spacing:.4px}.feedback-modal{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;padding:20px;z-index:1150}.feedback-modal.hidden{display:none}.feedback-box{width:100%;max-width:720px;max-height:90vh;overflow:auto;background:#fffdf9;border:1px solid var(--line);border-radius:14px;padding:30px 26px;box-shadow:0 10px 40px rgba(0,0,0,.18)}.feedback-box h2{font-family:Georgia,serif;font-size:30px;font-weight:400;margin:0 0 10px}.feedback-intro{color:var(--muted);line-height:1.6;margin:0 0 22px}.feedback-question{margin:18px 0}.feedback-question label{display:block;font-size:13px;font-weight:700;line-height:1.45;margin-bottom:8px}.feedback-question select,.feedback-question textarea,.feedback-question input{width:100%;box-sizing:border-box;border:1px solid var(--line);border-radius:10px;padding:11px;background:#faf8f3;font:inherit}.feedback-question textarea{min-height:82px;resize:vertical}.feedback-actions{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;margin-top:20px}.feedback-note{font-size:11px;color:var(--muted);line-height:1.5;margin-top:12px}.feedback-status{font-size:13px;text-align:center;margin-top:12px;min-height:1.2em}.feedback-open{display:none;text-align:center;margin-top:14px}.feedback-open.visible{display:block}@media(max-width:650px){.feedback-box{padding:25px 18px}.feedback-actions .btn{width:100%}}
 .legal-links button{border:0;background:none;padding:0;margin:0 8px 0 0;color:var(--muted);font:inherit;text-decoration:underline;cursor:pointer}
 .legal-modal{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;padding:20px;z-index:1100}
 .legal-modal.hidden{display:none}
@@ -877,7 +877,7 @@ button:disabled{cursor:not-allowed}
 <div class="footer">
   <span id="storageNote">Without an account, your progress stays in this browser. If you sign in, your progress is saved to your account and can be accessed on another device.</span><br>
   <span id="safetyNote">Small Moments Method is a reflection and personal practice. It is not therapy, medical advice, or a substitute for professional care.</span>
-  <div class="legal-links">
+  <div class="legal-links"><button id="feedbackOpenBtn" class="feedback-open">Feedback after 7 days</button>
     <button id="privacyLink">Privacy Policy</button>
     <button id="dataProtectionLink">Data Protection</button>
     <button id="termsLink">Terms of Use</button>
@@ -885,6 +885,58 @@ button:disabled{cursor:not-allowed}
   </div>
 </div>
 </div>
+</div>
+<div id="feedbackModal" class="feedback-modal hidden" role="dialog" aria-modal="true" aria-labelledby="feedbackTitle">
+  <div class="feedback-box">
+    <button class="legal-close" id="feedbackClose" aria-label="Close">×</button>
+    <div class="eyebrow" id="feedbackKicker">AFTER 7 DAYS</div>
+    <h2 id="feedbackTitle">Small Moments Method: feedback after 7 days</h2>
+    <p class="feedback-intro" id="feedbackIntro">Thank you for trying the first week. Honest answers, including critical ones, are the most valuable to me. It takes about 2 minutes.</p>
+    <form id="feedbackForm">
+      <div class="feedback-question">
+        <label for="feedbackDays" id="feedbackDaysLabel">How many days did you complete?</label>
+        <select id="feedbackDays" required></select>
+      </div>
+      <div class="feedback-question">
+        <label for="feedbackHelpful" id="feedbackHelpfulLabel">Which step was most helpful to you?</label>
+        <select id="feedbackHelpful" required></select>
+      </div>
+      <div class="feedback-question">
+        <label for="feedbackLeast" id="feedbackLeastLabel">Which step was least helpful to you?</label>
+        <select id="feedbackLeast" required></select>
+      </div>
+      <div class="feedback-question">
+        <label for="feedbackIssue" id="feedbackIssueLabel">Did anything feel unclear, uncomfortable or not work in the app? If so, what and on which device?</label>
+        <textarea id="feedbackIssue"></textarea>
+      </div>
+      <div class="feedback-question">
+        <label for="feedbackContinue" id="feedbackContinueLabel">Would you like to continue with the next days?</label>
+        <select id="feedbackContinue" required></select>
+      </div>
+      <div class="feedback-question">
+        <label for="feedbackPrice" id="feedbackPriceLabel">Would you pay for the full 90 days? If yes or maybe, what price feels reasonable?</label>
+        <textarea id="feedbackPrice"></textarea>
+      </div>
+      <div class="feedback-question">
+        <label for="feedbackMissing" id="feedbackMissingLabel">What were you missing?</label>
+        <textarea id="feedbackMissing"></textarea>
+      </div>
+      <div class="feedback-question">
+        <label for="feedbackEmail" id="feedbackEmailLabel">Email (optional, only if you want updates about the next days)</label>
+        <input type="email" id="feedbackEmail" autocomplete="email">
+      </div>
+      <div class="feedback-question">
+        <label for="feedbackQuote" id="feedbackQuoteLabel">May I quote your feedback on the website?</label>
+        <select id="feedbackQuote" required></select>
+      </div>
+      <div class="feedback-note" id="feedbackPrivacyNote">Your feedback is stored securely for review. Email is optional. If you do not provide an email, your feedback is anonymous.</div>
+      <div class="feedback-status" id="feedbackStatus" aria-live="polite"></div>
+      <div class="feedback-actions">
+        <button type="button" class="btn" id="feedbackLater">Later</button>
+        <button type="submit" class="btn primary" id="feedbackSubmit">Send feedback</button>
+      </div>
+    </form>
+  </div>
 </div>
 <div id="legalModal" class="legal-modal hidden" role="dialog" aria-modal="true" aria-labelledby="legalTitle">
   <div class="legal-box">
@@ -940,6 +992,8 @@ button:disabled{cursor:not-allowed}
 </div>
 
 <script>
+let feedbackSubmitted=localStorage.getItem("smmFeedbackSubmitted")==="1";
+let feedbackDismissed=localStorage.getItem("smmFeedbackDismissed")==="1";
 let language=localStorage.getItem("smmLanguage")||"";
 let current=Number(localStorage.getItem("manifestDay")||1);
 let done=JSON.parse(localStorage.getItem("manifestDone")||"{}");
@@ -1526,6 +1580,7 @@ document.addEventListener("DOMContentLoaded",()=>{
     buildPicker();
     render();
     if(e.target.checked && phaseEnd(current)) showMilestone(current);
+    if(e.target.checked && current===7 && !feedbackSubmitted) setTimeout(openFeedback,350);
     if(e.target.checked && current===90) showScreen("endScreen");
   };
   document.getElementById("milestoneContinue").onclick=()=>{ document.getElementById("milestone").style.display="none"; };
@@ -1780,4 +1835,113 @@ document.addEventListener("DOMContentLoaded",()=>{
   }
 });
 </script>
-<div id="printJourney" aria-hidden="true"></div></body></html>
+<div id="printJourney" aria-hidden="true"></div></body></html><script>
+document.addEventListener("DOMContentLoaded",()=>{
+  const modal=document.getElementById("feedbackModal");
+  const form=document.getElementById("feedbackForm");
+  const status=document.getElementById("feedbackStatus");
+  const openBtn=document.getElementById("feedbackOpenBtn");
+  const laterBtn=document.getElementById("feedbackLater");
+  const closeBtn=document.getElementById("feedbackClose");
+  const labels={
+    en:{
+      kicker:"AFTER 7 DAYS",title:"Small Moments Method: feedback after 7 days",
+      intro:"Thank you for trying the first week. Honest answers, including critical ones, are the most valuable to me. It takes about 2 minutes.",
+      days:"How many days did you complete?",helpful:"Which step was most helpful to you?",least:"Which step was least helpful to you?",
+      issue:"Did anything feel unclear, uncomfortable or not work in the app? If so, what and on which device?",
+      cont:"Would you like to continue with the next days?",price:"Would you pay for the full 90 days? If yes or maybe, what price feels reasonable?",
+      missing:"What were you missing?",email:"Email (optional, only if you want updates about the next days)",quote:"May I quote your feedback on the website?",
+      privacy:"Your feedback is stored securely for review. Email is optional. If you do not provide an email, your feedback is anonymous.",
+      later:"Later",send:"Send feedback",saved:"Thank you. Your feedback has been saved.",error:"We could not save your feedback. Please try again.",
+      dayOpts:["1–2","3–4","5–6","All 7"],stepOpts:["RESET","CHOOSE","SEE","LIVE"],contOpts:["Yes","Maybe","No"],quoteOpts:["Yes, with my name","Yes, anonymously","No"]
+    },
+    pl:{
+      kicker:"PO 7 DNIACH",title:"Small Moments Method: opinia po 7 dniach",
+      intro:"Dziękuję, że wypróbowałaś pierwszy tydzień. Szczere odpowiedzi, także krytyczne, są dla mnie najcenniejsze. Zajmie to około 2 minut.",
+      days:"Ile dni udało Ci się przejść?",helpful:"Który krok był dla Ciebie najbardziej pomocny?",least:"Który krok był dla Ciebie najmniej pomocny?",
+      issue:"Czy coś wydało Ci się niejasne, niewygodne albo nie działało w aplikacji? Jeśli tak, co i na jakim urządzeniu?",
+      cont:"Czy chcesz kontynuować kolejne dni?",price:"Czy zapłaciłabyś / zapłaciłbyś za pełną wersję 90 dni? Jeśli tak lub może: jaka cena wydawałaby się rozsądna?",
+      missing:"Czego Ci brakowało?",email:"E-mail (opcjonalnie, tylko jeśli chcesz dostać wiadomość o kolejnych dniach)",quote:"Czy mogę zacytować Twoją opinię na stronie?",
+      privacy:"Twoja opinia jest przechowywana w celu analizy. E-mail jest opcjonalny. Jeśli go nie podasz, opinia jest anonimowa.",
+      later:"Później",send:"Wyślij opinię",saved:"Dziękuję. Twoja opinia została zapisana.",error:"Nie udało się zapisać opinii. Spróbuj ponownie.",
+      dayOpts:["1–2","3–4","5–6","Wszystkie 7"],stepOpts:["RESET","WYBIERZ","ZOBACZ","ŻYJ"],contOpts:["Tak","Może","Nie"],quoteOpts:["Tak, z imieniem","Tak, anonimowo","Nie"]
+    }
+  };
+  function setOptions(id,items,placeholder){
+    const el=document.getElementById(id);
+    if(!el)return;
+    el.innerHTML="";
+    const p=document.createElement("option"); p.value=""; p.textContent=placeholder; p.disabled=true; p.selected=true; el.appendChild(p);
+    items.forEach(x=>{const o=document.createElement("option");o.value=x;o.textContent=x;el.appendChild(o);});
+  }
+  function fillFeedback(lang){
+    const t=labels[lang]||labels.en;
+    document.getElementById("feedbackKicker").textContent=t.kicker;
+    document.getElementById("feedbackTitle").textContent=t.title;
+    document.getElementById("feedbackIntro").textContent=t.intro;
+    document.getElementById("feedbackDaysLabel").textContent=t.days;
+    document.getElementById("feedbackHelpfulLabel").textContent=t.helpful;
+    document.getElementById("feedbackLeastLabel").textContent=t.least;
+    document.getElementById("feedbackIssueLabel").textContent=t.issue;
+    document.getElementById("feedbackContinueLabel").textContent=t.cont;
+    document.getElementById("feedbackPriceLabel").textContent=t.price;
+    document.getElementById("feedbackMissingLabel").textContent=t.missing;
+    document.getElementById("feedbackEmailLabel").textContent=t.email;
+    document.getElementById("feedbackQuoteLabel").textContent=t.quote;
+    document.getElementById("feedbackPrivacyNote").textContent=t.privacy;
+    document.getElementById("feedbackLater").textContent=t.later;
+    document.getElementById("feedbackSubmit").textContent=t.send;
+    setOptions("feedbackDays",t.dayOpts,lang==="pl"?"Wybierz":"Choose");
+    setOptions("feedbackHelpful",t.stepOpts,lang==="pl"?"Wybierz":"Choose");
+    setOptions("feedbackLeast",t.stepOpts,lang==="pl"?"Wybierz":"Choose");
+    setOptions("feedbackContinue",t.contOpts,lang==="pl"?"Wybierz":"Choose");
+    setOptions("feedbackQuote",t.quoteOpts,lang==="pl"?"Wybierz":"Choose");
+  }
+  window.openFeedback=()=>{
+    fillFeedback(language==="pl"?"pl":"en");
+    status.textContent="";
+    modal.classList.remove("hidden");
+  };
+  function closeFeedback(){
+    modal.classList.add("hidden");
+    feedbackDismissed=true;
+    localStorage.setItem("smmFeedbackDismissed","1");
+  }
+  laterBtn.onclick=closeFeedback;
+  closeBtn.onclick=closeFeedback;
+  modal.addEventListener("click",e=>{if(e.target===modal)closeFeedback();});
+  openBtn.onclick=()=>openFeedback();
+  form.onsubmit=async(e)=>{
+    e.preventDefault();
+    const t=labels[language==="pl"?"pl":"en"];
+    status.textContent="";
+    const payload={
+      language:language==="pl"?"pl":"en",
+      days_completed:document.getElementById("feedbackDays").value,
+      helpful_step:document.getElementById("feedbackHelpful").value,
+      least_helpful_step:document.getElementById("feedbackLeast").value,
+      issue:document.getElementById("feedbackIssue").value.trim(),
+      continue_choice:document.getElementById("feedbackContinue").value,
+      price:document.getElementById("feedbackPrice").value.trim(),
+      missing:document.getElementById("feedbackMissing").value.trim(),
+      email:document.getElementById("feedbackEmail").value.trim()||null,
+      quote_permission:document.getElementById("feedbackQuote").value
+    };
+    const btn=document.getElementById("feedbackSubmit");
+    btn.disabled=true;
+    const {error}=await supabaseClient.from("smm_feedback").insert(payload);
+    btn.disabled=false;
+    if(error){
+      console.error("Small Moments feedback:",error.message);
+      status.textContent=t.error;
+      return;
+    }
+    feedbackSubmitted=true;
+    localStorage.setItem("smmFeedbackSubmitted","1");
+    localStorage.removeItem("smmFeedbackDismissed");
+    status.textContent=t.saved;
+    setTimeout(()=>{modal.classList.add("hidden");if(openBtn)openBtn.classList.remove("visible");},900);
+  };
+  if(openBtn && done[7]) openBtn.classList.add("visible");
+});
+</script>
