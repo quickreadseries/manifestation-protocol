@@ -1580,7 +1580,11 @@ document.addEventListener("DOMContentLoaded",()=>{
     buildPicker();
     render();
     if(e.target.checked && phaseEnd(current)) showMilestone(current);
-    if(e.target.checked && current===7 && !feedbackSubmitted) setTimeout(openFeedback,350);
+    if(e.target.checked && current===7){
+      const fb=document.getElementById("feedbackOpenBtn");
+      if(fb)fb.classList.add("visible");
+      if(!feedbackSubmitted) setTimeout(openFeedback,350);
+    }
     if(e.target.checked && current===90) showScreen("endScreen");
   };
   document.getElementById("milestoneContinue").onclick=()=>{ document.getElementById("milestone").style.display="none"; };
