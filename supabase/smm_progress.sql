@@ -53,7 +53,9 @@ create table if not exists public.smm_feedback (
   language text not null default 'en',
   days_completed text not null,
   helpful_step text not null,
+  helpful_explanation text not null default '',
   least_helpful_step text not null,
+  least_helpful_explanation text not null default '',
   issue text not null default '',
   continue_choice text not null,
   price text not null default '',
@@ -73,3 +75,9 @@ on public.smm_feedback
 for insert
 to anon, authenticated
 with check (true);
+
+
+-- Add explanation fields to an existing feedback table.
+alter table public.smm_feedback
+  add column if not exists helpful_explanation text not null default '',
+  add column if not exists least_helpful_explanation text not null default '';
