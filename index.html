@@ -874,7 +874,7 @@ button:disabled{cursor:not-allowed}
   <div class="action-note" id="moodAfter" aria-live="polite"></div>
 </div>
 <div class="footer">
-  <span id="storageNote">Your progress is saved in this browser. Nothing is uploaded or shared.</span><br>
+  <span id="storageNote">Without an account, your progress stays in this browser. If you sign in, your progress is saved to your account and can be accessed on another device.</span><br>
   <span id="safetyNote">Small Moments Method is a reflection and personal practice. It is not therapy, medical advice, or a substitute for professional care.</span>
   <div class="legal-links">
     <button id="privacyLink">Privacy Policy</button>
@@ -994,8 +994,8 @@ function updateStorageNote(){
       : "Your progress is saved to your account and available when you sign in on another device.";
   }else{
     el.textContent = pl
-      ? "Twój postęp jest zapisywany w tej przeglądarce. Zaloguj się, aby zachować go na różnych urządzeniach."
-      : "Your progress is saved in this browser. Sign in to keep it across devices.";
+      ? "Bez konta Twój postęp pozostaje w tej przeglądarce. Po zalogowaniu jest zapisywany na Twoim koncie i może być dostępny na innym urządzeniu."
+      : "Without an account, your progress stays in this browser. If you sign in, your progress is saved to your account and can be accessed on another device.";
   }
 }
 
