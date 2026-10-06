@@ -905,6 +905,14 @@ button:disabled{cursor:not-allowed}
         <label for="feedbackLeast" id="feedbackLeastLabel">Which step was least helpful to you?</label>
         <select id="feedbackLeast" required></select>
       </div>
+      <div class="feedback-question hidden" id="feedbackHelpfulExplainWrap">
+        <label for="feedbackHelpfulExplain" id="feedbackHelpfulExplainLabel">You chose “None”. What made no particular step stand out as helpful?</label>
+        <textarea id="feedbackHelpfulExplain"></textarea>
+      </div>
+      <div class="feedback-question hidden" id="feedbackLeastExplainWrap">
+        <label for="feedbackLeastExplain" id="feedbackLeastExplainLabel">You chose “None”. What made no particular step stand out as less helpful?</label>
+        <textarea id="feedbackLeastExplain"></textarea>
+      </div>
       <div class="feedback-question">
         <label for="feedbackIssue" id="feedbackIssueLabel">Did anything feel unclear, uncomfortable or not work in the app? If so, what and on which device?</label>
         <textarea id="feedbackIssue"></textarea>
@@ -1855,10 +1863,10 @@ document.addEventListener("DOMContentLoaded",()=>{
       days:"How many days did you complete?",helpful:"Which step was most helpful to you?",least:"Which step was least helpful to you?",
       issue:"Did anything feel unclear, uncomfortable or not work in the app? If so, what and on which device?",
       cont:"Would you like to continue with the next days?",price:"Would you pay for the full 90 days? If yes or maybe, what price feels reasonable?",
-      missing:"What were you missing?",email:"Email (optional, only if you want updates about the next days)",quote:"May I quote your feedback on the website?",
+      missing:"What were you missing?",helpfulExplain:"You chose “None”. What made no particular step stand out as helpful?",leastExplain:"You chose “None”. What made no particular step stand out as less helpful?",email:"Email (optional, only if you want updates about the next days)",quote:"May I quote your feedback on the website?",
       privacy:"Your feedback is stored securely for review. Email is optional. If you do not provide an email, your feedback is anonymous.",
       later:"Later",send:"Send feedback",saved:"Thank you. Your feedback has been saved.",error:"We could not save your feedback. Please try again.",
-      dayOpts:["1–2","3–4","5–6","All 7"],stepOpts:["RESET","CHOOSE","SEE","LIVE"],contOpts:["Yes","Maybe","No"],quoteOpts:["Yes, with my name","Yes, anonymously","No"]
+      dayOpts:["1–2","3–4","5–6","All 7"],stepOpts:["RESET","CHOOSE","SEE","LIVE","None"],contOpts:["Yes","Maybe","No"],quoteOpts:["Yes, with my name","Yes, anonymously","No"]
     },
     pl:{
       kicker:"PO 7 DNIACH",title:"Small Moments Method: opinia po 7 dniach",
@@ -1866,10 +1874,10 @@ document.addEventListener("DOMContentLoaded",()=>{
       days:"Ile dni udało Ci się przejść?",helpful:"Który krok był dla Ciebie najbardziej pomocny?",least:"Który krok był dla Ciebie najmniej pomocny?",
       issue:"Czy coś wydało Ci się niejasne, niewygodne albo nie działało w aplikacji? Jeśli tak, co i na jakim urządzeniu?",
       cont:"Czy chcesz kontynuować kolejne dni?",price:"Czy zapłaciłabyś / zapłaciłbyś za pełną wersję 90 dni? Jeśli tak lub może: jaka cena wydawałaby się rozsądna?",
-      missing:"Czego Ci brakowało?",email:"E-mail (opcjonalnie, tylko jeśli chcesz dostać wiadomość o kolejnych dniach)",quote:"Czy mogę zacytować Twoją opinię na stronie?",
+      missing:"Czego Ci brakowało?",helpfulExplain:"Wybrałaś „Żaden”. Co sprawiło, że żaden krok nie wyróżnił się jako szczególnie pomocny?",leastExplain:"Wybrałaś „Żaden”. Co sprawiło, że żaden krok nie wyróżnił się jako mniej pomocny?",email:"E-mail (opcjonalnie, tylko jeśli chcesz dostać wiadomość o kolejnych dniach)",quote:"Czy mogę zacytować Twoją opinię na stronie?",
       privacy:"Twoja opinia jest przechowywana w celu analizy. E-mail jest opcjonalny. Jeśli go nie podasz, opinia jest anonimowa.",
       later:"Później",send:"Wyślij opinię",saved:"Dziękuję. Twoja opinia została zapisana.",error:"Nie udało się zapisać opinii. Spróbuj ponownie.",
-      dayOpts:["1–2","3–4","5–6","Wszystkie 7"],stepOpts:["RESET","WYBIERZ","ZOBACZ","ŻYJ"],contOpts:["Tak","Może","Nie"],quoteOpts:["Tak, z imieniem","Tak, anonimowo","Nie"]
+      dayOpts:["1–2","3–4","5–6","Wszystkie 7"],stepOpts:["RESET","WYBIERZ","ZOBACZ","ŻYJ","Żaden"],contOpts:["Tak","Może","Nie"],quoteOpts:["Tak, z imieniem","Tak, anonimowo","Nie"]
     }
   };
   function setOptions(id,items,placeholder){
@@ -1888,6 +1896,8 @@ document.addEventListener("DOMContentLoaded",()=>{
     document.getElementById("feedbackHelpfulLabel").textContent=t.helpful;
     document.getElementById("feedbackLeastLabel").textContent=t.least;
     document.getElementById("feedbackIssueLabel").textContent=t.issue;
+    document.getElementById("feedbackHelpfulExplainLabel").textContent=t.helpfulExplain;
+    document.getElementById("feedbackLeastExplainLabel").textContent=t.leastExplain;
     document.getElementById("feedbackContinueLabel").textContent=t.cont;
     document.getElementById("feedbackPriceLabel").textContent=t.price;
     document.getElementById("feedbackMissingLabel").textContent=t.missing;
@@ -1899,6 +1909,20 @@ document.addEventListener("DOMContentLoaded",()=>{
     setOptions("feedbackDays",t.dayOpts,lang==="pl"?"Wybierz":"Choose");
     setOptions("feedbackHelpful",t.stepOpts,lang==="pl"?"Wybierz":"Choose");
     setOptions("feedbackLeast",t.stepOpts,lang==="pl"?"Wybierz":"Choose");
+    const helpfulNone=lang==="pl"?"Żaden":"None";
+    const helpfulWrap=document.getElementById("feedbackHelpfulExplainWrap");
+    const leastWrap=document.getElementById("feedbackLeastExplainWrap");
+    const updateExplain=()=>{
+      const hn=document.getElementById("feedbackHelpful").value===helpfulNone;
+      const ln=document.getElementById("feedbackLeast").value===helpfulNone;
+      helpfulWrap.classList.toggle("hidden",!hn);
+      leastWrap.classList.toggle("hidden",!ln);
+      document.getElementById("feedbackHelpfulExplain").required=hn;
+      document.getElementById("feedbackLeastExplain").required=ln;
+    };
+    document.getElementById("feedbackHelpful").onchange=updateExplain;
+    document.getElementById("feedbackLeast").onchange=updateExplain;
+    updateExplain();
     setOptions("feedbackContinue",t.contOpts,lang==="pl"?"Wybierz":"Choose");
     setOptions("feedbackQuote",t.quoteOpts,lang==="pl"?"Wybierz":"Choose");
   }
@@ -1924,7 +1948,9 @@ document.addEventListener("DOMContentLoaded",()=>{
       language:language==="pl"?"pl":"en",
       days_completed:document.getElementById("feedbackDays").value,
       helpful_step:document.getElementById("feedbackHelpful").value,
+      helpful_explanation:document.getElementById("feedbackHelpfulExplain").value.trim(),
       least_helpful_step:document.getElementById("feedbackLeast").value,
+      least_helpful_explanation:document.getElementById("feedbackLeastExplain").value.trim(),
       issue:document.getElementById("feedbackIssue").value.trim(),
       continue_choice:document.getElementById("feedbackContinue").value,
       price:document.getElementById("feedbackPrice").value.trim(),
