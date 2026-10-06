@@ -1337,6 +1337,10 @@ function render(){
   document.getElementById("notes").value=notes[current]||"";
   setNoteSaveStatus(currentSession ? "saved" : "local");
   updateCompletedLabel();
+  const dayPickerTitle=document.getElementById("dayPickerTitle");
+  if(dayPickerTitle)dayPickerTitle.textContent=pl?"Wybierz dzień":"Choose a day";
+  const dayPickerNote=document.getElementById("dayPickerNote");
+  if(dayPickerNote)dayPickerNote.textContent=pl?"Kolejne dni odblokowują się w miarę postępu programu.":"More days unlock as you progress through the programme.";
 
   document.getElementById("completed").checked=!!done[current];
   document.getElementById("completionHelp").textContent=pl
