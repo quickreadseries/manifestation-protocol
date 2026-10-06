@@ -1168,7 +1168,12 @@ async function loadCloudProgress(){
 
 function updateCompletedLabel(){
   const el=document.getElementById("completedLabel");
-  if(el)el.textContent=language==="pl"?"Dzień ukończony":"Day completed";
+  if(el){
+    const input=el.querySelector("input");
+    const span=el.querySelector("span");
+    if(span)span.textContent=language==="pl"?"Dzień ukończony":"Day completed";
+    if(input)input.setAttribute("aria-label",language==="pl"?"Dzień ukończony":"Day completed");
+  }
   const help=document.getElementById("completionHelp");
   if(help)help.textContent=language==="pl"
     ?"Pominięty dzień nie przerywa Twojego postępu. Możesz wrócić, kiedy będziesz gotowa."
