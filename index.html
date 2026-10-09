@@ -1193,6 +1193,7 @@ async function loadCloudProgress(){
   }
 
   updateStorageNote();
+  if(window.syncFeedbackAvailability)window.syncFeedbackAvailability();
   if(document.getElementById("protocolScreen") && !document.getElementById("protocolScreen").classList.contains("hidden")){
     buildPicker();
     render();
