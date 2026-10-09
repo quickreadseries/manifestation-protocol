@@ -869,6 +869,7 @@ button:disabled{cursor:not-allowed}
     <button type="button" class="btn primary" id="next">Next day →</button>
   </div>
   <div class="controls restart-controls" style="justify-content:center;flex-wrap:wrap;margin-top:14px">
+    <button type="button" class="btn" id="backToInstructionsBtn">Back to instructions</button>
     <button type="button" class="btn" id="restartPracticeBtn">Restart practice</button>
     <button type="button" class="btn" id="restartProgrammeBtn">Restart entire programme</button>
   </div>
@@ -1373,9 +1374,12 @@ function render(){
   const pl=language==="pl";
 
   const rasIntro=document.getElementById("seeRasIntro");
-  if(rasIntro)rasIntro.innerHTML=pl
-    ? 'Kieruj uwagę na to, co jest dla Ciebie ważne. Dowiedz się więcej o <button type="button" class="inline-info" id="rasInfoBtn">RAS</button>.'
-    : 'Direct your attention towards what matters to you. Learn about <button type="button" class="inline-info" id="rasInfoBtn">RAS</button>.';
+  if(rasIntro){
+    rasIntro.classList.toggle("hidden",current!==1);
+    rasIntro.innerHTML=pl
+      ? 'Kieruj uwagę na to, co jest dla Ciebie ważne. Dowiedz się więcej o <button type="button" class="inline-info" id="rasInfoBtn">RAS</button>.'
+      : 'Direct your attention towards what matters to you. Learn about <button type="button" class="inline-info" id="rasInfoBtn">RAS</button>.';
+  }
   document.getElementById("phaseLabel").textContent=pl
     ?(["ETAP I · TOŻSAMOŚĆ","ETAP II · WIZJA","ETAP III · UCIELEŚNIENIE","ETAP IV · MANIFESTACJA"][n-1])
     :phase;
@@ -1395,6 +1399,7 @@ function render(){
   document.getElementById("exportPdfPrint").textContent=pl?"Drukuj / zapisz jako PDF":"Print / save as PDF";
   document.getElementById("prev").textContent=pl?"← Poprzedni dzień":"← Previous day";
   document.getElementById("next").textContent=pl?"Następny dzień →":"Next day →";
+  document.getElementById("backToInstructionsBtn").textContent=pl?"Wróć do instrukcji":"Back to instructions";
   document.getElementById("moodTitle").textContent=pl?"Jak się teraz czujesz?":"How do you feel right now?";
   document.getElementById("moodHint").textContent=pl?"Opcjonalnie · 1 = słabo, 5 = dobrze":"Optional · 1 = low, 5 = good";
   document.getElementById("privacyLink").textContent=pl?"Polityka prywatności":"Privacy Policy";
@@ -1599,6 +1604,7 @@ document.addEventListener("DOMContentLoaded",()=>{
   document.getElementById("welcomeNext").onclick=()=>showScreen("howScreen");
   document.getElementById("howNext").onclick=()=>showScreen("practicesScreen");
   document.getElementById("startProtocol").onclick=()=>{showScreen("protocolScreen");buildPicker();render()};
+  document.getElementById("backToInstructionsBtn").onclick=()=>{fillIntro(language);showScreen("welcomeScreen")};
   document.getElementById("switchEN").setAttribute("aria-label","Switch to English");
   document.getElementById("switchPL").setAttribute("aria-label","Przełącz na polski");
   document.getElementById("switchEN").onclick=()=>{language="en";localStorage.setItem("smmLanguage","en");updateAuthUI(currentSession);populateFinalCompare();render();save()};
