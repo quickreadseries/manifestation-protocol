@@ -44,6 +44,7 @@ textarea{width:100%;min-height:120px;border:1px solid var(--line);border-radius:
 .language-title{margin:22px 0 12px;font-size:12px;letter-spacing:1px;color:var(--muted)}
 .language-buttons{display:flex;justify-content:center;gap:10px}
 .language-buttons .btn{min-width:110px}
+.instruction-language{justify-content:center;gap:6px;margin:-25px 0 28px}.instruction-language .lang-btn{min-width:48px;padding:7px 12px}.instruction-language .lang-btn.active{background:#222;color:#fff;border-color:#222}
 .top-right{display:flex;align-items:center;gap:12px}.lang-switch{display:flex;gap:4px}
 .lang-btn{border:1px solid var(--line);background:transparent;border-radius:7px;padding:5px 8px;font-size:10px;cursor:pointer}
 .lang-btn.active{background:#222;color:#fff;border-color:#222}
@@ -713,6 +714,7 @@ button:disabled{cursor:not-allowed}
 <div id="welcomeScreen" class="screen hidden">
   <div class="intro-inner intro-page">
     <div class="intro-brand">QUICK READ MOMENTS</div>
+    <div class="language-buttons instruction-language" aria-label="Choose language"><button type="button" class="lang-btn" data-intro-lang="en">EN</button><button type="button" class="lang-btn" data-intro-lang="pl">PL</button></div>
     <div class="intro-kicker" id="welcomeKicker"></div>
     <h1 id="welcomeTitle"></h1>
     <div class="intro-rule"></div>
@@ -731,6 +733,7 @@ button:disabled{cursor:not-allowed}
 <div id="howScreen" class="screen hidden">
   <div class="intro-inner intro-page">
     <div class="intro-brand">QUICK READ MOMENTS</div>
+    <div class="language-buttons instruction-language" aria-label="Choose language"><button type="button" class="lang-btn" data-intro-lang="en">EN</button><button type="button" class="lang-btn" data-intro-lang="pl">PL</button></div>
     <div class="intro-kicker" id="howKicker"></div>
     <h1 id="howTitle"></h1>
     <div class="intro-rule"></div>
@@ -751,6 +754,7 @@ button:disabled{cursor:not-allowed}
 <div id="practicesScreen" class="screen hidden">
   <div class="intro-inner intro-page">
     <div class="intro-brand">QUICK READ MOMENTS</div>
+    <div class="language-buttons instruction-language" aria-label="Choose language"><button type="button" class="lang-btn" data-intro-lang="en">EN</button><button type="button" class="lang-btn" data-intro-lang="pl">PL</button></div>
     <div class="intro-kicker" id="practicesKicker"></div>
     <h1 id="practicesTitle"></h1>
     <div class="intro-rule"></div>
@@ -1604,6 +1608,15 @@ document.addEventListener("DOMContentLoaded",()=>{
   document.getElementById("welcomeNext").onclick=()=>showScreen("howScreen");
   document.getElementById("howNext").onclick=()=>showScreen("practicesScreen");
   document.getElementById("startProtocol").onclick=()=>{showScreen("protocolScreen");buildPicker();render()};
+  document.querySelectorAll("[data-intro-lang]").forEach(btn=>btn.addEventListener("click",()=>{
+    const screenId=["welcomeScreen","howScreen","practicesScreen"].find(id=>!document.getElementById(id).classList.contains("hidden"))||"welcomeScreen";
+    language=btn.dataset.introLang;
+    localStorage.setItem("smmLanguage",language);
+    fillIntro(language);
+    updateAuthUI(currentSession);
+    showScreen(screenId);
+    document.querySelectorAll("[data-intro-lang]").forEach(x=>x.classList.toggle("active",x.dataset.introLang===language));
+  }));
   document.getElementById("backToInstructionsBtn").onclick=()=>{fillIntro(language);showScreen("welcomeScreen")};
   document.getElementById("switchEN").setAttribute("aria-label","Switch to English");
   document.getElementById("switchPL").setAttribute("aria-label","Przełącz na polski");
