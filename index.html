@@ -1607,8 +1607,8 @@ document.addEventListener("DOMContentLoaded",()=>{
     if(e.target.id==="legalModal") e.currentTarget.classList.add("hidden");
   });
 
-  document.getElementById("enBtn").onclick=()=>{language="en";localStorage.setItem("smmLanguage","en");fillIntro("en");updateAuthUI(currentSession);showScreen("welcomeScreen")};
-  document.getElementById("plBtn").onclick=()=>{language="pl";localStorage.setItem("smmLanguage","pl");fillIntro("pl");updateAuthUI(currentSession);showScreen("welcomeScreen")};
+  document.getElementById("enBtn").onclick=()=>{language="en";localStorage.setItem("smmLanguage","en");document.querySelectorAll(".instruction-notice [data-en][data-pl]").forEach(el=>{el.textContent=el.dataset.en;});fillIntro("en");updateAuthUI(currentSession);updateStorageNote();showScreen("welcomeScreen")};
+  document.getElementById("plBtn").onclick=()=>{language="pl";localStorage.setItem("smmLanguage","pl");document.querySelectorAll(".instruction-notice [data-en][data-pl]").forEach(el=>{el.textContent=el.dataset.pl;});fillIntro("pl");updateAuthUI(currentSession);updateStorageNote();showScreen("welcomeScreen")};
 
   // Returning visitors go straight to their current day.
   if(language==="en" || language==="pl"){
