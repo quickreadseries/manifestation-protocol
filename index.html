@@ -865,6 +865,10 @@ button:disabled{cursor:not-allowed}
     <button type="button" class="btn" id="prev">← Previous day</button>
     <button type="button" class="btn primary" id="next">Next day →</button>
   </div>
+  <div class="controls restart-controls" style="justify-content:center;flex-wrap:wrap;margin-top:14px">
+    <button type="button" class="btn" id="restartPracticeBtn">Restart practice</button>
+    <button type="button" class="btn" id="restartProgrammeBtn">Restart entire programme</button>
+  </div>
 
   <div class="card" id="moodCard">
   <div class="section-title" id="moodTitle">How do you feel right now?</div>
@@ -1014,6 +1018,10 @@ let testUnlocked=localStorage.getItem("smmTestUnlocked")==="1";
 function dayLimit(){ return testUnlocked ? 90 : FREE_DAYS; }
 function unlockTestAccess(){
   const pl=language==="pl";
+  const restartPracticeBtn=document.getElementById("restartPracticeBtn");
+  const restartProgrammeBtn=document.getElementById("restartProgrammeBtn");
+  if(restartPracticeBtn)restartPracticeBtn.textContent=pl?"Rozpocznij praktykę ponownie":"Restart practice";
+  if(restartProgrammeBtn)restartProgrammeBtn.textContent=pl?"Zacznij program od początku":"Restart entire programme";
   const entered=window.prompt(pl?"Hasło testowe:":"Test password:");
   if(entered===TEST_PASSWORD){
     testUnlocked=true;
@@ -1755,6 +1763,60 @@ document.addEventListener("DOMContentLoaded",()=>{
       updateDayPickerSelection();
       render();
       updateDayPickerSelection();
+    });
+  }
+
+  // Restart controls: restart the current practice without deleting progress, or confirm a full reset.
+  const restartPracticeBtn=document.getElementById("restartPracticeBtn");
+  const restartProgrammeBtn=document.getElementById("restartProgrammeBtn");
+  if(restartPracticeBtn){
+    restartPracticeBtn.addEventListener("click",()=>{
+      const pl=language==="pl";
+      const timerReset=document.getElementById("resetTimer");
+      if(timerReset)timerReset.click();
+      const player=document.getElementById("soundPlayer");
+      if(player){player.pause();player.currentTime=0;}
+      document.querySelectorAll(".sound-btn").forEach(x=>x.classList.remove("active"));
+      const soundStatus=document.getElementById("soundStatus");
+      if(soundStatus)soundStatus.textContent=pl?"Wybierz dźwięk, a następnie naciśnij ▶, aby rozpocząć.":"Choose a sound, then press ▶ to begin.";
+      const milestone=document.getElementById("milestone");
+      if(milestone)milestone.style.display="none";
+      window.scrollTo({top:0,left:0,behavior:"smooth"});
+    });
+  }
+  if(restartProgrammeBtn){
+    restartProgrammeBtn.addEventListener("click",async()=>{
+      const pl=language==="pl";
+      const message=pl
+        ?"Czy na pewno chcesz usunąć cały zapisany postęp ze wszystkich 90 dni? Zostaną usunięte ukończone dni, notatki, oceny samopoczucia i końcowa refleksja. Tej operacji nie można cofnąć."
+        :"Are you sure you want to delete all saved progress across all 90 days? Completed days, notes, mood check-ins and your final reflection will be deleted. This cannot be undone.";
+      if(!window.confirm(message))return;
+      clearTimeout(cloudSaveTimer);
+      current=1;
+      done={};
+      notes={};
+      localStorage.setItem("manifestDay","1");
+      localStorage.setItem("manifestDone","{}");
+      localStorage.setItem("manifestNotes","{}");
+      localStorage.setItem("manifestMoods","{}");
+      localStorage.setItem("manifestFinalNotes","");
+      localStorage.removeItem("manifestLastPracticeDate");
+      localStorage.removeItem("manifestLastVisitDate");
+      const finalNotes=document.getElementById("finalNotes");
+      if(finalNotes)finalNotes.value="";
+      const player=document.getElementById("soundPlayer");
+      if(player){player.pause();player.currentTime=0;}
+      const timerReset=document.getElementById("resetTimer");
+      if(timerReset)timerReset.click();
+      buildPicker();
+      render();
+      populateFinalCompare();
+      updateDayPickerSelection();
+      if(currentSession){
+        const ok=await syncToCloud();
+        if(!ok)alert(pl?"Postęp usunięto z tej przeglądarki, ale nie udało się zsynchronizować zmiany z kontem. Sprawdź połączenie i spróbuj ponownie.":"Progress was cleared in this browser, but the reset could not be synced to your account. Check your connection and try again.");
+      }
+      window.scrollTo({top:0,left:0,behavior:"smooth"});
     });
   }
 
