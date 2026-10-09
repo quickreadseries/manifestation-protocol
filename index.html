@@ -666,6 +666,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 button:disabled{cursor:not-allowed}
 [aria-live]{min-height:1em}
 .daypicker-note{margin-top:10px;text-align:center}.day-navigation{margin-top:22px;margin-bottom:22px}.mood-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+#moodCard{padding:22px 30px;margin-top:12px}#moodCard .mood-row{margin-top:10px}#moodCard .action-note:empty{display:none}
 .mood-btn{width:42px;height:38px;border:1px solid var(--line);background:transparent;border-radius:9px;cursor:pointer}
 .mood-btn.selected{background:#222;color:#fff;border-color:#222}
 .num.current{background:#222;color:#fff;border-color:#222;font-weight:700;box-shadow:inset 0 0 0 2px #fff}
@@ -1404,6 +1405,8 @@ function render(){
   document.getElementById("prev").textContent=pl?"← Poprzedni dzień":"← Previous day";
   document.getElementById("next").textContent=pl?"Następny dzień →":"Next day →";
   document.getElementById("backToInstructionsBtn").textContent=pl?"Wróć do instrukcji":"Back to instructions";
+  document.getElementById("restartPracticeBtn").textContent=pl?"Rozpocznij ćwiczenie od nowa":"Restart practice";
+  document.getElementById("restartProgrammeBtn").textContent=pl?"Zacznij cały program od początku":"Restart entire programme";
   document.getElementById("moodTitle").textContent=pl?"Jak się teraz czujesz?":"How do you feel right now?";
   document.getElementById("moodHint").textContent=pl?"Opcjonalnie · 1 = słabo, 5 = dobrze":"Optional · 1 = low, 5 = good";
   document.getElementById("privacyLink").textContent=pl?"Polityka prywatności":"Privacy Policy";
