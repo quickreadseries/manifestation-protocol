@@ -1621,6 +1621,7 @@ document.addEventListener("DOMContentLoaded",()=>{
     const screenId=["welcomeScreen","howScreen","practicesScreen"].find(id=>!document.getElementById(id).classList.contains("hidden"))||"welcomeScreen";
     language=btn.dataset.introLang;
     localStorage.setItem("smmLanguage",language);
+    document.querySelectorAll(".instruction-notice [data-en][data-pl]").forEach(el=>{el.textContent=el.dataset[language];});
     fillIntro(language);
     updateAuthUI(currentSession);
     showScreen(screenId);
