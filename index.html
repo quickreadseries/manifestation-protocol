@@ -1599,6 +1599,7 @@ document.addEventListener("DOMContentLoaded",()=>{
   document.getElementById("dataProtectionLink").onclick=()=>openLegal("data");
   document.getElementById("termsLink").onclick=()=>openLegal("terms");
   document.getElementById("contactLink").onclick=()=>openLegal("contact");
+  document.querySelectorAll(".instruction-notice [data-en][data-pl]").forEach(el=>{el.textContent=el.dataset[language]||el.dataset.en;});
   const requestedLegal=new URLSearchParams(window.location.search).get("legal");
   if(["privacy","data","terms","contact"].includes(requestedLegal)) openLegal(requestedLegal);
   document.getElementById("legalClose").onclick=()=>document.getElementById("legalModal").classList.add("hidden");
