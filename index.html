@@ -1745,11 +1745,15 @@ document.addEventListener("DOMContentLoaded",()=>{
         const item=activeDays[i-1]||["","",""];
         const note=notes[i]||"";
         const completed=!!done[i];
+        let savedMoods={};
+        try{savedMoods=JSON.parse(localStorage.getItem("manifestMoods")||"{}")||{};}catch(e){}
+        const mood=savedMoods["mood_"+i]||"";
         html+=`<section class="print-day">
           <h2>${language==="pl"?"Dzień ":"Day "}${i}</h2>
           <h3>${language==="pl"?"Wybierz":"Choose"}</h3><p>${item[0]}</p>
           <h3>${language==="pl"?"Zobacz":"See"}</h3><p>${item[1]}</p>
           <h3>${language==="pl"?"Żyj":"Live"}</h3><p>${item[2]}</p>
+          ${mood?`<p class="print-mood">${language==="pl"?"Jak się teraz czuję":"How I feel"}: ${mood}/5</p>`:""}
           ${note?`<h3>${language==="pl"?"Moje notatki":"My notes"}</h3><p class="print-note">${note.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}</p>`:""}
           ${completed?`<p class="print-complete">✓ ${language==="pl"?"Dzień ukończony":"Day completed"}</p>`:""}
         </section>`;
