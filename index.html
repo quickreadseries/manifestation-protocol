@@ -1466,6 +1466,10 @@ function render(){
   updateStorageNote();
   document.getElementById("moodTitle").textContent=pl?"Jak się teraz czujesz?":"How do you feel right now?";
   document.getElementById("moodHint").textContent=pl?"Opcjonalnie · 1 = gorzej, 5 = dobrze":"Optional · 1 = low, 5 = good";
+  // Restore the mood saved for this specific day whenever the day is rendered.
+  let dayMood=null;
+  try{const savedMoods=JSON.parse(localStorage.getItem("manifestMoods")||"{}")||{};dayMood=savedMoods["mood_"+current]||null;}catch(e){}
+  document.querySelectorAll(".mood-btn").forEach(x=>x.classList.toggle("selected",x.dataset.mood===String(dayMood)));
 
   document.getElementById("prev").disabled=current===1;
   document.getElementById("next").disabled=current>=dayLimit();
