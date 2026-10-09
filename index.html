@@ -1643,8 +1643,8 @@ document.addEventListener("DOMContentLoaded",()=>{
     if(e.target.checked && phaseEnd(current)) showMilestone(current);
     if(e.target.checked && current===7){
       const fb=document.getElementById("feedbackOpenBtn");
-      if(fb)fb.classList.add("visible");
-      if(!feedbackSubmitted) setTimeout(openFeedback,350);
+      if(fb && !feedbackSubmitted)fb.classList.add("visible");
+      if(!feedbackSubmitted && !feedbackDismissed) setTimeout(openFeedback,350);
     }
     if(e.target.checked && current===90) showScreen("endScreen");
   };
@@ -2104,6 +2104,11 @@ document.addEventListener("DOMContentLoaded",()=>{
     status.textContent=t.saved;
     setTimeout(()=>{modal.classList.add("hidden");if(openBtn)openBtn.classList.remove("visible");},900);
   };
-  if(openBtn && done[7]) openBtn.classList.add("visible");
+  if(openBtn && (done[7]===true || done["7"]===true) && !feedbackSubmitted) openBtn.classList.add("visible");
+  // Keep the survey available after Day 7, even when the user dismissed it or moved to another day.
+  window.syncFeedbackAvailability=()=>{
+    if(openBtn)openBtn.classList.toggle("visible",(done[7]===true || done["7"]===true) && !feedbackSubmitted);
+  };
+  window.syncFeedbackAvailability();
 });
 </script>
