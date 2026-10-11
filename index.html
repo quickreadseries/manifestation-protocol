@@ -656,15 +656,60 @@ document.addEventListener("DOMContentLoaded", () => {
 </script>
 <script>
 document.addEventListener("DOMContentLoaded", async () => {
+  const recoveryModal=document.getElementById("passwordRecoveryModal");
+  const recoveryForm=document.getElementById("passwordRecoveryForm");
+  const recoveryMessage=document.getElementById("recoveryMessage");
+  const recoverySubmit=document.getElementById("recoverySubmit");
+  let recoveryMode=false;
+  function showRecoveryMessage(en,pl){
+    recoveryMessage.textContent=language==="pl"?pl:en;
+  }
+  recoveryForm.addEventListener("submit",async(e)=>{
+    e.preventDefault();
+    const password=document.getElementById("recoveryPassword").value;
+    const confirmPassword=document.getElementById("recoveryPasswordConfirm").value;
+    if(password.length<8){
+      showRecoveryMessage("Use a password with at least 8 characters.","Hasło musi mieć co najmniej 8 znaków.");
+      return;
+    }
+    if(password!==confirmPassword){
+      showRecoveryMessage("The passwords do not match.","Hasła nie są takie same.");
+      return;
+    }
+    recoverySubmit.disabled=true;
+    showRecoveryMessage("Saving your new password…","Zapisywanie nowego hasła…");
+    const {error}=await supabaseClient.auth.updateUser({password});
+    recoverySubmit.disabled=false;
+    if(error){
+      console.error("Password recovery:",error.message);
+      showRecoveryMessage("We couldn't update your password. Please request a new reset link and try again.","Nie udało się zmienić hasła. Poproś o nowy link do resetowania i spróbuj ponownie.");
+      return;
+    }
+    recoveryMode=false;
+    recoveryForm.reset();
+    recoveryModal.classList.add("hidden");
+    const url=new URL(window.location.href);
+    url.hash="";
+    url.searchParams.delete("type");
+    window.history.replaceState({},document.title,url.pathname+url.search);
+    alert(language==="pl"?"Hasło zostało zmienione. Możesz kontynuować korzystanie z Small Moments Method.":"Your password has been changed. You can continue using Small Moments Method.");
+  });
   await loadCloudProgress();
   supabaseClient.auth.onAuthStateChange((_event, session) => {
+    if(_event==="PASSWORD_RECOVERY"){
+      recoveryMode=true;
+      recoveryMessage.textContent="";
+      recoveryForm.reset();
+      recoveryModal.classList.remove("hidden");
+    }
+
     if(signingOut){
       currentSession = null;
       updateAuthUI(null);
       return;
     }
     updateAuthUI(session);
-    if(session) setTimeout(()=>loadCloudProgress(),0);
+    if(session && !recoveryMode) setTimeout(()=>loadCloudProgress(),0);
   });
 });
 </script>
@@ -984,6 +1029,21 @@ button:disabled{cursor:not-allowed}
     <h2 id="legalTitle"></h2>
     <div class="legal-updated" id="legalUpdated"></div>
     <div id="legalBody"></div>
+  </div>
+</div>
+<div id="passwordRecoveryModal" class="auth-modal hidden">
+  <div class="auth-box">
+    <div class="auth-kicker">SMALL MOMENTS METHOD</div>
+    <h2 id="recoveryTitle">RESET YOUR PASSWORD</h2>
+    <p id="recoveryIntro">Choose a new password for your account.</p>
+    <form id="passwordRecoveryForm">
+      <label for="recoveryPassword">New password</label>
+      <input type="password" id="recoveryPassword" autocomplete="new-password" minlength="8" required>
+      <label for="recoveryPasswordConfirm">Confirm new password</label>
+      <input type="password" id="recoveryPasswordConfirm" autocomplete="new-password" minlength="8" required>
+      <button type="submit" class="btn primary" id="recoverySubmit">SAVE NEW PASSWORD</button>
+    </form>
+    <div id="recoveryMessage" class="auth-message" role="status" aria-live="polite"></div>
   </div>
 </div>
 <div id="authModal" class="auth-modal hidden">
