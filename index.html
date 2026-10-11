@@ -696,7 +696,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       showRecoveryMessage("Add at least one number (0–9).","Dodaj co najmniej jedną cyfrę (0–9).");
       return;
     }
-    const allowedSpecialCharacters="!@#$%^&*()_+-=[]{};':\\"|<>?,./`~";
+    const allowedSpecialCharacters = "!@#$%^&*()-_=+[]{};:,.?/~`";
     if(![...password].some(ch=>allowedSpecialCharacters.includes(ch))){
       showRecoveryMessage("Add at least one allowed symbol, e.g. !, @, # or $.","Dodaj co najmniej jeden dozwolony symbol, np. !, @, # lub $.");
       return;
