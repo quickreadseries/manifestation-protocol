@@ -642,7 +642,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    const { error } = await supabaseClient.auth.resetPasswordForEmail(email);
+    const { error } = await supabaseClient.auth.resetPasswordForEmail(email, { redirectTo: window.location.origin + "/" });
 
     if (error) {
       message.textContent = error.message;
@@ -695,7 +695,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     alert(language==="pl"?"Hasło zostało zmienione. Możesz kontynuować korzystanie z Small Moments Method.":"Your password has been changed. You can continue using Small Moments Method.");
   });
   supabaseClient.auth.onAuthStateChange((_event, session) => {
-    if(_event==="PASSWORD_RECOVERY"){
+    if(_event==="PASSWORD_RECOVERY" || new URLSearchParams(window.location.hash.slice(1)).get("type")==="recovery"){
       recoveryMode=true;
       recoveryMessage.textContent="";
       recoveryForm.reset();
@@ -711,6 +711,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     if(session && !recoveryMode) setTimeout(()=>loadCloudProgress(),0);
   });
   await loadCloudProgress();
+  // The auth client can process the recovery URL before the listener is attached.
+  if(new URLSearchParams(window.location.hash.slice(1)).get("type")==="recovery"){
+    recoveryMode=true;
+    recoveryMessage.textContent="";
+    recoveryModal.classList.remove("hidden");
+  }
 });
 </script>
 
