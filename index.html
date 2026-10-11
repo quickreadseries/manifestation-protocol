@@ -694,7 +694,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     window.history.replaceState({},document.title,url.pathname+url.search);
     alert(language==="pl"?"Hasło zostało zmienione. Możesz kontynuować korzystanie z Small Moments Method.":"Your password has been changed. You can continue using Small Moments Method.");
   });
-  await loadCloudProgress();
   supabaseClient.auth.onAuthStateChange((_event, session) => {
     if(_event==="PASSWORD_RECOVERY"){
       recoveryMode=true;
@@ -711,6 +710,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     updateAuthUI(session);
     if(session && !recoveryMode) setTimeout(()=>loadCloudProgress(),0);
   });
+  await loadCloudProgress();
 });
 </script>
 
