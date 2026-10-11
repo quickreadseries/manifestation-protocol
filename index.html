@@ -422,6 +422,7 @@ const supabaseClient = supabase.createClient(
 .auth-modal.hidden{
   display:none;
 }
+#passwordRecoveryModal{z-index:1200;}
 
 .auth-box{
   position:relative;
@@ -700,6 +701,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       recoveryMessage.textContent="";
       recoveryForm.reset();
       recoveryModal.classList.remove("hidden");
+      const authModal=document.getElementById("authModal");
+      if(authModal)authModal.classList.add("hidden");
     }
 
     if(signingOut){
@@ -716,6 +719,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     recoveryMode=true;
     recoveryMessage.textContent="";
     recoveryModal.classList.remove("hidden");
+    const authModal=document.getElementById("authModal");
+    if(authModal)authModal.classList.add("hidden");
   }
 });
 </script>
