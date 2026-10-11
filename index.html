@@ -422,7 +422,7 @@ const supabaseClient = supabase.createClient(
 .auth-modal.hidden{
   display:none;
 }
-#passwordRecoveryModal{z-index:1200;}
+#passwordRecoveryModal{z-index:1200;}.password-hint{font-size:12px!important;line-height:1.5;margin:8px 0 12px!important;color:var(--muted);}
 
 .auth-box{
   position:relative;
@@ -665,12 +665,39 @@ document.addEventListener("DOMContentLoaded", async () => {
   function showRecoveryMessage(en,pl){
     recoveryMessage.textContent=language==="pl"?pl:en;
   }
+  function updateRecoveryLanguage(){
+    const pl=language==="pl";
+    document.getElementById("recoveryTitle").textContent=pl?"ZMIEŃ HASŁO":"RESET YOUR PASSWORD";
+    document.getElementById("recoveryIntro").textContent=pl?"Wybierz nowe hasło do swojego konta.":"Choose a new password for your account.";
+    document.querySelector('label[for="recoveryPassword"]').textContent=pl?"Nowe hasło":"New password";
+    document.getElementById("recoveryPasswordHint").textContent=pl
+      ?"Minimum 8 znaków, w tym wielka litera, mała litera, cyfra i znak specjalny (np. !, @, #)."
+      :"At least 8 characters, including an uppercase letter, a lowercase letter, a number and a special character (e.g. !, @, #).";
+    document.querySelector('label[for="recoveryPasswordConfirm"]').textContent=pl?"Potwierdź nowe hasło":"Confirm new password";
+    recoverySubmit.textContent=pl?"ZAPISZ NOWE HASŁO":"SAVE NEW PASSWORD";
+  }
   recoveryForm.addEventListener("submit",async(e)=>{
     e.preventDefault();
     const password=document.getElementById("recoveryPassword").value;
     const confirmPassword=document.getElementById("recoveryPasswordConfirm").value;
     if(password.length<8){
-      showRecoveryMessage("Use a password with at least 8 characters.","Hasło musi mieć co najmniej 8 znaków.");
+      showRecoveryMessage("Your password must contain at least 8 characters.","Hasło musi mieć co najmniej 8 znaków.");
+      return;
+    }
+    if(!/[A-Z]/.test(password)){
+      showRecoveryMessage("Add at least one uppercase letter (A–Z).","Dodaj co najmniej jedną wielką literę (A–Z).");
+      return;
+    }
+    if(!/[a-z]/.test(password)){
+      showRecoveryMessage("Add at least one lowercase letter (a–z).","Dodaj co najmniej jedną małą literę (a–z).");
+      return;
+    }
+    if(!/[0-9]/.test(password)){
+      showRecoveryMessage("Add at least one number (0–9).","Dodaj co najmniej jedną cyfrę (0–9).");
+      return;
+    }
+    if(!/[^A-Za-z0-9]/.test(password)){
+      showRecoveryMessage("Add at least one special character, e.g. !, @ or #.","Dodaj co najmniej jeden znak specjalny, np. !, @ lub #.");
       return;
     }
     if(password!==confirmPassword){
@@ -700,6 +727,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       recoveryMode=true;
       recoveryMessage.textContent="";
       recoveryForm.reset();
+      updateRecoveryLanguage();
       recoveryModal.classList.remove("hidden");
       const authModal=document.getElementById("authModal");
       if(authModal)authModal.classList.add("hidden");
@@ -718,6 +746,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   if(new URLSearchParams(window.location.hash.slice(1)).get("type")==="recovery"){
     recoveryMode=true;
     recoveryMessage.textContent="";
+    updateRecoveryLanguage();
     recoveryModal.classList.remove("hidden");
     const authModal=document.getElementById("authModal");
     if(authModal)authModal.classList.add("hidden");
@@ -1049,7 +1078,8 @@ button:disabled{cursor:not-allowed}
     <p id="recoveryIntro">Choose a new password for your account.</p>
     <form id="passwordRecoveryForm">
       <label for="recoveryPassword">New password</label>
-      <input type="password" id="recoveryPassword" autocomplete="new-password" minlength="8" required>
+      <input type="password" id="recoveryPassword" autocomplete="new-password" minlength="8" required aria-describedby="recoveryPasswordHint">
+      <p id="recoveryPasswordHint" class="password-hint">At least 8 characters, including an uppercase letter, a lowercase letter, a number and a special character (e.g. !, @, #).</p>
       <label for="recoveryPasswordConfirm">Confirm new password</label>
       <input type="password" id="recoveryPasswordConfirm" autocomplete="new-password" minlength="8" required>
       <button type="submit" class="btn primary" id="recoverySubmit">SAVE NEW PASSWORD</button>
