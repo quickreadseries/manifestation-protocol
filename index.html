@@ -683,7 +683,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     recoverySubmit.disabled=false;
     if(error){
       console.error("Password recovery:",error.message);
-      showRecoveryMessage("We couldn't update your password. Please request a new reset link and try again.","Nie udało się zmienić hasła. Poproś o nowy link do resetowania i spróbuj ponownie.");
+      showRecoveryMessage("Password update failed: "+error.message,"Nie udało się zmienić hasła: "+error.message);
       return;
     }
     recoveryMode=false;
