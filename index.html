@@ -1040,6 +1040,9 @@ let done=JSON.parse(localStorage.getItem("manifestDone")||"{}");
 let notes=JSON.parse(localStorage.getItem("manifestNotes")||"{}");
 let timerSeconds=180,timerId=null;
 const FREE_DAYS=7;
+function trackSMMEvent(name,params={}){
+  if(typeof window.gtag==="function") window.gtag("event",name,{...params,test_period:"7_day",...{}});
+}
 // Temporary test access for phone testing. This is not a production security control.
 const TEST_PASSWORD="SMALLMOMENTS90";
 let testUnlocked=localStorage.getItem("smmTestUnlocked")==="1";
@@ -1629,7 +1632,13 @@ document.addEventListener("DOMContentLoaded",()=>{
   }
   document.getElementById("welcomeNext").onclick=()=>showScreen("howScreen");
   document.getElementById("howNext").onclick=()=>showScreen("practicesScreen");
-  document.getElementById("startProtocol").onclick=()=>{showScreen("protocolScreen");buildPicker();render()};
+  document.getElementById("startProtocol").onclick=()=>{
+    if(current===1 && !Object.keys(done).some(k=>Number(k)>=1 && Number(k)<=7 && done[k]===true) && localStorage.getItem("smmSevenDayStarted")!=="1"){
+      trackSMMEvent("smm_test_started",{start_day:1});
+      localStorage.setItem("smmSevenDayStarted","1");
+    }
+    showScreen("protocolScreen");buildPicker();render()
+  };
   document.querySelectorAll("[data-intro-lang]").forEach(btn=>btn.addEventListener("click",()=>{
     const screenId=["welcomeScreen","howScreen","practicesScreen"].find(id=>!document.getElementById(id).classList.contains("hidden"))||"welcomeScreen";
     language=btn.dataset.introLang;
@@ -1651,6 +1660,9 @@ document.addEventListener("DOMContentLoaded",()=>{
     const scrollY=window.scrollY;
     done[current]=e.target.checked;
     if(e.target.checked) localStorage.setItem("manifestLastPracticeDate",todayKey());
+    if(e.target.checked && current>=1 && current<=7){
+      trackSMMEvent("smm_day_completed",{day_number:current});
+    }
     save();
     buildPicker();
     render();
@@ -2116,6 +2128,7 @@ document.addEventListener("DOMContentLoaded",()=>{
       return;
     }
     feedbackSubmitted=true;
+    trackSMMEvent("smm_feedback_submitted",{test_period:"7_day"});
     localStorage.setItem("smmFeedbackSubmitted","1");
     localStorage.removeItem("smmFeedbackDismissed");
     status.textContent=t.saved;
