@@ -1658,9 +1658,10 @@ document.addEventListener("DOMContentLoaded",()=>{
   document.getElementById("completed").onchange=e=>{
     const scrollX=window.scrollX;
     const scrollY=window.scrollY;
+    const wasCompleted=done[current]===true;
     done[current]=e.target.checked;
     if(e.target.checked) localStorage.setItem("manifestLastPracticeDate",todayKey());
-    if(e.target.checked && current>=1 && current<=7){
+    if(e.target.checked && !wasCompleted && current>=1 && current<=7){
       trackSMMEvent("smm_day_completed",{day_number:current});
     }
     save();
