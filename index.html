@@ -422,7 +422,7 @@ const supabaseClient = supabase.createClient(
 .auth-modal.hidden{
   display:none;
 }
-#passwordRecoveryModal{z-index:1200;}.password-hint{font-size:12px!important;line-height:1.5;margin:8px 0 12px!important;color:var(--muted);}
+#passwordRecoveryModal{z-index:1200;}.password-hint{display:block!important;font-size:12px!important;line-height:1.5;margin:8px 0 16px!important;padding:10px 12px;border-radius:8px;background:var(--soft);color:var(--ink);}
 
 .auth-box{
   position:relative;
@@ -671,8 +671,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("recoveryIntro").textContent=pl?"Wybierz nowe hasło do swojego konta.":"Choose a new password for your account.";
     document.querySelector('label[for="recoveryPassword"]').textContent=pl?"Nowe hasło":"New password";
     document.getElementById("recoveryPasswordHint").textContent=pl
-      ?"Minimum 8 znaków, w tym wielka litera, mała litera, cyfra i znak specjalny (np. !, @, #)."
-      :"At least 8 characters, including an uppercase letter, a lowercase letter, a number and a special character (e.g. !, @, #).";
+      ?"Użyj co najmniej 8 znaków: małej litery, wielkiej litery, cyfry i dozwolonego symbolu, np. ! @ # $ %."
+      :"Use at least 8 characters: one lowercase letter, one uppercase letter, one number and one allowed symbol, such as ! @ # $ %.";
     document.querySelector('label[for="recoveryPasswordConfirm"]').textContent=pl?"Potwierdź nowe hasło":"Confirm new password";
     recoverySubmit.textContent=pl?"ZAPISZ NOWE HASŁO":"SAVE NEW PASSWORD";
   }
@@ -696,8 +696,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       showRecoveryMessage("Add at least one number (0–9).","Dodaj co najmniej jedną cyfrę (0–9).");
       return;
     }
-    if(!/[^A-Za-z0-9]/.test(password)){
-      showRecoveryMessage("Add at least one special character, e.g. !, @ or #.","Dodaj co najmniej jeden znak specjalny, np. !, @ lub #.");
+    const allowedSpecialCharacters="!@#$%^&*()_+-=[]{};':\\"|<>?,./`~";
+    if(![...password].some(ch=>allowedSpecialCharacters.includes(ch))){
+      showRecoveryMessage("Add at least one allowed symbol, e.g. !, @, # or $.","Dodaj co najmniej jeden dozwolony symbol, np. !, @, # lub $.");
       return;
     }
     if(password!==confirmPassword){
@@ -710,7 +711,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     recoverySubmit.disabled=false;
     if(error){
       console.error("Password recovery:",error.message);
-      showRecoveryMessage("Password update failed: "+error.message,"Nie udało się zmienić hasła: "+error.message);
+      const backendMessage=String(error.message||"");
+      if(/password should contain at least one character of each/i.test(backendMessage)){
+        showRecoveryMessage(
+          "Your password must include a lowercase letter, an uppercase letter, a number and an allowed symbol (e.g. !, @, # or $).",
+          "Hasło musi zawierać małą literę, wielką literę, cyfrę i dozwolony symbol (np. !, @, # lub $)."
+        );
+      }else{
+        showRecoveryMessage("Password update failed: "+backendMessage,"Nie udało się zmienić hasła: "+backendMessage);
+      }
       return;
     }
     recoveryMode=false;
@@ -1079,7 +1088,7 @@ button:disabled{cursor:not-allowed}
     <form id="passwordRecoveryForm">
       <label for="recoveryPassword">New password</label>
       <input type="password" id="recoveryPassword" autocomplete="new-password" minlength="8" required aria-describedby="recoveryPasswordHint">
-      <p id="recoveryPasswordHint" class="password-hint">At least 8 characters, including an uppercase letter, a lowercase letter, a number and a special character (e.g. !, @, #).</p>
+      <div id="recoveryPasswordHint" class="password-hint">Use at least 8 characters: one lowercase letter, one uppercase letter, one number and one allowed symbol, such as ! @ # $ %.</div>
       <label for="recoveryPasswordConfirm">Confirm new password</label>
       <input type="password" id="recoveryPasswordConfirm" autocomplete="new-password" minlength="8" required>
       <button type="submit" class="btn primary" id="recoverySubmit">SAVE NEW PASSWORD</button>
