@@ -1723,6 +1723,11 @@ document.addEventListener("DOMContentLoaded",()=>{
   document.getElementById("dataProtectionLink").onclick=()=>openLegal("data");
   document.getElementById("termsLink").onclick=()=>openLegal("terms");
   document.getElementById("contactLink").onclick=()=>openLegal("contact");
+  // Open a requested legal section when arriving from the About page.
+  const requestedLegal = new URLSearchParams(window.location.search).get("legal");
+  if(["privacy","data","terms","contact"].includes(requestedLegal)){
+    openLegal(requestedLegal);
+  }
   document.querySelectorAll(".instruction-notice a[data-legal]").forEach(link=>link.addEventListener("click",event=>{event.preventDefault();openLegal(link.dataset.legal);}));
   document.querySelectorAll(".instruction-notice [data-en][data-pl]").forEach(el=>{el.textContent=el.dataset[language]||el.dataset.en;});
   document.getElementById("legalClose").onclick=()=>document.getElementById("legalModal").classList.add("hidden");
