@@ -102,7 +102,20 @@ footer{text-align:center;border-top:1px solid var(--line);padding-top:20px;margi
 <script>
 const langButtons=document.querySelectorAll(".lang");
 const aboutLegalText={
- en:{title:"Terms of Use",updated:"Last updated: 4 October 2026",sections:[
+ en:{
+ privacy:{title:"Privacy Policy",updated:"Last updated: 4 October 2026",sections:[
+ ["1. Who is responsible for your data","Small Moments Method is a Quick Read Moments project. The data controller is Elżbieta Urbanowicz, trading as Quick Read Moments. Contact: hello@quickreadmoments.com."],
+ ["2. What we collect","If you create an account, we process your email address and account identifier. We may store your selected language, current day, completed days, written notes, optional mood check-ins and final reflection. Please do not enter highly sensitive information."],
+ ["3. Why we use your data","We use this information to manage your account, save and synchronise progress, provide requested features, maintain security and troubleshoot the service."],
+ ["4. Storage and browser data","When signed in, progress is stored using Supabase. When not signed in, progress is stored in this browser and is not synchronised between devices. Clearing browser storage may remove local progress."],
+ ["5. Retention and your rights","Account and progress data are kept while needed to provide the service, subject to legal and security requirements. Under GDPR, you may have rights including access, rectification, erasure, restriction, portability and objection. You may complain to the Data Protection Commission in Ireland."],
+ ["6. Contact and changes","Send privacy requests, including requests for access, correction or deletion, to hello@quickreadmoments.com. This notice may be updated when the service or data processing changes."]]},
+ data:{title:"Data Protection",updated:"Last updated: 4 October 2026",sections:[
+ ["Your data protection in practice","We aim to collect only information needed to provide Small Moments Method. Your written reflections are part of your private account data when you are signed in. They are not used to create advertising profiles."],
+ ["No sale of personal data","We do not sell your personal data."],
+ ["Service provider","Supabase provides authentication and database infrastructure for the application."],
+ ["Your choices","You can use the Method without an account, but cloud synchronisation between devices requires an account. You can request access to, correction of or deletion of account data by emailing hello@quickreadmoments.com."]]},
+ terms:{title:"Terms of Use",updated:"Last updated: 4 October 2026",sections:[
  ["1. What Small Moments Method is","Small Moments Method is a guided reflection and personal-development practice built around small daily moments. It is not therapy, medical advice, diagnosis or a substitute for professional care."],
  ["2. Your account","You are responsible for keeping your login credentials secure and for using an email address you control. You may stop using the service at any time."],
  ["3. Your notes","You retain responsibility for the content you enter. Do not enter information that you are not comfortable storing with an online service. We do not review your private reflections for therapeutic or diagnostic purposes."],
@@ -111,7 +124,20 @@ const aboutLegalText={
  ["6. Acceptance","By using the service, you agree to use it lawfully and responsibly."],
  ["7. Copyright","© 2026 Small Moments Method. All rights reserved. Small Moments Method, including its original content, exercises, written materials and associated creative assets, is protected by copyright. No reproduction or redistribution without prior written permission."]
  ]},
- pl:{title:"Warunki korzystania",updated:"Ostatnia aktualizacja: 4 października 2026",sections:[
+ pl:{
+ privacy:{title:"Polityka prywatności",updated:"Ostatnia aktualizacja: 4 października 2026",sections:[
+ ["1. Kto odpowiada za Twoje dane","Small Moments Method jest projektem Quick Read Moments. Administratorem danych jest Elżbieta Urbanowicz, prowadząca działalność pod nazwą Quick Read Moments. Kontakt: hello@quickreadmoments.com."],
+ ["2. Jakie dane zbieramy","Jeśli zakładasz konto, przetwarzamy adres e-mail i identyfikator konta. Możemy przechowywać wybrany język, aktualny dzień, ukończone dni, notatki, opcjonalne oceny samopoczucia i końcową refleksję. Nie wpisuj szczególnie wrażliwych informacji."],
+ ["3. Dlaczego używamy danych","Używamy tych informacji do obsługi konta, zapisywania i synchronizacji postępu, udostępniania funkcji, zapewnienia bezpieczeństwa oraz rozwiązywania problemów."],
+ ["4. Przechowywanie danych","Po zalogowaniu postęp jest przechowywany przy użyciu Supabase. Bez logowania postęp jest przechowywany w tej przeglądarce i nie jest synchronizowany między urządzeniami. Wyczyszczenie danych przeglądarki może usunąć lokalny postęp."],
+ ["5. Okres przechowywania i Twoje prawa","Dane konta i postępu przechowujemy tak długo, jak jest to potrzebne do świadczenia usługi, z uwzględnieniem obowiązków prawnych i bezpieczeństwa. Na podstawie GDPR możesz mieć m.in. prawo dostępu do danych, ich sprostowania, usunięcia, ograniczenia przetwarzania, przenoszenia i sprzeciwu. Możesz złożyć skargę do irlandzkiej Data Protection Commission."],
+ ["6. Kontakt i zmiany","Żądania dotyczące prywatności, w tym dostępu do danych, ich poprawienia lub usunięcia, kieruj na hello@quickreadmoments.com. Informacja może być aktualizowana, gdy zmieni się usługa lub sposób przetwarzania danych."]]},
+ data:{title:"Ochrona danych",updated:"Ostatnia aktualizacja: 4 października 2026",sections:[
+ ["Ochrona danych w praktyce","Staramy się zbierać tylko informacje potrzebne do działania Small Moments Method. Twoje refleksje są częścią prywatnych danych konta, jeśli jesteś zalogowana. Nie wykorzystujemy ich do tworzenia profili reklamowych."],
+ ["Brak sprzedaży danych","Nie sprzedajemy Twoich danych osobowych."],
+ ["Dostawca usługi","Supabase zapewnia infrastrukturę uwierzytelniania i bazy danych aplikacji."],
+ ["Twoje wybory","Możesz korzystać z Metody bez konta, ale synchronizacja między urządzeniami wymaga konta. Możesz poprosić o dostęp do danych, ich poprawienie lub usunięcie, pisząc na hello@quickreadmoments.com."]]},
+ terms:{title:"Warunki korzystania",updated:"Ostatnia aktualizacja: 4 października 2026",sections:[
  ["1. Czym jest Small Moments Method","Small Moments Method to prowadzona praktyka refleksji i rozwoju osobistego oparta na małych, codziennych chwilach. Nie jest terapią, poradą medyczną, diagnozą ani zamiennikiem profesjonalnej pomocy."],
  ["2. Twoje konto","Odpowiadasz za bezpieczeństwo danych logowania i korzystanie z adresu e-mail, do którego masz dostęp. Możesz w każdej chwili przestać korzystać z usługi."],
  ["3. Twoje notatki","Odpowiadasz za treści, które wpisujesz. Nie podawaj informacji, których nie chcesz przechowywać w usłudze internetowej. Twoje prywatne refleksje nie są analizowane w celach terapeutycznych ani diagnostycznych."],
@@ -121,16 +147,17 @@ const aboutLegalText={
  ["7. Prawa autorskie","© 2026 Small Moments Method. Wszelkie prawa zastrzeżone. Small Moments Method, w tym oryginalne treści, ćwiczenia, materiały pisemne i powiązane zasoby kreatywne, są chronione prawem autorskim. Powielanie lub rozpowszechnianie wymaga uprzedniej pisemnej zgody."]
  ]}
 };
-function openAboutTerms(event){
+function openAboutLegal(event){
  if(event)event.preventDefault();
  const lang=document.documentElement.lang==="pl"?"pl":"en";
- const d=aboutLegalText[lang];
+ const type=event.currentTarget.getAttribute("href").split("=")[1];
+ const d=aboutLegalText[lang][type];
  document.getElementById("aboutLegalTitle").textContent=d.title;
  document.getElementById("aboutLegalUpdated").textContent=d.updated;
  document.getElementById("aboutLegalBody").innerHTML=d.sections.map(([h,p])=>"<h3>"+h+"</h3><p>"+p+"</p>").join("");
  document.getElementById("aboutLegalModal").hidden=false;
 }
-document.querySelectorAll('a[href="/?legal=terms"]').forEach(a=>a.addEventListener("click",openAboutTerms));
+document.querySelectorAll('a[href="/?legal=terms"],a[href="/?legal=privacy"],a[href="/?legal=data"]').forEach(a=>a.addEventListener("click",openAboutLegal));
 document.getElementById("aboutLegalClose").addEventListener("click",()=>document.getElementById("aboutLegalModal").hidden=true);
 document.getElementById("aboutLegalModal").addEventListener("click",e=>{if(e.target.id==="aboutLegalModal")e.currentTarget.hidden=true;});
 document.addEventListener("keydown",e=>{if(e.key==="Escape")document.getElementById("aboutLegalModal").hidden=true;});
