@@ -1427,6 +1427,9 @@ function openLegal(type){
   document.getElementById("legalUpdated").textContent=d.updated;
   document.getElementById("legalBody").innerHTML=sections.map(([h,p])=>"<h3>"+h+"</h3><p>"+p+"</p>").join("");
   document.getElementById("legalModal").classList.remove("hidden");
+  document.getElementById("legalModal").style.zIndex="10050";
+  document.getElementById("legalModal").style.position="fixed";
+  document.getElementById("legalModal").style.inset="0";
 }
 function updateAuthUI(session){
   currentSession = session || null;
@@ -1719,13 +1722,14 @@ function setupSounds(){
 }
 
 document.addEventListener("DOMContentLoaded",()=>{
-  document.getElementById("privacyLink").onclick=()=>openLegal("privacy");
-  document.getElementById("dataProtectionLink").onclick=()=>openLegal("data");
-  document.getElementById("termsLink").onclick=()=>openLegal("terms");
-  document.getElementById("contactLink").onclick=()=>openLegal("contact");
+  document.getElementById("privacyLink").onclick=()=>{showScreen("welcomeScreen");openLegal("privacy");};
+  document.getElementById("dataProtectionLink").onclick=()=>{showScreen("welcomeScreen");openLegal("data");};
+  document.getElementById("termsLink").onclick=()=>{showScreen("welcomeScreen");openLegal("terms");};
+  document.getElementById("contactLink").onclick=()=>{showScreen("welcomeScreen");openLegal("contact");};
   // Open a requested legal section when arriving from the About page.
   const requestedLegal = new URLSearchParams(window.location.search).get("legal");
   if(["privacy","data","terms","contact"].includes(requestedLegal)){
+    showScreen("welcomeScreen");
     openLegal(requestedLegal);
   }
   document.querySelectorAll(".instruction-notice a[data-legal]").forEach(link=>link.addEventListener("click",event=>{event.preventDefault();openLegal(link.dataset.legal);}));
