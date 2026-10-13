@@ -30,6 +30,11 @@ h1{font-family:Georgia,serif;font-size:clamp(44px,8vw,68px);font-weight:400;line
 .cta{text-align:center;margin:48px 0 20px}.cta p{color:var(--muted)}.button.primary{background:var(--ink);color:white;border-color:var(--ink);display:inline-block;padding:12px 18px}
 footer{text-align:center;border-top:1px solid var(--line);padding-top:20px;margin-top:48px;color:var(--muted);font-size:12px}
 [hidden]{display:none!important}
+.legal-modal{position:fixed;inset:0;z-index:9999;background:#20201e88;display:flex;align-items:center;justify-content:center;padding:18px}
+.legal-panel{position:relative;background:var(--card);color:var(--ink);width:min(720px,100%);max-height:85vh;overflow:auto;border:1px solid var(--line);border-radius:16px;padding:28px}
+.legal-panel h2{font-family:Georgia,serif;font-size:30px;font-weight:400;margin:0 36px 8px 0}
+.legal-panel h3{font-size:15px;margin:22px 0 5px}.legal-panel p{font-size:14px;color:#48453f}
+.legal-close{position:absolute;right:18px;top:14px;font-size:22px;padding:2px 10px}
 @media(max-width:600px){.top{align-items:flex-start}.brand{max-width:200px;line-height:1.5}.hero{padding-top:52px}.steps{grid-template-columns:1fr}.content h2{font-size:27px}.intro-grid{grid-template-columns:1fr;gap:24px}.portrait{max-width:390px;margin:auto;aspect-ratio:4/4.5}.intro-copy h2{text-align:center}}
 </style>
 </head>
@@ -85,9 +90,50 @@ footer{text-align:center;border-top:1px solid var(--line);padding-top:20px;margi
 <p data-en="© 2026 Small Moments Method. All rights reserved." data-pl="© 2026 Small Moments Method. Wszelkie prawa zastrzeżone.">© 2026 Small Moments Method. All rights reserved.</p>
 <p><a href="/" style="color:inherit" data-en="Return to the practice" data-pl="Wróć do praktyki">Return to the practice</a> · <a href="/?legal=privacy" style="color:inherit" data-en="Privacy Policy" data-pl="Polityka prywatności">Privacy Policy</a> · <a href="/?legal=data" style="color:inherit" data-en="Data Protection" data-pl="Ochrona danych">Data Protection</a> · <a href="/?legal=terms" style="color:inherit" data-en="Terms of Use" data-pl="Warunki korzystania">Terms of Use</a> · <a href="mailto:hello@quickreadmoments.com" style="color:inherit" data-en="Contact" data-pl="Kontakt">Contact</a></p>
 </footer>
+<div id="aboutLegalModal" class="legal-modal" hidden role="dialog" aria-modal="true" aria-labelledby="aboutLegalTitle">
+ <div class="legal-panel">
+  <button type="button" class="legal-close" id="aboutLegalClose" aria-label="Close">×</button>
+  <h2 id="aboutLegalTitle">Terms of Use</h2>
+  <p id="aboutLegalUpdated">Last updated: 4 October 2026</p>
+  <div id="aboutLegalBody"></div>
+ </div>
+</div>
 </div>
 <script>
 const langButtons=document.querySelectorAll(".lang");
+const aboutLegalText={
+ en:{title:"Terms of Use",updated:"Last updated: 4 October 2026",sections:[
+ ["1. What Small Moments Method is","Small Moments Method is a guided reflection and personal-development practice built around small daily moments. It is not therapy, medical advice, diagnosis or a substitute for professional care."],
+ ["2. Your account","You are responsible for keeping your login credentials secure and for using an email address you control. You may stop using the service at any time."],
+ ["3. Your notes","You retain responsibility for the content you enter. Do not enter information that you are not comfortable storing with an online service. We do not review your private reflections for therapeutic or diagnostic purposes."],
+ ["4. Availability","We aim to keep the service available and functional, but online services may be interrupted for maintenance, technical failures or circumstances outside our control."],
+ ["5. Changes","We may change, improve or discontinue features. Where changes materially affect privacy or data processing, the relevant notices will be updated."],
+ ["6. Acceptance","By using the service, you agree to use it lawfully and responsibly."],
+ ["7. Copyright","© 2026 Small Moments Method. All rights reserved. Small Moments Method, including its original content, exercises, written materials and associated creative assets, is protected by copyright. No reproduction or redistribution without prior written permission."]
+ ]},
+ pl:{title:"Warunki korzystania",updated:"Ostatnia aktualizacja: 4 października 2026",sections:[
+ ["1. Czym jest Small Moments Method","Small Moments Method to prowadzona praktyka refleksji i rozwoju osobistego oparta na małych, codziennych chwilach. Nie jest terapią, poradą medyczną, diagnozą ani zamiennikiem profesjonalnej pomocy."],
+ ["2. Twoje konto","Odpowiadasz za bezpieczeństwo danych logowania i korzystanie z adresu e-mail, do którego masz dostęp. Możesz w każdej chwili przestać korzystać z usługi."],
+ ["3. Twoje notatki","Odpowiadasz za treści, które wpisujesz. Nie podawaj informacji, których nie chcesz przechowywać w usłudze internetowej. Twoje prywatne refleksje nie są analizowane w celach terapeutycznych ani diagnostycznych."],
+ ["4. Dostępność","Staramy się utrzymywać działanie usługi, ale mogą wystąpić przerwy związane z konserwacją, awariami technicznymi lub okolicznościami poza naszą kontrolą."],
+ ["5. Zmiany","Możemy zmieniać, ulepszać lub wycofywać funkcje. Jeśli zmiany istotnie wpływają na prywatność lub przetwarzanie danych, odpowiednie informacje zostaną zaktualizowane."],
+ ["6. Akceptacja","Korzystając z usługi, zobowiązujesz się używać jej zgodnie z prawem i w odpowiedzialny sposób."],
+ ["7. Prawa autorskie","© 2026 Small Moments Method. Wszelkie prawa zastrzeżone. Small Moments Method, w tym oryginalne treści, ćwiczenia, materiały pisemne i powiązane zasoby kreatywne, są chronione prawem autorskim. Powielanie lub rozpowszechnianie wymaga uprzedniej pisemnej zgody."]
+ ]}
+};
+function openAboutTerms(event){
+ if(event)event.preventDefault();
+ const lang=document.documentElement.lang==="pl"?"pl":"en";
+ const d=aboutLegalText[lang];
+ document.getElementById("aboutLegalTitle").textContent=d.title;
+ document.getElementById("aboutLegalUpdated").textContent=d.updated;
+ document.getElementById("aboutLegalBody").innerHTML=d.sections.map(([h,p])=>"<h3>"+h+"</h3><p>"+p+"</p>").join("");
+ document.getElementById("aboutLegalModal").hidden=false;
+}
+document.querySelectorAll('a[href="/?legal=terms"]').forEach(a=>a.addEventListener("click",openAboutTerms));
+document.getElementById("aboutLegalClose").addEventListener("click",()=>document.getElementById("aboutLegalModal").hidden=true);
+document.getElementById("aboutLegalModal").addEventListener("click",e=>{if(e.target.id==="aboutLegalModal")e.currentTarget.hidden=true;});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")document.getElementById("aboutLegalModal").hidden=true;});
 function setLanguage(lang){
  document.documentElement.lang=lang;
  langButtons.forEach(b=>b.classList.toggle("active",b.dataset.lang===lang));
