@@ -167,15 +167,25 @@ document.getElementById("aboutLegalClose").addEventListener("click",()=>document
 document.getElementById("aboutLegalModal").addEventListener("click",e=>{if(e.target.id==="aboutLegalModal")e.currentTarget.hidden=true;});
 document.addEventListener("keydown",e=>{if(e.key==="Escape")document.getElementById("aboutLegalModal").hidden=true;});
 function setLanguage(lang){
- document.documentElement.lang=lang;
- langButtons.forEach(b=>b.classList.toggle("active",b.dataset.lang===lang));
- document.querySelectorAll("[data-en][data-pl]").forEach(el=>{
-  const value=el.dataset[lang];
-  if(value!==undefined)el.textContent=value;
+ const selected=lang==="pl"?"pl":"en";
+ document.documentElement.lang=selected;
+ langButtons.forEach(b=>{
+  const active=b.dataset.lang===selected;
+  b.classList.toggle("active",active);
+  b.setAttribute("aria-pressed",String(active));
  });
+ document.querySelectorAll("[data-en][data-pl]").forEach(el=>{
+  const value=el.getAttribute("data-"+selected);
+  if(value!==null)el.textContent=value;
+ });
+ try{localStorage.setItem("smmLanguage",selected);}catch(e){}
 }
 langButtons.forEach(b=>b.addEventListener("click",()=>setLanguage(b.dataset.lang)));
-const initial=new URLSearchParams(location.search).get("lang")==="pl"?"pl":(localStorage.getItem("smmLanguage")==="pl"?"pl":"en");
+let initial="en";
+try{
+ const requested=new URLSearchParams(location.search).get("lang");
+ initial=requested==="pl"?"pl":(requested==="en"?"en":(localStorage.getItem("smmLanguage")==="pl"?"pl":"en"));
+}catch(e){}
 setLanguage(initial);
 </script>
 </body>
