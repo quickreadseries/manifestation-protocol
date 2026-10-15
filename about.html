@@ -105,6 +105,34 @@ footer{text-align:center;border-top:1px solid var(--line);padding-top:20px;margi
 </div>
 </div>
 <script>
+(function(){
+ const buttons=document.querySelectorAll(".lang");
+ function setLanguage(lang){
+  const selected=lang==="pl"?"pl":"en";
+  document.documentElement.lang=selected;
+  buttons.forEach(function(button){
+   const active=button.getAttribute("data-lang")===selected;
+   button.classList.toggle("active",active);
+   button.setAttribute("aria-pressed",String(active));
+  });
+  document.querySelectorAll("[data-en][data-pl]").forEach(function(el){
+   const value=el.getAttribute("data-"+selected);
+   if(value!==null)el.textContent=value;
+  });
+  try{localStorage.setItem("smmLanguage",selected);}catch(e){}
+ }
+ buttons.forEach(function(button){
+  button.addEventListener("click",function(){setLanguage(button.getAttribute("data-lang"));});
+ });
+ let initial="en";
+ try{
+  const requested=new URLSearchParams(location.search).get("lang");
+  initial=requested==="pl"?"pl":(requested==="en"?"en":(localStorage.getItem("smmLanguage")==="pl"?"pl":"en"));
+ }catch(e){}
+ setLanguage(initial);
+})();
+</script>
+<script>
 const langButtons=document.querySelectorAll(".lang");
 const aboutLegalText={
  en:{
@@ -166,27 +194,7 @@ document.querySelectorAll('a[href="/?legal=terms"],a[href="/?legal=privacy"],a[h
 document.getElementById("aboutLegalClose").addEventListener("click",()=>document.getElementById("aboutLegalModal").hidden=true);
 document.getElementById("aboutLegalModal").addEventListener("click",e=>{if(e.target.id==="aboutLegalModal")e.currentTarget.hidden=true;});
 document.addEventListener("keydown",e=>{if(e.key==="Escape")document.getElementById("aboutLegalModal").hidden=true;});
-function setLanguage(lang){
- const selected=lang==="pl"?"pl":"en";
- document.documentElement.lang=selected;
- langButtons.forEach(b=>{
-  const active=b.dataset.lang===selected;
-  b.classList.toggle("active",active);
-  b.setAttribute("aria-pressed",String(active));
- });
- document.querySelectorAll("[data-en][data-pl]").forEach(el=>{
-  const value=el.getAttribute("data-"+selected);
-  if(value!==null)el.textContent=value;
- });
- try{localStorage.setItem("smmLanguage",selected);}catch(e){}
-}
-langButtons.forEach(b=>b.addEventListener("click",()=>setLanguage(b.dataset.lang)));
-let initial="en";
-try{
- const requested=new URLSearchParams(location.search).get("lang");
- initial=requested==="pl"?"pl":(requested==="en"?"en":(localStorage.getItem("smmLanguage")==="pl"?"pl":"en"));
-}catch(e){}
-setLanguage(initial);
+
 </script>
 </body>
 </html>
