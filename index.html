@@ -34,7 +34,7 @@ textarea{width:100%;min-height:120px;border:1px solid var(--line);border-radius:
 .welcome-back span{display:block}
 .complete{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;font-size:14px;padding:17px}.complete label{display:flex;align-items:center;gap:9px;cursor:pointer}.complete input{width:20px;height:20px;margin:0}.complete .action-note{font-size:12px;color:var(--muted);text-align:center;order:2}
 .footer{text-align:center;color:#5f5b55;font-size:12px;margin-top:30px}
-@media(max-width:720px){.grid{grid-template-columns:1fr}.phases{grid-template-columns:1fr 1fr}h1{font-size:34px}.top{align-items:flex-start}.hero{padding:25px 15px}}
+@media(max-width:720px){.app{width:100%;max-width:100%;padding:18px 14px 40px;overflow-x:clip}.grid{grid-template-columns:1fr;min-width:0}.card{min-width:0;padding:22px 18px;overflow-wrap:anywhere}.phases{grid-template-columns:1fr 1fr}h1{font-size:34px}.top{align-items:flex-start}.hero{padding:25px 15px}.intro-inner,.end-inner{width:100%;max-width:100%;padding:36px 12px}.intro-inner h1,.end-inner h1{font-size:clamp(38px,10vw,58px);line-height:1;letter-spacing:-1.4px;overflow-wrap:break-word;hyphens:auto}.intro-body,.intro-quote,.intro-subtitle{max-width:100%;overflow-wrap:anywhere}.intro-body.left{max-width:100%}#finalNotes{width:100%;max-width:100%}}
 
 .screen{min-height:100vh}.hidden{display:none!important}
 #introScreen,#genderScreen,#welcomeScreen,#howScreen,#practicesScreen,#endScreen{display:flex;align-items:center;justify-content:center;padding:40px 20px}
@@ -243,7 +243,7 @@ function choosePolishGender(value){
 }
 
 const daysPL = [
-  ["Jestem coraz bardziej sobą. Wiem, kim jestem i ufam temu, co czuję.","Zobacz siebie podczas zwyczajnego dnia, pełną spokojnej pewności. Zauważ swoją postawę, głos i wybory.","Zrób dziś jedną małą rzecz dokładnie tak, jak zrobiłaby ją opisana przez Ciebie osoba."],
+  ["Coraz lepiej czuję się sobą. Wiem, co jest dla mnie ważne, i uczę się sobie ufać.","Wyobraź sobie zwyczajny dzień, w którym czujesz się swobodnie i pewnie. Zwróć uwagę na swoją postawę, głos i codzienne wybory.","Wybierz dziś jeden mały gest, który jest zgodny z tym, kim chcesz być."],
   ["Czuję spokój we własnej obecności. Nie potrzebuję ciągłego hałasu, żeby czuć się bezpiecznie.","Zauważ, co dzieje się w Tobie, kiedy nie musisz niczym wypełniać ciszy.","Spędź dziesięć minut bez telefonu."],
   ["Wiem, co jest dla mnie ważne. Moje wybory odzwierciedlają moje wartości.","Wyobraź sobie dzień, w którym decyzje są proste, bo wiesz, co naprawdę ma znaczenie.","Wybierz dziś jedną rzecz dlatego, że naprawdę jest dla Ciebie ważna."],
   ["Ufam sobie i rozpoznaję, co jest dla mnie właściwe.","Wyobraź sobie, że podejmujesz decyzję bez pytania kogokolwiek o pozwolenie.","Podejmij jedną małą decyzję bez szukania zewnętrznego potwierdzenia."],
