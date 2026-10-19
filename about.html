@@ -186,7 +186,7 @@ function openAboutLegal(event){
  document.getElementById("aboutLegalBody").innerHTML=d.sections.map(([h,p])=>"<h3>"+h+"</h3><p>"+p+"</p>").join("");
  document.getElementById("aboutLegalModal").hidden=false;
 }
-document.querySelectorAll('a[href="/?legal=terms"],a[href="/?legal=privacy"],a[href="/?legal=data"]').forEach(a=>a.addEventListener("click",function(event){event.preventDefault();event.stopImmediatePropagation();openAboutLegal(event);},true));
+document.querySelectorAll('a[href="/?legal=terms"],a[href="/?legal=privacy"],a[href="/?legal=data"]').forEach(a=>{a.onclick=function(event){event.preventDefault();event.stopPropagation();openAboutLegal(event);return false;};});
 document.getElementById("aboutLegalClose").addEventListener("click",()=>document.getElementById("aboutLegalModal").hidden=true);
 document.getElementById("aboutLegalModal").addEventListener("click",e=>{if(e.target.id==="aboutLegalModal")e.currentTarget.hidden=true;});
 document.addEventListener("keydown",e=>{if(e.key==="Escape")document.getElementById("aboutLegalModal").hidden=true;});
