@@ -186,9 +186,23 @@ function openAboutLegal(event){
  document.getElementById("aboutLegalBody").innerHTML=d.sections.map(([h,p])=>"<h3>"+h+"</h3><p>"+p+"</p>").join("");
  document.getElementById("aboutLegalModal").hidden=false;
 }
-document.querySelectorAll('a[data-legal="terms"],a[data-legal="privacy"],a[data-legal="data"]').forEach(a=>{a.onclick=function(event){event.preventDefault();event.stopPropagation();openAboutLegal(event);return false;};});
-document.getElementById("aboutLegalClose").addEventListener("click",()=>document.getElementById("aboutLegalModal").hidden=true);
-document.getElementById("aboutLegalModal").addEventListener("click",e=>{if(e.target.id==="aboutLegalModal")e.currentTarget.hidden=true;});
+document.querySelectorAll("a[data-legal]").forEach(function(a){
+ a.addEventListener("click",function(event){
+  event.preventDefault();
+  event.stopPropagation();
+  const type=a.getAttribute("data-legal");
+  const lang=document.documentElement.lang==="pl"?"pl":"en";
+  const entry=aboutLegalText[lang]&&aboutLegalText[lang][type];
+  if(!entry)return;
+  document.getElementById("aboutLegalTitle").textContent=entry.title;
+  document.getElementById("aboutLegalUpdated").textContent=entry.updated;
+  document.getElementById("aboutLegalBody").innerHTML=entry.sections.map(([h,p])=>"<h3>"+h+"</h3><p>"+p+"</p>").join("");
+  document.getElementById("aboutLegalModal").hidden=false;
+  document.getElementById("aboutLegalModal").style.display="flex";
+ },true);
+});
+document.getElementById("aboutLegalClose").addEventListener("click",()=>{document.getElementById("aboutLegalModal").hidden=true;document.getElementById("aboutLegalModal").style.display="";});
+document.getElementById("aboutLegalModal").addEventListener("click",e=>{if(e.target.id==="aboutLegalModal"){e.currentTarget.hidden=true;e.currentTarget.style.display="";}});
 document.addEventListener("keydown",e=>{if(e.key==="Escape")document.getElementById("aboutLegalModal").hidden=true;});
 
 </script>
