@@ -89,7 +89,7 @@ footer{text-align:center;border-top:1px solid var(--line);padding-top:20px;margi
 <p data-en="Without an account, your progress stays in this browser. When you sign in, it is saved to your account and may be available on another device." data-pl="Bez konta Twój postęp pozostaje w tej przeglądarce. Po zalogowaniu jest zapisywany na Twoim koncie i może być dostępny na innym urządzeniu.">Without an account, your progress stays in this browser. When you sign in, it is saved to your account and may be available on another device.</p>
 <p data-en="Small Moments Method is a reflection and personal practice. It is not therapy, medical advice, or a substitute for professional care." data-pl="Small Moments Method to praktyka refleksji i pracy własnej. Nie jest terapią, poradą medyczną ani zamiennikiem profesjonalnej pomocy.">Small Moments Method is a reflection and personal practice. It is not therapy, medical advice, or a substitute for professional care.</p>
 <p data-en="© 2026 Small Moments Method. All rights reserved." data-pl="© 2026 Small Moments Method. Wszelkie prawa zastrzeżone.">© 2026 Small Moments Method. All rights reserved.</p>
-<p><a href="/" style="color:inherit" data-en="Return to the practice" data-pl="Wróć do praktyki">Return to the practice</a> · <a href="/?legal=privacy" style="color:inherit" data-en="Privacy Policy" data-pl="Polityka prywatności">Privacy Policy</a> · <a href="/?legal=data" style="color:inherit" data-en="Data Protection" data-pl="Ochrona danych">Data Protection</a> · <a href="/?legal=terms" style="color:inherit" data-en="Terms of Use" data-pl="Warunki korzystania">Terms of Use</a> · <a href="mailto:hello@quickreadmoments.com" style="color:inherit" data-en="Contact" data-pl="Kontakt">Contact</a></p>
+<p><a href="/" style="color:inherit" data-en="Return to the practice" data-pl="Wróć do praktyki">Return to the practice</a> · <a href="#privacy" data-legal="privacy" style="color:inherit" data-en="Privacy Policy" data-pl="Polityka prywatności">Privacy Policy</a> · <a href="#data" data-legal="data" style="color:inherit" data-en="Data Protection" data-pl="Ochrona danych">Data Protection</a> · <a href="#terms" data-legal="terms" style="color:inherit" data-en="Terms of Use" data-pl="Warunki korzystania">Terms of Use</a> · <a href="mailto:hello@quickreadmoments.com" style="color:inherit" data-en="Contact" data-pl="Kontakt">Contact</a></p>
 </footer>
 <div id="aboutLegalModal" class="legal-modal" hidden role="dialog" aria-modal="true" aria-labelledby="aboutLegalTitle">
  <div class="legal-panel">
@@ -179,14 +179,14 @@ const aboutLegalText={
 function openAboutLegal(event){
  if(event)event.preventDefault();
  const lang=document.documentElement.lang==="pl"?"pl":"en";
- const type=event.currentTarget.getAttribute("href").split("=")[1];
+ const type=event.currentTarget.getAttribute("data-legal");
  const d=aboutLegalText[lang][type];
  document.getElementById("aboutLegalTitle").textContent=d.title;
  document.getElementById("aboutLegalUpdated").textContent=d.updated;
  document.getElementById("aboutLegalBody").innerHTML=d.sections.map(([h,p])=>"<h3>"+h+"</h3><p>"+p+"</p>").join("");
  document.getElementById("aboutLegalModal").hidden=false;
 }
-document.querySelectorAll('a[href="/?legal=terms"],a[href="/?legal=privacy"],a[href="/?legal=data"]').forEach(a=>{a.onclick=function(event){event.preventDefault();event.stopPropagation();openAboutLegal(event);return false;};});
+document.querySelectorAll('a[data-legal="terms"],a[data-legal="privacy"],a[data-legal="data"]').forEach(a=>{a.onclick=function(event){event.preventDefault();event.stopPropagation();openAboutLegal(event);return false;};});
 document.getElementById("aboutLegalClose").addEventListener("click",()=>document.getElementById("aboutLegalModal").hidden=true);
 document.getElementById("aboutLegalModal").addEventListener("click",e=>{if(e.target.id==="aboutLegalModal")e.currentTarget.hidden=true;});
 document.addEventListener("keydown",e=>{if(e.key==="Escape")document.getElementById("aboutLegalModal").hidden=true;});
