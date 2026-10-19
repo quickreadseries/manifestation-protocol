@@ -189,6 +189,59 @@ const daysEN = [
 ["I am someone who notices, chooses and acts.","See these three qualities as a simple rhythm you can return to.","Notice one thing, choose deliberately, then take one small action."],
 ["My inner and outer worlds are increasingly coherent.","Imagine your values, words, habits and environment fitting together.","Bring one mismatch into alignment."]
 ];
+
+function polishForGender(value){
+  if(language!=="pl" || gender!=="male" || typeof value!=="string") return value;
+  const pairs=[
+    ["pełną spokojnej pewności","pełnego spokojnego przekonania"],
+    ["zrobiłaby ją","zrobiłby ją"],
+    ["Stworzyłam","Stworzyłem"],["stworzyłam","stworzyłem"],
+    ["zauważyłam","zauważyłem"],["Zauważyłam","Zauważyłem"],
+    ["zauważyłaś","zauważyłeś"],["Zauważyłaś","Zauważyłeś"],
+    ["zauważyła","zauważył"],["Zauważyła","Zauważył"],
+    ["robiącą","robiącego"],["odkładałaś","odkładałeś"],
+    ["poradziłaś","poradziłeś"],["znałaś","znałeś"],["znalazłaś","znalazłeś"],
+    ["mogłaś","mogłeś"],["chciałaś","chciałeś"],["wybrałaś","wybrałeś"],
+    ["przeoczyć","przeoczyć"],
+    ["wyobraziłam","wyobraziłem"],["Wyobraziłam","Wyobraziłem"],
+    ["wybrałam","wybrałem"],["Wybrałam","Wybrałem"],
+    ["stworzyłam","stworzyłem"],["Stworzyłam","Stworzyłem"],
+    ["przeszłaś","przeszedłeś"],["pragnęłaś","pragnąłeś"],
+    ["stałam","stałem"],["zintegrowałam","zintegrowałem"],
+    ["zaczęłam","zacząłem"],["zrobiłam","zrobiłem"],["byłam","byłem"],
+    ["czułam","czułem"],["miałam","miałem"],["chciałam","chciałem"],
+    ["mogłam","mogłem"],["widziałam","widziałem"],["wybrałam","wybrałem"],
+    ["wdzięczna","wdzięczny"],["przekonana","przekonany"],
+    ["obecna","obecny"],["spokojna","spokojny"],["gotowa","gotowy"],
+    ["silna","silny"],["pewna","pewny"],["sama","sam"],
+    ["wdzięczną","wdzięcznym"],["obecną","obecnym"],
+    ["spokojną","spokojnym"],["gotową","gotowym"],["pewną","pewnym"],
+    ["pełna","pełny"],["przygotowana","przygotowany"],
+    ["wybrałam","wybrałem"],["którą wybrałam","który wybrałem"],
+    ["osobą, którą się stałam","osobą, którą się stałem"],
+    ["nauczyłaś","nauczyłeś"],["zauważyłaś","zauważyłeś"],
+    ["mogłabyś","mógłbyś"],["brałaś","brałeś"],
+    ["odkładałaś","odkładałeś"],["zrobiłabyś","zrobiłbyś"],
+    ["zrobiłaś","zrobiłeś"],["miałaś","miałeś"],
+    ["byłaś","byłeś"],["czułaś","czułeś"],["chciałaś","chciałeś"]
+  ];
+  let out=value;
+  for(const [from,to] of pairs) out=out.split(from).join(to);
+  return out;
+}
+function activePolishDays(){
+  return daysPL.map(day=>day.map(polishForGender));
+}
+function choosePolishGender(value){
+  gender=value;
+  localStorage.setItem("smmGender",gender);
+  fillIntro("pl");
+  document.querySelectorAll(".instruction-notice [data-en][data-pl]").forEach(el=>{el.textContent=el.dataset.pl;});
+  updateAuthUI(currentSession);
+  updateStorageNote();
+  showScreen("welcomeScreen");
+}
+
 const daysPL = [
   ["Jestem coraz bardziej sobą. Wiem, kim jestem i ufam temu, co czuję.","Zobacz siebie podczas zwyczajnego dnia, pełną spokojnej pewności. Zauważ swoją postawę, głos i wybory.","Zrób dziś jedną małą rzecz dokładnie tak, jak zrobiłaby ją opisana przez Ciebie osoba."],
   ["Czuję spokój we własnej obecności. Nie potrzebuję ciągłego hałasu, żeby czuć się bezpiecznie.","Zauważ, co dzieje się w Tobie, kiedy nie musisz niczym wypełniać ciszy.","Spędź dziesięć minut bez telefonu."],
@@ -334,7 +387,7 @@ pl:{
 }};
 
 function showScreen(id){
- ["introScreen","welcomeScreen","howScreen","practicesScreen","protocolScreen","endScreen"].forEach(x=>{
+ ["introScreen","genderScreen","welcomeScreen","howScreen","practicesScreen","protocolScreen","endScreen"].forEach(x=>{
   const e=document.getElementById(x); if(e)e.classList.toggle("hidden",x!==id);
  });
  window.scrollTo(0,0);
@@ -816,6 +869,21 @@ button:disabled{cursor:not-allowed}
   </div>
 </div>
 
+
+<div id="genderScreen" class="screen hidden">
+  <div class="intro-inner intro-page">
+    <div class="intro-brand">SMALL MOMENTS METHOD</div>
+    <div class="intro-kicker">USTAWIENIA JĘZYKA</div>
+    <h1 style="font-size:46px">Jakiej formy językowej<br>używać?</h1>
+    <div class="intro-rule"></div>
+    <p class="intro-subtitle">Wybór zmieni wyłącznie polskie formy gramatyczne. Treść i kolejność ćwiczeń pozostaną takie same.</p>
+    <div class="language-buttons" style="margin-top:28px;flex-wrap:wrap">
+      <button type="button" class="btn" id="genderFemale">KOBIETA</button>
+      <button type="button" class="btn" id="genderMale">MĘŻCZYZNA</button>
+    </div>
+  </div>
+</div>
+
 <div id="welcomeScreen" class="screen hidden">
   <div class="intro-inner intro-page">
     <div class="intro-brand">SMALL MOMENTS METHOD</div>
@@ -1145,6 +1213,7 @@ button:disabled{cursor:not-allowed}
 let feedbackSubmitted=localStorage.getItem("smmFeedbackSubmitted")==="1";
 let feedbackDismissed=localStorage.getItem("smmFeedbackDismissed")==="1";
 let language=localStorage.getItem("smmLanguage")||"";
+let gender=localStorage.getItem("smmGender")||"";
 let current=Number(localStorage.getItem("manifestDay")||1);
 let done=JSON.parse(localStorage.getItem("manifestDone")||"{}");
 let notes=JSON.parse(localStorage.getItem("manifestNotes")||"{}");
@@ -1504,7 +1573,7 @@ function resetTimer(){
 function render(){
   if(current<1)current=1;
   if(current>dayLimit())current=FREE_DAYS;
-  const activeDays=language==="pl"?daysPL:daysEN;
+  const activeDays=language==="pl"?activePolishDays():daysEN;
   const [phase,n]=phaseFor(current);
   const item=activeDays[current-1]||activeDays[0];
   const pl=language==="pl";
@@ -1739,15 +1808,15 @@ document.addEventListener("DOMContentLoaded",()=>{
     if(e.target.id==="legalModal") e.currentTarget.classList.add("hidden");
   });
 
+  document.getElementById("genderFemale").onclick=()=>choosePolishGender("female");
+  document.getElementById("genderMale").onclick=()=>choosePolishGender("male");
   document.getElementById("enBtn").onclick=()=>{language="en";localStorage.setItem("smmLanguage","en");document.querySelectorAll(".instruction-notice [data-en][data-pl]").forEach(el=>{el.textContent=el.dataset.en;});fillIntro("en");updateAuthUI(currentSession);updateStorageNote();showScreen("welcomeScreen")};
-  document.getElementById("plBtn").onclick=()=>{language="pl";localStorage.setItem("smmLanguage","pl");document.querySelectorAll(".instruction-notice [data-en][data-pl]").forEach(el=>{el.textContent=el.dataset.pl;});fillIntro("pl");updateAuthUI(currentSession);updateStorageNote();showScreen("welcomeScreen")};
+  document.getElementById("plBtn").onclick=()=>{language="pl";localStorage.setItem("smmLanguage","pl");if(!gender){showScreen("genderScreen");return;}document.querySelectorAll(".instruction-notice [data-en][data-pl]").forEach(el=>{el.textContent=el.dataset.pl;});fillIntro("pl");updateAuthUI(currentSession);updateStorageNote();showScreen("welcomeScreen")};
 
   // Returning visitors go straight to their current day.
   if(language==="en" || language==="pl"){
-    fillIntro(language);
-    showScreen("protocolScreen");
-    buildPicker();
-    render();
+    if(language==="pl" && !gender){showScreen("genderScreen");}
+    else {fillIntro(language);showScreen("protocolScreen");buildPicker();render();}
   }
   document.getElementById("welcomeNext").onclick=()=>showScreen("howScreen");
   document.getElementById("howNext").onclick=()=>showScreen("practicesScreen");
@@ -1762,6 +1831,7 @@ document.addEventListener("DOMContentLoaded",()=>{
     const screenId=["welcomeScreen","howScreen","practicesScreen"].find(id=>!document.getElementById(id).classList.contains("hidden"))||"welcomeScreen";
     language=btn.dataset.introLang;
     localStorage.setItem("smmLanguage",language);
+    if(language==="pl" && !gender){showScreen("genderScreen");return;}
     document.querySelectorAll(".instruction-notice [data-en][data-pl]").forEach(el=>{el.textContent=el.dataset[language];});
     fillIntro(language);
     updateAuthUI(currentSession);
@@ -1772,7 +1842,7 @@ document.addEventListener("DOMContentLoaded",()=>{
   document.getElementById("switchEN").setAttribute("aria-label","Switch to English");
   document.getElementById("switchPL").setAttribute("aria-label","Przełącz na polski");
   document.getElementById("switchEN").onclick=()=>{language="en";localStorage.setItem("smmLanguage","en");updateAuthUI(currentSession);populateFinalCompare();render();save()};
-  document.getElementById("switchPL").onclick=()=>{language="pl";localStorage.setItem("smmLanguage","pl");updateAuthUI(currentSession);populateFinalCompare();render();save()};
+  document.getElementById("switchPL").onclick=()=>{language="pl";localStorage.setItem("smmLanguage","pl");if(!gender){showScreen("genderScreen");return;}updateAuthUI(currentSession);populateFinalCompare();render();save()};
 
   document.getElementById("completed").onchange=e=>{
     const scrollX=window.scrollX;
