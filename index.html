@@ -1791,14 +1791,13 @@ function setupSounds(){
 }
 
 document.addEventListener("DOMContentLoaded",()=>{
-  document.getElementById("privacyLink").onclick=()=>{showScreen("welcomeScreen");openLegal("privacy");};
-  document.getElementById("dataProtectionLink").onclick=()=>{showScreen("welcomeScreen");openLegal("data");};
-  document.getElementById("termsLink").onclick=()=>{showScreen("welcomeScreen");openLegal("terms");};
-  document.getElementById("contactLink").onclick=()=>{showScreen("welcomeScreen");openLegal("contact");};
+  document.getElementById("privacyLink").onclick=(event)=>{event.preventDefault();openLegal("privacy");};
+  document.getElementById("dataProtectionLink").onclick=(event)=>{event.preventDefault();openLegal("data");};
+  document.getElementById("termsLink").onclick=(event)=>{event.preventDefault();openLegal("terms");};
+  document.getElementById("contactLink").onclick=(event)=>{event.preventDefault();openLegal("contact");};
   // Open a requested legal section when arriving from the About page.
   const requestedLegal = new URLSearchParams(window.location.search).get("legal");
   if(["privacy","data","terms","contact"].includes(requestedLegal)){
-    showScreen("welcomeScreen");
     openLegal(requestedLegal);
   }
   document.querySelectorAll(".instruction-notice a[data-legal]").forEach(link=>link.addEventListener("click",event=>{event.preventDefault();openLegal(link.dataset.legal);}));
