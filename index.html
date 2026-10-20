@@ -2030,11 +2030,14 @@ document.addEventListener("DOMContentLoaded",()=>{
   }
   if(nextButton){
     nextButton.addEventListener("click",()=>{
-      if(current>=dayLimit()){
-        showDayLockedMessage(current+1);
+      // First require the current day to be completed. Only then check access
+      // to the next day, so an unfinished Day 7 never triggers the access-code prompt.
+      if(!done[current]){
+        const pl=language==="pl";
+        alert(pl? `Najpierw ukończ Dzień ${current}.` : `Complete Day ${current} first.`);
         return;
       }
-      if(!done[current]){
+      if(current>=dayLimit()){
         showDayLockedMessage(current+1);
         return;
       }
