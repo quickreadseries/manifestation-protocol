@@ -1693,7 +1693,9 @@ function render(){
     x.classList.toggle("done",!!done[d]);
     x.classList.toggle("current",d===current);
     x.classList.toggle("locked",!unlocked);
-    x.disabled=!unlocked;
+    // Keep locked day buttons clickable so the access-code prompt can open on mobile.
+    x.disabled=false;
+    x.setAttribute("aria-disabled",String(!unlocked));
     x.setAttribute("aria-current",d===current?"page":"false");
     x.setAttribute("aria-pressed",d===current?"true":"false");
   });
