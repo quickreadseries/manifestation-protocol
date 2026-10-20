@@ -1755,6 +1755,17 @@ function buildPicker(){
     p.appendChild(b);
   }
 }
+// Robust access-code handling: capture locked-day clicks before any other handler.
+document.addEventListener("click",function(event){
+  const button=event.target.closest("#daypicker .num");
+  if(!button)return;
+  const day=Number(button.dataset.day);
+  if(!Number.isFinite(day)||canOpenDay(day))return;
+  event.preventDefault();
+  event.stopImmediatePropagation();
+  showDayLockedMessage(day);
+},true);
+
 function populateFinalCompare(){
   const pl=language==="pl";
   const first=(pl?daysPL:daysEN)[0]?.[0]||"";
