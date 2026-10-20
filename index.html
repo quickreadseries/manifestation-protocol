@@ -1232,11 +1232,11 @@ function unlockTestAccess(){
   const restartProgrammeBtn=document.getElementById("restartProgrammeBtn");
   if(restartPracticeBtn)restartPracticeBtn.textContent=pl?"Rozpocznij praktykę ponownie":"Restart practice";
   if(restartProgrammeBtn)restartProgrammeBtn.textContent=pl?"Zacznij program od początku":"Restart entire programme";
-  const entered=window.prompt(pl?"Hasło testowe:":"Test password:");
+  const entered=window.prompt(pl?"Wpisz kod dostępu do kolejnych dni:":"Enter the access code for the next days:");
   if(entered===TEST_PASSWORD){
     testUnlocked=true;
     localStorage.setItem("smmTestUnlocked","1");
-    alert(pl?"Dostęp testowy odblokowany. Możesz teraz przejść do wszystkich 90 dni.":"Test access unlocked. You can now access all 90 days.");
+    alert(pl?"Dostęp odblokowany. Możesz teraz przejść do wszystkich 90 dni.":"Access unlocked. You can now access all 90 days.");
     return true;
   }
   if(entered!==null) alert(pl?"Nieprawidłowe hasło.":"Incorrect password.");
@@ -1737,7 +1737,9 @@ function buildPicker(){
     b.dataset.day=i;
     b.textContent=i;
     const unlocked=canOpenDay(i);
-    b.disabled=!unlocked;
+    // Keep locked days clickable so the access-code prompt can open after Day 7.
+    b.disabled=false;
+    b.setAttribute("aria-disabled",String(!unlocked));
     b.classList.toggle("locked",!unlocked);
     b.classList.toggle("current",i===current);
     b.setAttribute("aria-current",i===current?"page":"false");
