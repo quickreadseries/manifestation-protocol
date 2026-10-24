@@ -1,22 +1,8 @@
-Przebudowuję cały etap LIVE · Dni 71–90 zgodnie z nową filozofią Small Moments Method.
+# Small Moments Method — LIVE Days 71–89
 
-Najważniejsza zmiana: nie będziemy już skupiać się głównie na tym, jak zaplanować drogę do celu. Będziemy kierować uwagę na sam rezultat, emocje z nim związane, osobę, którą uczestniczka się staje, oraz decyzje, które wspierają jej wybrany kierunek.
+Full bilingual source text preserved from the supplied draft. Day 90 is intentionally excluded because its APPLY text was later replaced by the approved future-self letter.
 
-Zachowuję cztery części każdego dnia: ARRIVE · FOCUS · REFLECT · APPLY, w języku polskim i angielskim.
-
-# LIVE · Dni 71–90
-
-Wprowadzam zmianę w życie · Putting Change into Practice
-
-## Część I. SEE THE OUTCOME — Zobacz rezultat
-
-Dni 71–75 · Days 71–75
-
-Celem tej części jest przesunięcie uwagi z tego, co trudne i odległe, na to, co uczestniczka chce stworzyć. Nie chodzi o ignorowanie rzeczywistości, lecz o wyraźne określenie pożądanego kierunku i znaczenia zmiany.
-
-## Dzień 71. Zobacz to, czego pragniesz
-
-Day 71. See What You Desire
+## Day 71 — Zobacz to, czego pragniesz
 
 ARRIVE
 
@@ -32,15 +18,11 @@ EN: We often give more attention to what we do not want than to what we wish to 
 
 REFLECT
 
-PL:
-
-- Co naprawdę chcę zmienić lub stworzyć w swoim życiu?
+PL: - Co naprawdę chcę zmienić lub stworzyć w swoim życiu?
 - Jak wyglądałaby moja codzienność, gdyby ta zmiana stała się rzeczywistością?
 - Na czym chciałabym częściej skupiać swoją uwagę?
 
-EN:
-
-- What do I genuinely want to change or create in my life?
+EN: - What do I genuinely want to change or create in my life?
 - What would my everyday life look like if this change became real?
 - What would I like to focus my attention on more often?
 
@@ -50,9 +32,9 @@ PL: Opisz swój pożądany rezultat w kilku zdaniach, używając konkretnych obr
 
 EN: Describe your desired outcome in a few sentences, using concrete images from everyday life. Return to this description when you notice yourself focusing only on problems again.
 
-## Dzień 72. Jak będę się czuła?
+---
 
-Day 72. How Will I Feel?
+## Day 72 — Jak będę się czuła?
 
 ARRIVE
 
@@ -68,15 +50,11 @@ EN: Behind many goals lies a desire for a particular feeling. We may want a care
 
 REFLECT
 
-PL:
-
-- Jakich emocji spodziewam się po osiągnięciu swojego celu?
+PL: - Jakich emocji spodziewam się po osiągnięciu swojego celu?
 - Co te emocje mówią mi o moich potrzebach?
 - Czy mogę wprowadzić do obecnego życia mały element, który już teraz wspiera jedno z tych uczuć?
 
-EN:
-
-- What emotions do I expect to experience when I reach my goal?
+EN: - What emotions do I expect to experience when I reach my goal?
 - What do these emotions tell me about my needs?
 - Can I introduce a small element into my current life that supports one of these feelings already?
 
@@ -86,9 +64,9 @@ PL: Wybierz jedno uczucie, które wiążesz ze swoim celem. Zastanów się, jak 
 
 EN: Choose one feeling you associate with your goal. Consider how you can make a little more room for it today, without pretending that the goal has already been achieved.
 
-## Dzień 73. Przenieś uwagę na możliwości
+---
 
-Day 73. Shift Your Attention to Possibilities
+## Day 73 — Przenieś uwagę na możliwości
 
 ARRIVE
 
@@ -104,15 +82,11 @@ EN: What we focus on influences what we notice. When we see only obstacles, we m
 
 REFLECT
 
-PL:
-
-- Na jakim problemie skupiam obecnie najwięcej uwagi?
+PL: - Na jakim problemie skupiam obecnie najwięcej uwagi?
 - Co mogłabym zauważyć, gdybym na chwilę skierowała ją na możliwe rozwiązania?
 - Jaka możliwość jest dostępna, choć do tej pory jej nie rozważałam?
 
-EN:
-
-- What problem currently receives most of my attention?
+EN: - What problem currently receives most of my attention?
 - What might I notice if I redirected my attention towards possible solutions?
 - What opportunity is available that I have not considered until now?
 
@@ -122,9 +96,9 @@ PL: Przy najbliższej trudności zadaj sobie pytanie: „Jakie mam możliwości?
 
 EN: When you next face a difficulty, ask yourself: “What options do I have?” Write down at least two answers before deciding what to do.
 
-## Dzień 74. Zobacz siebie po zmianie
+---
 
-Day 74. See Yourself After the Change
+## Day 74 — Zobacz siebie po zmianie
 
 ARRIVE
 
@@ -140,16 +114,12 @@ EN: Imagine an ordinary day in which your desired change has become part of your
 
 REFLECT
 
-PL:
-
-- Jak wygląda mój zwyczajny dzień po osiągnięciu celu?
+PL: - Jak wygląda mój zwyczajny dzień po osiągnięciu celu?
 - Co robię inaczej niż obecnie?
 - Jak traktuję siebie i swoje potrzeby?
 - Co z tej wizji mogę zacząć świadomie rozwijać już teraz?
 
-EN:
-
-- What does an ordinary day look like after I achieve my goal?
+EN: - What does an ordinary day look like after I achieve my goal?
 - What do I do differently from today?
 - How do I treat myself and my needs?
 - What part of this vision can I begin to develop consciously now?
@@ -160,9 +130,9 @@ PL: Zapisz trzy szczegóły ze swojej wizji przyszłości. Wybierz jeden, który
 
 EN: Write down three details from your vision of the future. Choose one that you can translate into a small change in your current everyday life.
 
-## Dzień 75. Cel, który ma dla mnie znaczenie
+---
 
-Day 75. A Goal That Matters to Me
+## Day 75 — Cel, który ma dla mnie znaczenie
 
 ARRIVE
 
@@ -178,16 +148,12 @@ EN: A goal does not have to impress others, look good on paper or meet someone e
 
 REFLECT
 
-PL:
-
-- Dlaczego ten cel jest dla mnie ważny?
+PL: - Dlaczego ten cel jest dla mnie ważny?
 - Co zmieni się w moim życiu, jeśli będę go realizować?
 - Czy nadal wybrałabym go, gdyby nikt nie mógł mnie za niego pochwalić?
 - Czy mój cel jest zgodny z wartościami, które odkryłam w poprzednich etapach?
 
-EN:
-
-- Why does this goal matter to me?
+EN: - Why does this goal matter to me?
 - What could change in my life if I pursued it?
 - Would I still choose it if nobody could praise me for it?
 - Is my goal aligned with the values I explored in the previous stages?
@@ -197,16 +163,13 @@ APPLY
 PL: Dokończ zdanie: „Ten cel ma dla mnie znaczenie, ponieważ…”. Zachowaj swoją odpowiedź jako osobiste przypomnienie kierunku, który wybierasz.
 
 EN: Complete the sentence: “This goal matters to me because…”. Keep your answer as a personal reminder of the direction you are choosing.
-
 ## Część II. BECOME — Stań się
-
 Dni 76–80 · Days 76–80
-
 W tej części przenosimy uwagę na tożsamość. Nie pytamy już tylko, co chcesz osiągnąć, ale także, jaką osobą chcesz się stawać w procesie realizacji swojego celu. Nie chodzi o udawanie ani odgrywanie roli, lecz o rozwijanie sposobu myślenia i zachowania, który wspiera wybrany kierunek.
 
-## Dzień 76. Kim się staję?
+---
 
-Day 76. Who Am I Becoming?
+## Day 76 — Kim się staję?
 
 ARRIVE
 
@@ -222,16 +185,12 @@ EN: We often define ourselves by what we have achieved, what we lack or what has
 
 REFLECT
 
-PL:
-
-- Jaką osobą chcę się stawać, realizując swój cel?
+PL: - Jaką osobą chcę się stawać, realizując swój cel?
 - Jakie cechy tej osoby są dla mnie najważniejsze?
 - Jak taka osoba traktuje siebie, swój czas i swoje możliwości?
 - Którą z tych cech mogę zacząć rozwijać już teraz?
 
-EN:
-
-- Who do I want to become as I pursue my goal?
+EN: - Who do I want to become as I pursue my goal?
 - Which qualities of this person matter most to me?
 - How does this person treat herself, her time and her opportunities?
 - Which of these qualities can I begin developing now?
@@ -242,9 +201,9 @@ PL: Wybierz jedną cechę, którą chcesz rozwijać. Zastanów się, jak mogłab
 
 EN: Choose one quality you want to develop. Consider how it could show up in one ordinary situation during the next 24 hours.
 
-## Dzień 77. Podejmuję decyzje zgodne z moim celem
+---
 
-Day 77. Making Decisions That Align With My Goal
+## Day 77 — Podejmuję decyzje zgodne z moim celem
 
 ARRIVE
 
@@ -260,16 +219,12 @@ EN: We make many small decisions every day. Not all of them matter greatly, but 
 
 REFLECT
 
-PL:
-
-- Jakie decyzje podejmuję regularnie, które wpływają na mój cel?
+PL: - Jakie decyzje podejmuję regularnie, które wpływają na mój cel?
 - Które z nich wspierają mój wybrany kierunek?
 - Czy istnieje wybór, który podejmuję automatycznie, bez zastanowienia nad jego konsekwencjami?
 - Co zmieniłoby się, gdybym przed ważniejszą decyzją zadała sobie jedno dodatkowe pytanie?
 
-EN:
-
-- What regular decisions influence my goal?
+EN: - What regular decisions influence my goal?
 - Which of them support the direction I have chosen?
 - Is there a choice I make automatically without considering its consequences?
 - What might change if I asked myself one additional question before an important decision?
@@ -280,9 +235,9 @@ PL: Przed jedną dzisiejszą decyzją zatrzymaj się i zapytaj: „Czy ten wybó
 
 EN: Before one decision today, pause and ask: “Does this choice support the direction I have chosen?” Then make a conscious decision that also takes your needs and real circumstances into account.
 
-## Dzień 78. Bycie gotową to decyzja
+---
 
-Day 78. Readiness Is a Decision
+## Day 78 — Bycie gotową to decyzja
 
 ARRIVE
 
@@ -298,16 +253,12 @@ EN: Sometimes we think we must feel ready before we can act. Yet confidence ofte
 
 REFLECT
 
-PL:
-
-- Na co czekam, zanim pozwolę sobie zacząć?
+PL: - Na co czekam, zanim pozwolę sobie zacząć?
 - Czy rzeczywiście potrzebuję jeszcze czegoś, czy oczekuję, że zniknie cała niepewność?
 - Co oznaczałaby gotowość w mojej obecnej sytuacji?
 - Jaki krok mogę podjąć bez lekceważenia rzeczywistego ryzyka?
 
-EN:
-
-- What am I waiting for before I allow myself to begin?
+EN: - What am I waiting for before I allow myself to begin?
 - Do I genuinely need something else, or am I expecting all uncertainty to disappear?
 - What would readiness look like in my current situation?
 - What step can I take without disregarding genuine risks?
@@ -318,9 +269,9 @@ PL: Dokończ zdanie: „Nie muszę czekać, aż poczuję się całkowicie gotowa
 
 EN: Complete the sentence: “I do not have to wait until I feel completely ready. Today, I decide to…”. Finish it with a specific, sensible action.
 
-## Dzień 79. Jak myślę o sobie, gdy pojawia się trudność?
+---
 
-Day 79. How Do I See Myself When Things Get Difficult?
+## Day 79 — Jak myślę o sobie, gdy pojawia się trudność?
 
 ARRIVE
 
@@ -336,16 +287,12 @@ EN: The person we want to become is not defined by success alone. How we treat o
 
 REFLECT
 
-PL:
-
-- Jak zwykle reaguję, gdy coś nie idzie po mojej myśli?
+PL: - Jak zwykle reaguję, gdy coś nie idzie po mojej myśli?
 - Co mówię wtedy o sobie?
 - Jak zareagowałaby osoba, którą chcę się stawać?
 - Jak mogę połączyć odpowiedzialność za sytuację z życzliwym podejściem do siebie?
 
-EN:
-
-- How do I usually react when things do not go as I hoped?
+EN: - How do I usually react when things do not go as I hoped?
 - What do I tell myself about who I am?
 - How might the person I want to become respond?
 - How can I combine responsibility for the situation with kindness towards myself?
@@ -356,9 +303,9 @@ PL: Przygotuj jedno zdanie, które pomoże Ci odpowiedzieć na trudność w bard
 
 EN: Prepare one sentence to help you respond to a difficulty more constructively, for example: “This is not the outcome I wanted. I can explore what it teaches me and decide what to do next.”
 
-## Dzień 80. Daj sobie prawo do nowej wersji siebie
+---
 
-Day 80. Give Yourself Permission to Become Someone New
+## Day 80 — Daj sobie prawo do nowej wersji siebie
 
 ARRIVE
 
@@ -374,16 +321,12 @@ EN: Sometimes we hold on to old descriptions of ourselves: “I have always been
 
 REFLECT
 
-PL:
-
-- Jakie zdanie o sobie ogranicza mnie bardziej, niż mi pomaga?
+PL: - Jakie zdanie o sobie ogranicza mnie bardziej, niż mi pomaga?
 - Czy opisuje ono całą mnie, czy tylko część moich dotychczasowych doświadczeń?
 - Jaką nową cechę lub umiejętność chcę w sobie rozwijać?
 - Jak mogłabym opisać siebie w sposób, który pozostawia miejsce na zmianę?
 
-EN:
-
-- What statement about myself limits me more than it helps me?
+EN: - What statement about myself limits me more than it helps me?
 - Does it describe all of me, or only part of my past experience?
 - What new quality or skill do I want to develop?
 - How could I describe myself in a way that leaves room for change?
@@ -393,16 +336,13 @@ APPLY
 PL: Zapisz jedno stare zdanie o sobie i zastąp je bardziej otwartym, realistycznym stwierdzeniem. Nie musisz jeszcze w pełni w nie wierzyć — potraktuj je jako możliwość, którą możesz sprawdzić w praktyce.
 
 EN: Write down one old statement about yourself and replace it with a more open, realistic one. You do not have to fully believe it yet; treat it as a possibility you can explore through experience.
-
 ## Część III. CHOOSE — Wybieraj świadomie
-
 Dni 81–85 · Days 81–85
-
 W tej części uczestniczka ćwiczy kierowanie uwagi na wybrany cel i podejmowanie decyzji, które są z nim zgodne. Nie chodzi o kontrolowanie każdej myśli ani podporządkowanie całego życia jednemu rezultatowi. Chodzi o świadome wybieranie tego, czemu poświęcamy czas, energię i uwagę.
 
-## Dzień 81. Where focus goes, energy flows
+---
 
-Day 81. Where Focus Goes, Energy Flows
+## Day 81 — Where focus goes, energy flows
 
 ARRIVE
 
@@ -418,16 +358,12 @@ EN: Our attention is a limited resource. What we focus on influences the informa
 
 REFLECT
 
-PL:
-
-- Na co najczęściej kieruję swoją uwagę: na to, czego chcę, czy na to, czego się obawiam?
+PL: - Na co najczęściej kieruję swoją uwagę: na to, czego chcę, czy na to, czego się obawiam?
 - Jakie myśli pochłaniają moją energię, nie pomagając mi podejmować lepszych decyzji?
 - Co chciałabym częściej zauważać w kontekście swojego celu?
 - Jak zmieniłoby się moje podejście, gdybym codziennie przypominała sobie, dokąd zmierzam?
 
-EN:
-
-- Where do I direct my attention most often: towards what I want or towards what I fear?
+EN: - Where do I direct my attention most often: towards what I want or towards what I fear?
 - Which thoughts consume my energy without helping me make better decisions?
 - What would I like to notice more often in relation to my goal?
 - How might my approach change if I reminded myself daily of where I am heading?
@@ -438,9 +374,9 @@ PL: Wybierz jedno krótkie pytanie, które pomoże Ci kierować uwagę na swój 
 
 EN: Choose one short question to help direct your attention towards your goal, such as: “What matters most right now for the direction I have chosen?” Return to it when you notice yourself becoming distracted or focusing only on problems.
 
-## Dzień 82. Wybieram to, co mnie wspiera
+---
 
-Day 82. Choosing What Supports Me
+## Day 82 — Wybieram to, co mnie wspiera
 
 ARRIVE
 
@@ -456,16 +392,12 @@ EN: Every day, we choose how to spend our time, who to spend it with and which c
 
 REFLECT
 
-PL:
-
-- Co w mojej codzienności wspiera kierunek, który wybrałam?
+PL: - Co w mojej codzienności wspiera kierunek, który wybrałam?
 - Co regularnie odciąga mnie od tego, co ważne?
 - Czy przyjmuję zobowiązania, które nie odpowiadają moim obecnym priorytetom?
 - Co mogę zmienić, aby lepiej chronić swój czas i energię?
 
-EN:
-
-- What in my everyday life supports the direction I have chosen?
+EN: - What in my everyday life supports the direction I have chosen?
 - What regularly distracts me from what matters?
 - Do I accept commitments that do not reflect my current priorities?
 - What can I change to protect my time and energy more effectively?
@@ -476,9 +408,9 @@ PL: Wybierz jedną rzecz, którą możesz ograniczyć, uprościć lub której mo
 
 EN: Choose one thing you can reduce, simplify or decline to make more room for what genuinely matters to you.
 
-## Dzień 83. Moja uwaga jest moim wyborem
+---
 
-Day 83. My Attention Is a Choice
+## Day 83 — Moja uwaga jest moim wyborem
 
 ARRIVE
 
@@ -494,16 +426,12 @@ EN: We cannot control everything that enters our minds or everything that happen
 
 REFLECT
 
-PL:
-
-- Co najczęściej odciąga moją uwagę od wybranego celu?
+PL: - Co najczęściej odciąga moją uwagę od wybranego celu?
 - Które rozproszenia są konieczne, a które stały się automatycznym nawykiem?
 - Jak rozpoznaję moment, w którym przestaję skupiać się na tym, co ważne?
 - Co pomaga mi wrócić do obecnego zadania?
 
-EN:
-
-- What most often draws my attention away from my chosen goal?
+EN: - What most often draws my attention away from my chosen goal?
 - Which distractions are necessary, and which have become automatic habits?
 - How do I recognise the moment when I stop focusing on what matters?
 - What helps me return to the task at hand?
@@ -514,9 +442,9 @@ PL: Gdy dziś zauważysz, że Twoja uwaga odpływa, zatrzymaj się i świadomie 
 
 EN: When you notice your attention drifting today, pause and consciously choose where you want to direct it. Do not judge yourself for becoming distracted; treat returning your attention as a practice.
 
-## Dzień 84. Decyzje, które tworzą moją przyszłość
+---
 
-Day 84. Decisions That Shape My Future
+## Day 84 — Decyzje, które tworzą moją przyszłość
 
 ARRIVE
 
@@ -532,16 +460,12 @@ EN: Our lives are shaped not only by major decisions but also by the small choic
 
 REFLECT
 
-PL:
-
-- Jakie małe decyzje mają największy wpływ na moją codzienność?
+PL: - Jakie małe decyzje mają największy wpływ na moją codzienność?
 - Które podejmuję świadomie, a które automatycznie?
 - Jakie konsekwencje może mieć mój obecny sposób wybierania?
 - Jak chciałabym podejmować podobne decyzje w przyszłości?
 
-EN:
-
-- Which small decisions have the greatest influence on my everyday life?
+EN: - Which small decisions have the greatest influence on my everyday life?
 - Which do I make consciously, and which automatically?
 - What consequences might my current way of choosing have?
 - How would I like to make similar decisions in the future?
@@ -552,9 +476,9 @@ PL: Przy jednej dzisiejszej decyzji rozważ jej krótkoterminowe i długotermino
 
 EN: For one decision today, consider its short-term and long-term consequences. Choose the option that best fits your values, needs and direction.
 
-## Dzień 85. Wybieram swój kierunek na nowo
+---
 
-Day 85. Choosing My Direction Again
+## Day 85 — Wybieram swój kierunek na nowo
 
 ARRIVE
 
@@ -570,16 +494,12 @@ EN: A conscious choice does not have to be a one-time decision. We can regularly
 
 REFLECT
 
-PL:
-
-- Czy mój cel nadal odpowiada moim wartościom i pragnieniom?
+PL: - Czy mój cel nadal odpowiada moim wartościom i pragnieniom?
 - Co sprawia, że chcę go kontynuować?
 - Czy pojawiły się nowe informacje, które warto uwzględnić?
 - Jak mogę świadomie potwierdzić swój wybór albo wprowadzić potrzebną zmianę?
 
-EN:
-
-- Does my goal still reflect my values and desires?
+EN: - Does my goal still reflect my values and desires?
 - What makes me want to continue pursuing it?
 - Has new information emerged that I should consider?
 - How can I consciously reaffirm my choice or make a necessary adjustment?
@@ -589,16 +509,13 @@ APPLY
 PL: Zapisz jedno zdanie potwierdzające Twój obecny kierunek albo określ, co chcesz w nim zmienić. Nie podejmuj decyzji wyłącznie po to, by uniknąć chwilowego dyskomfortu — daj sobie przestrzeń na przemyślany wybór.
 
 EN: Write one sentence reaffirming your current direction or identify what you want to change. Do not make a decision solely to escape temporary discomfort; give yourself room to choose thoughtfully.
-
 ## Część IV. LIVE IT — Żyj tą zmianą
-
 Dni 86–90 · Days 86–90
-
 Ostatnie pięć dni łączy nową perspektywę z codziennym doświadczeniem. Uczestniczka uczy się traktować błędy jako informacje, wracać do wybranego kierunku i budować własny sposób życia. Celem nie jest perfekcja ani stałe odczuwanie motywacji, ale świadome kontynuowanie zmiany.
 
-## Dzień 86. Błędy są częścią nauki
+---
 
-Day 86. Mistakes Are Part of Learning
+## Day 86 — Błędy są częścią nauki
 
 ARRIVE
 
@@ -609,25 +526,19 @@ EN: Pause and give yourself a moment without judgement. Remember that you do not
 FOCUS
 
 PL: Kiedy coś nie działa, możemy potraktować to jako dowód, że nie nadajemy się do realizacji celu. Możemy jednak spojrzeć na sytuację inaczej: rezultat dostarczył nam informacji o zastosowanej metodzie, przygotowaniu lub okolicznościach. Błąd nie zawsze oznacza, że powinniśmy kontynuować w ten sam sposób. Czasem oznacza, że potrzebujemy spróbować inaczej.
-
 Thomas Edisonowi przypisuje się ideę, że nie ponosił porażek, lecz odkrywał sposoby, które nie działały. Najważniejsza lekcja nie polega na liczbie prób, ale na tym, czy potrafimy wyciągać z nich wnioski.
 
 EN: When something does not work, we may treat it as proof that we are not capable of achieving our goal. But we can look at the situation differently: the outcome has given us information about our method, preparation or circumstances. A mistake does not always mean we should continue in the same way. Sometimes it means we need to try differently.
-
 Thomas Edison is often associated with the idea that he did not experience failures but discovered ways that did not work. The important lesson is not the number of attempts, but whether we can learn from them.
 
 REFLECT
 
-PL:
-
-- Jaki błąd lub niepowodzenie nadal traktuję jako dowód własnych ograniczeń?
+PL: - Jaki błąd lub niepowodzenie nadal traktuję jako dowód własnych ograniczeń?
 - Czego nauczyło mnie to doświadczenie o zastosowanej metodzie?
 - Co mogę zmienić przy kolejnej próbie?
 - Jak spojrzałabym na tę sytuację, gdybym potraktowała ją jako część nauki, a nie ostateczny werdykt?
 
-EN:
-
-- What mistake or setback do I still treat as proof of my limitations?
+EN: - What mistake or setback do I still treat as proof of my limitations?
 - What has this experience taught me about the method I used?
 - What can I change in my next attempt?
 - How would I view this situation if I treated it as part of learning rather than a final verdict?
@@ -638,9 +549,9 @@ PL: Wybierz jedno doświadczenie, które nie przyniosło oczekiwanego rezultatu.
 
 EN: Choose one experience that did not produce the outcome you expected. Write down what you learned, what you will change and what you will try next time.
 
-## Dzień 87. Nie muszę czuć się tak samo każdego dnia
+---
 
-Day 87. I Do Not Have to Feel the Same Every Day
+## Day 87 — Nie muszę czuć się tak samo każdego dnia
 
 ARRIVE
 
@@ -656,16 +567,12 @@ EN: Sometimes we imagine that a confident, successful or fulfilled person always
 
 REFLECT
 
-PL:
-
-- Jakich emocji oczekuję od siebie, gdy pracuję nad celem?
+PL: - Jakich emocji oczekuję od siebie, gdy pracuję nad celem?
 - Czy uzależniam działanie od tego, czy czuję się pewnie lub mam dobry nastrój?
 - Jak mogę zaakceptować trudniejsze emocje, nie pozwalając im automatycznie decydować za mnie?
 - Kiedy potrzebuję działania, a kiedy odpoczynku lub wsparcia?
 
-EN:
-
-- What emotions do I expect myself to feel while working towards my goal?
+EN: - What emotions do I expect myself to feel while working towards my goal?
 - Do I make action dependent on feeling confident or being in a good mood?
 - How can I accept difficult emotions without automatically letting them decide for me?
 - When do I need action, and when do I need rest or support?
@@ -676,9 +583,9 @@ PL: Wybierz jedną małą czynność zgodną z Twoim kierunkiem. Jeśli masz wys
 
 EN: Choose one small action that aligns with your direction. If you have sufficient energy and resources, take it regardless of your mood. If you need rest, treat caring for yourself as a conscious decision, not a failure.
 
-## Dzień 88. Wracam do tego, co ważne
+---
 
-Day 88. Returning to What Matters
+## Day 88 — Wracam do tego, co ważne
 
 ARRIVE
 
@@ -694,16 +601,12 @@ EN: Life brings periods when we lose focus, change priorities or stop acting in 
 
 REFLECT
 
-PL:
-
-- Co najczęściej sprawia, że tracę kontakt z tym, co ważne?
+PL: - Co najczęściej sprawia, że tracę kontakt z tym, co ważne?
 - Jak reaguję, gdy zauważam, że odeszłam od swojego zamiaru?
 - Co pomaga mi wrócić bez obwiniania siebie?
 - Jaką prostą praktykę mogę wykorzystać, gdy ponownie się rozproszę?
 
-EN:
-
-- What most often causes me to lose touch with what matters?
+EN: - What most often causes me to lose touch with what matters?
 - How do I respond when I notice that I have moved away from my intention?
 - What helps me return without blaming myself?
 - What simple practice can I use when I become distracted again?
@@ -714,9 +617,9 @@ PL: Wybierz jedno zdanie lub pytanie, które pomoże Ci wracać do swojego kieru
 
 EN: Choose one sentence or question that will help you return to your direction. It could be: “What genuinely matters to me right now?” Write it down and place it somewhere you will easily notice it.
 
-## Dzień 89. Żyję zgodnie z tym, co wybieram
+---
 
-Day 89. Living in Alignment With My Choices
+## Day 89 — Żyję zgodnie z tym, co wybieram
 
 ARRIVE
 
@@ -732,16 +635,12 @@ EN: Reaching a goal matters, but so does how we live while pursuing it. We may p
 
 REFLECT
 
-PL:
-
-- Jakie wartości chcę wyrażać w codziennych wyborach?
+PL: - Jakie wartości chcę wyrażać w codziennych wyborach?
 - Czy sposób, w jaki spędzam czas, odpowiada temu, co uważam za ważne?
 - Jak mogę wprowadzać pożądaną zmianę do swojego obecnego życia, zamiast czekać na jej ostateczny rezultat?
 - Co dla mnie oznacza życie w zgodzie ze sobą?
 
-EN:
-
-- What values do I want to express through my everyday choices?
+EN: - What values do I want to express through my everyday choices?
 - Does the way I spend my time reflect what I consider important?
 - How can I bring my desired change into my current life instead of waiting for the final outcome?
 - What does living in alignment with myself mean to me?
@@ -751,7 +650,8 @@ APPLY
 PL: Wybierz jedną wartość, którą chcesz dziś świadomie wyrazić. Zrób coś konkretnego, co ją odzwierciedla — w sposobie pracy, rozmowie, odpoczynku lub podjętej decyzji.
 
 EN: Choose one value you want to express consciously today. Do something concrete that reflects it — through your work, a conversation, rest or a decision.
+## Dzień 90. Staję się częścią własnej zmiany
+Day 90. Becoming Part of My Own Change
 
-## Dzień 90 — zastąpiony zatwierdzonym listem z przyszłości
+---
 
-Treść wcześniejszej wersji Dnia 90 została zastąpiona w aplikacji zatwierdzonym listem do siebie z przyszłości. Zachowano go w aktualnym index.html.
