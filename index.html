@@ -1525,8 +1525,9 @@ function highestUnlockedDay(){
   return d;
 }
 function canOpenDay(day){
-  if(testUnlocked) return day>=1 && day<=90;
-  return day<=highestUnlockedDay() && day<=FREE_DAYS;
+  if(day<1 || day>90) return false;
+  // Test access bypasses the free-day limit, not the sequential completion rule.
+  return day<=highestUnlockedDay() && (testUnlocked || day<=FREE_DAYS);
 }
 function phaseEnd(day){ return [21,45,70].includes(day); }
 function showMilestone(day){
@@ -1543,17 +1544,18 @@ function showMilestone(day){
 }
 function showDayLockedMessage(day){
   const pl=language==="pl";
-  if(day>FREE_DAYS){
+  // Require all earlier days to be completed before offering access to a later day.
+  if(day>highestUnlockedDay()){
+    alert(pl?`Najpierw ukończ Dzień ${day-1}.`:`Complete Day ${day-1} first.`);
+    return;
+  }
+  // The test access code unlocks the full programme, but never skips completion.
+  if(day>FREE_DAYS && !testUnlocked){
     if(unlockTestAccess()){
-      current=Math.min(day,90);
-      save();
       buildPicker();
       render();
     }
     return;
-  }
-  if(day>1){
-    alert(pl?`Najpierw ukończ Dzień ${day-1}.`:`Complete Day ${day-1} first.`);
   }
 }
 function playTimerChime(){
