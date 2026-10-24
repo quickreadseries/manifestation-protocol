@@ -867,8 +867,8 @@ button:disabled{cursor:not-allowed}
     <div class="intro-rule"></div>
     <div class="language-title">CHOOSE YOUR LANGUAGE<br><span>WYBIERZ JĘZYK</span></div>
     <div class="language-buttons">
-      <button class="btn" id="enBtn" onclick="try{language=\'en\';localStorage.setItem(\'smmLanguage\',\'en\');fillIntro(\'en\');showScreen(\'welcomeScreen\')}catch(e){location.href=\'./index.html?lang=en\'}">ENGLISH</button>
-      <button class="btn" id="plBtn" onclick="try{language=\'pl\';localStorage.setItem(\'smmLanguage\',\'pl\');if(!gender){showScreen(\'genderScreen\')}else{fillIntro(\'pl\');showScreen(\'welcomeScreen\')}}catch(e){location.href=\'./index.html?lang=pl\'}">POLSKI</button>
+      <button class="btn" id="enBtn" type="button">ENGLISH</button>
+      <button class="btn" id="plBtn" type="button">POLSKI</button>
     </div>
     <div class="intro-practices">90 DAYS · ONE SMALL MOMENT AT A TIME</div>
   </div>
@@ -1832,11 +1832,8 @@ document.addEventListener("DOMContentLoaded",()=>{
   document.getElementById("enBtn").onclick=()=>{language="en";localStorage.setItem("smmLanguage","en");document.querySelectorAll(".instruction-notice [data-en][data-pl]").forEach(el=>{el.textContent=el.dataset.en;});fillIntro("en");updateAuthUI(currentSession);updateStorageNote();showScreen("welcomeScreen")};
   document.getElementById("plBtn").onclick=()=>{language="pl";localStorage.setItem("smmLanguage","pl");if(!gender){showScreen("genderScreen");return;}document.querySelectorAll(".instruction-notice [data-en][data-pl]").forEach(el=>{el.textContent=el.dataset.pl;});fillIntro("pl");updateAuthUI(currentSession);updateStorageNote();showScreen("welcomeScreen")};
 
-  // Returning visitors go straight to their current day.
-  if(language==="en" || language==="pl"){
-    if(language==="pl" && !gender){showScreen("genderScreen");}
-    else {fillIntro(language);showScreen("protocolScreen");buildPicker();render();}
-  }
+  // Always show the language chooser on entry. Saved progress remains untouched.
+  showScreen("introScreen");
   document.getElementById("welcomeNext").onclick=()=>showScreen("howScreen");
   document.getElementById("howNext").onclick=()=>showScreen("practicesScreen");
   document.getElementById("startProtocol").onclick=()=>{
