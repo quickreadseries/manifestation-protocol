@@ -99,13 +99,14 @@ textarea{width:100%;min-height:120px;border:1px solid var(--line);border-radius:
 <script>
 const daysEN_PLACEHOLDER = null;
 const daysEN = [
-["I am becoming more fully myself. I know who I am, and I trust what I feel.","See yourself already living the reality you described. Notice your surroundings, posture, voice and choices.","Do one small thing today exactly as the person you described."],
-["I am calm in my own presence. I no longer need constant noise to feel safe.","Notice what happens in you when there is nothing you need to fill with noise.","Spend ten minutes without your phone."],
-["I know what matters to me. My choices reflect my values.","Picture a day in which your decisions feel simple because you know what matters.","Choose one thing today because it genuinely matters to you."],
-["I trust myself to recognise what is right for me.","Imagine making a decision without asking anyone else for permission.","Make one small decision without seeking outside validation."],
-["I treat myself with patience and respect.","Notice your first response to a mistake, then soften it before you judge yourself.","Replace one critical thought with a neutral or kind sentence."],
-["I have created space for the life that feels like mine.","Visualise the physical and mental space around you becoming simpler.","Clear one small area."],
-["I am comfortable taking up space.","Imagine entering a room with relaxed shoulders and no need to shrink yourself.","At the end of today, write one sentence: What did I notice about myself this week?"],
+  ["I can pause and notice what is happening within me without needing to change it immediately.","Notice your thoughts, feelings, body, and surroundings in one ordinary moment.","Give one ordinary moment your full attention for one minute today."],
+  ["I can notice the themes my mind returns to.","Observe the topics that occupy your thoughts most often and distinguish what happened from what you fear or anticipate.","When a thought returns today, name its topic without trying to solve it immediately."],
+  ["I can speak to myself with honesty and kindness.","Recall how you speak to yourself when something goes wrong, and consider whether you would use those words with someone you care about.","Answer one self-critical thought as you would respond to someone close to you."],
+  ["I am more than any single label I use to describe myself.","Notice how a label may fit one situation but not describe your whole self.","Replace one fixed label with a description of a specific behaviour."],
+  ["I can recognise my strengths through what I actually do.","Recall moments when you handled a problem, helped someone, or followed through on something meaningful.","Notice one strength in action and name the specific behaviour that showed it."],
+  ["I can look honestly at what I find difficult without judging my whole self.","Explore one quality or reaction that troubles you, when it appears, and whether you want to change it or understand it better.","Describe one difficult reaction without insulting yourself."],
+  ["I am learning to notice my thoughts, words, and reactions with curiosity.","Review the first six days and notice which themes, surprises, or strengths appeared in your notes.","Choose one observation to carry into the next week without turning it into a task list."],
+,
 ["My attention belongs to me.","Notice where your attention goes today when you are not deliberately directing it.","Turn off one unnecessary notification."],
 ["I notice the small details that make my life meaningful.","Imagine an ordinary moment becoming vivid because you are fully present.","Notice three details you would normally miss."],
 ["I know the difference between what I want and what I think I should want.","Ask yourself what changes when a choice comes from what you genuinely want.","Write one sentence beginning: 'What I actually want is…'"],
@@ -244,13 +245,14 @@ function choosePolishGender(value){
 }
 
 const daysPL = [
-  ["Coraz lepiej czuję się sobą. Wiem, co jest dla mnie ważne, i uczę się sobie ufać.","Wyobraź sobie zwyczajny dzień, w którym czujesz się swobodnie i pewnie. Zwróć uwagę na swoją postawę, głos i codzienne wybory.","Wybierz dziś jeden mały gest, który jest zgodny z tym, kim chcesz być."],
-  ["Czuję spokój we własnej obecności. Nie potrzebuję ciągłego hałasu, żeby czuć się bezpiecznie.","Zauważ, co dzieje się w Tobie, kiedy nie musisz niczym wypełniać ciszy.","Spędź dziesięć minut bez telefonu."],
-  ["Wiem, co jest dla mnie ważne. Moje wybory odzwierciedlają moje wartości.","Wyobraź sobie dzień, w którym decyzje są proste, bo wiesz, co naprawdę ma znaczenie.","Wybierz dziś jedną rzecz dlatego, że naprawdę jest dla Ciebie ważna."],
-  ["Ufam sobie i rozpoznaję, co jest dla mnie właściwe.","Wyobraź sobie, że podejmujesz decyzję bez pytania kogokolwiek o pozwolenie.","Podejmij jedną małą decyzję bez szukania zewnętrznego potwierdzenia."],
-  ["Traktuję siebie z cierpliwością i szacunkiem.","Zauważ swoją pierwszą reakcję na błąd, a potem złagodź ją, zanim zaczniesz siebie oceniać.","Zamień jedną krytyczną myśl na neutralne lub życzliwe zdanie."],
-  ["Stworzyłam przestrzeń dla życia, które jest naprawdę moje.","Wyobraź sobie, że fizyczna i mentalna przestrzeń wokół Ciebie staje się prostsza.","Uporządkuj jeden mały obszar."],
-  ["Czuję się dobrze, zajmując swoje miejsce.","Wyobraź sobie, że wchodzisz do pomieszczenia z rozluźnionymi ramionami i bez potrzeby pomniejszania siebie.","Pod koniec dnia zapisz jedno zdanie: Co zauważyłam o sobie w tym tygodniu?"],
+  ["Mogę zatrzymać się i zauważyć to, co dzieje się we mnie, bez potrzeby natychmiastowej zmiany.","Zauważ myśli, uczucia, sygnały z ciała i otoczenie w jednej zwyczajnej chwili.","Poświęć dziś pełną uwagę jednej zwyczajnej chwili przez minutę."],
+  ["Mogę zauważać tematy, do których mój umysł często wraca.","Przyjrzyj się tematom, które najczęściej zajmują Twoje myśli, i odróżnij to, co się wydarzyło, od tego, czego się obawiasz lub co przewidujesz.","Kiedy dziś wróci jakaś myśl, nazwij jej temat bez natychmiastowego szukania rozwiązania."],
+  ["Mogę mówić do siebie szczerze i życzliwie.","Przypomnij sobie, jak mówisz do siebie, gdy coś idzie nie tak, i zastanów się, czy użyłabyś tych samych słów wobec bliskiej osoby.","Odpowiedz na jedną samokrytyczną myśl tak, jak odpowiedziałabyś komuś bliskiemu."],
+  ["Jestem czymś więcej niż pojedyncza etykieta, którą siebie opisuję.","Zauważ, że określenie może pasować do jednej sytuacji, ale nie opisywać całej Ciebie.","Zamień jedno sztywne określenie na opis konkretnego zachowania."],
+  ["Mogę rozpoznawać swoje mocne strony na podstawie tego, co rzeczywiście robię.","Przypomnij sobie sytuacje, w których poradziłaś sobie z problemem, pomogłaś komuś lub doprowadziłaś do końca coś ważnego.","Zauważ jedną mocną stronę w działaniu i nazwij konkretne zachowanie, które ją pokazało."],
+  ["Mogę szczerze przyjrzeć się temu, co jest dla mnie trudne, nie oceniając całej siebie.","Przyjrzyj się jednej reakcji lub cesze, która sprawia Ci trudność, sytuacjom, w których się pojawia, i temu, czy chcesz ją zmienić, czy lepiej zrozumieć.","Opisz jedną trudną reakcję bez obrażania siebie."],
+  ["Uczę się z ciekawością zauważać swoje myśli, słowa i reakcje.","Wróć do pierwszych sześciu dni i zauważ, jakie tematy, zaskoczenia lub mocne strony pojawiły się w Twoich notatkach.","Wybierz jedną obserwację, którą zabierzesz do kolejnego tygodnia, bez zamieniania jej w listę zadań."],
+,
   ["Moja uwaga należy do mnie.","Zauważ dziś, dokąd kieruje się Twoja uwaga, kiedy nie próbujesz świadomie nią sterować.","Wyłącz jedno niepotrzebne powiadomienie."],
   ["Zauważam małe szczegóły, które nadają mojemu życiu znaczenie.","Wyobraź sobie zwyczajną chwilę, która staje się wyraźna, bo jesteś w niej naprawdę obecna.","Zauważ trzy szczegóły, które zwykle Ci umykają."],
   ["Rozpoznaję różnicę między tym, czego chcę, a tym, czego wydaje mi się, że powinnam chcieć.","Zapytaj siebie, co się zmienia, kiedy wybór wynika z tego, czego naprawdę chcesz.","Napisz jedno zdanie zaczynające się od: „Naprawdę chcę…”"],
@@ -1251,10 +1253,10 @@ const SOUND_FILES={
 };
 
 function phaseFor(d){
-  if(d<=21)return["PHASE I · IDENTITY",1];
-  if(d<=45)return["PHASE II · VISION",2];
-  if(d<=70)return["PHASE III · EMBODIMENT",3];
-  return["PHASE IV · MANIFESTATION",4];
+  if(d<=21)return["RESET",1];
+  if(d<=45)return["CHOOSE",2];
+  if(d<=70)return["SEE",3];
+  return["LIVE",4];
 }
 let cloudSaveTimer = null;
 let currentSession = null;
@@ -1587,7 +1589,7 @@ function render(){
       : "Direct your attention towards what matters to you.";
   }
   document.getElementById("phaseLabel").textContent=pl
-    ?(["ETAP I · TOŻSAMOŚĆ","ETAP II · WIZJA","ETAP III · UCIELEŚNIENIE","ETAP IV · MANIFESTACJA"][n-1])
+    ?(["RESET","CHOOSE","SEE","LIVE"][n-1])
     :phase;
 
   // Translate all fixed protocol controls and labels with the selected language.
@@ -1620,7 +1622,9 @@ function render(){
     ?"Small Moments Method to praktyka refleksji i pracy własnej. Nie jest terapią, poradą medyczną ani zamiennikiem profesjonalnej opieki."
     :"Small Moments Method is a reflection and personal practice. It is not therapy, medical advice, or a substitute for professional care.";
   document.getElementById("dayTitle").textContent=(pl?"Dzień ":"Day ")+current;
-  document.getElementById("daySubtitle").textContent="";
+  const dayTitlesPL=["Zatrzymaj się i zauważ","Myśli, które wypełniają mój dzień","Mój wewnętrzny głos","Słowa, którymi opisuję siebie","Moje mocne strony","Co trudno mi w sobie zaakceptować","Pierwszy tydzień obserwacji"];
+  const dayTitlesEN=["Pause and notice","The thoughts that fill my day","My inner voice","The words I use to describe myself","My strengths","What I find difficult to accept in myself","My first week of noticing"];
+  document.getElementById("daySubtitle").textContent=current<=7?(pl?dayTitlesPL[current-1]:dayTitlesEN[current-1]):"";
   const phaseStarts=[1,22,46,71];
   const phaseEnds=[21,45,70,90];
   const phaseIndex=n-1;
@@ -1631,7 +1635,7 @@ function render(){
     : "PHASE "+["I","II","III","IV"][phaseIndex];
   document.getElementById("fill").style.width=(phaseDay/phaseLength*100)+"%";
 
-  const phases=pl?["Tożsamość","Wizja","Ucieleśnienie","Manifestacja"]:["Identity","Vision","Embodiment","Manifestation"];
+  const phases=["RESET","CHOOSE","SEE","LIVE"];
   document.querySelectorAll(".phase").forEach((e,i)=>{
     e.classList.toggle("active",i===n-1);
     e.innerHTML=phases[i]+"<br>"+["1–21","22–45","46–70","71–90"][i];
