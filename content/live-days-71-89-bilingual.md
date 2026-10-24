@@ -1,6 +1,6 @@
 # Small Moments Method — LIVE Days 71–89
 
-Full bilingual source text preserved from the supplied draft. Day 90 is intentionally excluded because its APPLY text was later replaced by the approved future-self letter.
+Full bilingual source text preserved from the supplied draft. Day 90 is excluded because its APPLY text was later replaced by the approved future-self letter.
 
 ## Day 71 — Zobacz to, czego pragniesz
 
