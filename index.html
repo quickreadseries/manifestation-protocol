@@ -2142,47 +2142,77 @@ document.addEventListener("DOMContentLoaded",()=>{
 </script>
 <div id="printJourney" aria-hidden="true"></div>
 <script>
-/* Independent language switching for the onboarding screens.
-   Uses the agreed INTRO copy when available and leaves progress/notes untouched. */
+/* Robust language switching for onboarding screens. */
 (function () {
   function setNoticeLanguage(lang) {
     document.querySelectorAll(".instruction-notice [data-en][data-pl]").forEach(function (el) {
       el.textContent = lang === "pl" ? el.dataset.pl : el.dataset.en;
     });
   }
-  function setActiveLanguage(lang) {
+  function fillFallback(lang) {
+    var pl = lang === "pl";
+    var data = pl ? {
+      welcomeKicker:"METODA", welcomeTitle:"ZNAJDŹ PRZESTRZEŃ<br>NA ZMIANĘ.",
+      welcomeBody:"<p>Small Moments Method to 90-dniowa praktyka refleksji. Każdego dnia przechodzisz przez cztery krótkie kroki: ARRIVE — zatrzymaj się w chwili obecnej; FOCUS — wybierz to, co ważne; REFLECT — z ciekawością przyjrzyj się myślom i przekonaniom; APPLY — zrób jeden mały, praktyczny krok.</p><h2 class='mini-heading'>CZTERY ETAPY</h2><p>Tożsamość · Wizja · Perspektywa · Działanie</p>",
+      timingBox:"<strong>JAK PRAKTYKOWAĆ</strong><p>Zarezerwuj około 15 minut: ARRIVE (3 min), FOCUS (4 min), REFLECT (5 min) i APPLY (3 min).</p>",
+      howKicker:"POGŁĘB SWOJĄ PRAKTYKĘ",howTitle:"ZAPISUJ,<br>JEŚLI CHCESZ.",
+      howBody:"<p>Jeśli masz ochotę, zapisuj swoje myśli podczas refleksji. Kilka słów w notesie może pomóc Ci się zatrzymać i wrócić do nich później. Nie musisz pisać codziennie.</p>",
+      howNext:"ROZPOCZNIJ PRAKTYKĘ →", practicesKicker:"CZTERY PRAKTYKI", practicesTitle:"ARRIVE.<br>FOCUS.<br>REFLECT.<br>APPLY.",
+      p1t:"Zatrzymaj się i bądź tu, gdzie jesteś.",p2t:"Wybierz to, co dziś ważne.",p3t:"Przyjrzyj się myślom z ciekawością.",p4t:"Zrób jeden mały, praktyczny krok.",start:"ROZPOCZNIJ PIERWSZY DZIEŃ →",welcomeNext:"DALEJ →"
+    } : {
+      welcomeKicker:"THE METHOD",welcomeTitle:"MAKE SPACE<br>FOR CHANGE.",
+      welcomeBody:"<p>Small Moments Method is a 90-day guided reflection practice. Each day, move through four short steps: ARRIVE — settle into the present moment; FOCUS — choose what matters; REFLECT — explore thoughts and beliefs with curiosity; APPLY — take one small practical step.</p><h2 class='mini-heading'>THE FOUR STAGES</h2><p>Identity · Vision · Perspective · Action</p>",
+      timingBox:"<strong>HOW TO PRACTISE</strong><p>Set aside about 15 minutes: ARRIVE (3 min), FOCUS (4 min), REFLECT (5 min) and APPLY (3 min).</p>",
+      howKicker:"OPTIONAL REFLECTION",howTitle:"GO A LITTLE<br>DEEPER.",
+      howBody:"<p>If you feel like it, write down your thoughts as you reflect. A few words in a notebook can help you pause and return to them later. There is no need to write every day.</p>",
+      howNext:"START THE PRACTICE →", practicesKicker:"THE FOUR PRACTICES", practicesTitle:"ARRIVE.<br>FOCUS.<br>REFLECT.<br>APPLY.",
+      p1t:"Settle into the present moment.",p2t:"Choose what matters today.",p3t:"Explore your thoughts with curiosity.",p4t:"Take one small practical step.",start:"START YOUR FIRST DAY →",welcomeNext:"CONTINUE →"
+    };
+    Object.keys(data).forEach(function (key) {
+      var ids = {welcomeNext:"welcomeNext"};
+      var id = ids[key] || key;
+      var el = document.getElementById(id);
+      if (el) {
+        if (["welcomeTitle","welcomeBody","timingBox","howTitle","howBody","practicesTitle"].includes(key)) el.innerHTML = data[key];
+        else el.textContent = data[key];
+      }
+    });
+    ["p1","p2","p3","p4"].forEach(function (prefix) {
+      var name = document.getElementById(prefix+"name");
+      var desc = document.getElementById(prefix+"text");
+      if (name) name.textContent = prefix.toUpperCase();
+      if (desc) desc.textContent = data[prefix+"t"];
+    });
+  }
+  function switchLanguage(lang, firstChoice) {
+    var visible = Array.from(document.querySelectorAll(".screen")).find(function (screen) {
+      return !screen.classList.contains("hidden");
+    });
+    var target = firstChoice ? "welcomeScreen" : (visible ? visible.id : "welcomeScreen");
+    try { localStorage.setItem("smmLanguage", lang); } catch (e) {}
+    document.documentElement.lang = lang;
+    try { if (typeof fillIntro === "function") fillIntro(lang); } catch (e) { console.error("fillIntro failed", e); }
+    fillFallback(lang);
+    setNoticeLanguage(lang);
     document.querySelectorAll("[data-intro-lang]").forEach(function (el) {
       el.classList.toggle("active", el.dataset.introLang === lang);
     });
-  }
-  function switchIntroLanguage(lang, firstChoice) {
-    try { localStorage.setItem("smmLanguage", lang); } catch (e) {}
-    document.documentElement.lang = lang;
-    try {
-      if (typeof fillIntro === "function") fillIntro(lang);
-    } catch (e) {
-      console.error("Could not load the full introduction text:", e);
-    }
-    setNoticeLanguage(lang);
-    setActiveLanguage(lang);
-    if (firstChoice) {
-      document.querySelectorAll(".screen").forEach(function (screen) {
-        screen.classList.toggle("hidden", screen.id !== "welcomeScreen");
-      });
-    }
+    if (firstChoice) target = "welcomeScreen";
+    document.querySelectorAll(".screen").forEach(function (screen) {
+      screen.classList.toggle("hidden", screen.id !== target);
+    });
     window.scrollTo(0, 0);
   }
   document.addEventListener("click", function (event) {
     var button = event.target.closest("#enBtn, #plBtn, [data-intro-lang]");
     if (!button) return;
-    var lang = button.id === "enBtn" || button.dataset.introLang === "en" ? "en" : "pl";
-    var firstChoice = button.id === "enBtn" || button.id === "plBtn";
     event.preventDefault();
     event.stopImmediatePropagation();
-    switchIntroLanguage(lang, firstChoice);
+    var lang = button.id === "enBtn" || button.dataset.introLang === "en" ? "en" : "pl";
+    switchLanguage(lang, button.id === "enBtn" || button.id === "plBtn");
   }, true);
 })();
-</script>
+
 </body></html><script>
 document.addEventListener("DOMContentLoaded",()=>{
   const modal=document.getElementById("feedbackModal");
