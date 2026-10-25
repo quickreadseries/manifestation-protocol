@@ -228,9 +228,6 @@ function fillIntro(lang){
  document.getElementById("howKicker").textContent=d.howKicker;
  document.getElementById("howTitle").innerHTML=d.howTitle;
  document.getElementById("howBody").innerHTML=d.howBody;
- const phaseNames=lang==="pl"?["Tożsamość","Wizja","Perspektywa","Działanie"]:["Identity","Vision","Perspective","Action"];
- document.getElementById("phaseOverviewTitle").textContent=lang==="pl"?"Cztery etapy":"Four phases";
- phaseNames.forEach((name,i)=>document.getElementById("introPhase"+(i+1)).textContent=name);
  document.getElementById("howNext").textContent=d.howNext;
  document.getElementById("practicesKicker").textContent=d.practicesKicker;
  document.getElementById("practicesTitle").innerHTML=d.practicesTitle;
@@ -262,7 +259,7 @@ function fillIntro(lang){
  document.getElementById("endQuestion").textContent=end.question;
  document.getElementById("finalNotes").placeholder=end.placeholder;
  document.getElementById("saveFinal").textContent=end.save;
- document.getElementById("endPractices").textContent="RESET · "+(lang==="pl"?"WYBIERZ · ZOBACZ · ŻYJ":"CHOOSE · SEE · LIVE");
+ document.getElementById("endPractices").textContent=lang==="pl"?"ARRIVE · FOCUS · REFLECT · APPLY":"ARRIVE · FOCUS · REFLECT · APPLY";
 }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
