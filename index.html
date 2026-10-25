@@ -107,7 +107,7 @@ const daysEN = [["I am becoming more fully myself. I know who I am, and I trust 
 function polishForGender(value){
   if(language!=="pl" || typeof value!=="string") return value;
   // First select the chosen form in explicit {female|male} alternatives for both genders.
-  value=value.replace(/\\{([^{}|]+)\\|([^{}|]+)\\}/g,(_,femaleForm,maleForm)=>gender==="male"?maleForm:femaleForm);
+  value=value.replace(/\{([^{}|]+)\|([^{}|]+)\}/g,(_,femaleForm,maleForm)=>gender==="male"?maleForm:femaleForm);
   if(gender!=="male") return value;
   const pairs=[
     ["pełną spokojnej pewności","pełnego spokojnego przekonania"],
