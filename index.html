@@ -669,30 +669,35 @@ button:disabled{cursor:not-allowed}
         });
         document.documentElement.lang = lang;
         try { window.localStorage.setItem("smmLanguage", lang); } catch (error) {}
-        // Populate the welcome screen directly first; do not rely on the main initializer.
-        try {
-          var d = INTRO[lang] || INTRO.en;
-          var setText = function (id, value, html) {
-            var el = document.getElementById(id);
-            if (el && value != null) {
-              if (html) el.innerHTML = value;
-              else el.textContent = value;
-            }
-          };
-          setText("welcomeKicker", d.welcomeKicker);
-          setText("welcomeTitle", d.welcomeTitle, true);
-          setText("welcomeBody", d.welcomeBody, true);
-          setText("timingBox", d.timingBox, true);
-          setText("welcomeNext", d.continue);
-          document.querySelectorAll(".instruction-notice [data-en][data-pl]").forEach(function (el) {
-            el.textContent = lang === "pl" ? el.dataset.pl : el.dataset.en;
-          });
-          // Fill the remaining intro screens when the standard helper is available.
-          try { if (typeof fillIntro === "function") fillIntro(lang); } catch (error) {
-            console.error("Optional intro screen setup failed:", error);
-          }
-        } catch (error) {
-          console.error("Welcome screen content could not be populated:", error);
+        // Populate the welcome screen without relying on any other script's variables.
+        var content = lang === "pl" ? {
+          kicker: "METODA",
+          title: "ZRÓB MIEJSCE<br>NA ZMIANĘ.",
+          body: "<p>Small Moments Method to 90-dniowa praktyka, która pomaga świadomie przyglądać się sobie i wprowadzać małe, realne zmiany.</p><p>Nie musisz zmieniać wszystkiego naraz. Zacznij od jednej chwili.</p>",
+          timing: "<strong>JAK PRAKTYKOWAĆ</strong><p>Znajdź kilka spokojnych minut każdego dnia. Czytaj, odpowiadaj szczerze i wykonaj jeden mały krok.</p>",
+          next: "DALEJ →"
+        } : {
+          kicker: "THE METHOD",
+          title: "MAKE SPACE<br>FOR CHANGE.",
+          body: "<p>Small Moments Method is a 90-day practice to help you reflect on yourself and make small, meaningful changes.</p><p>You do not need to change everything at once. Start with one moment.</p>",
+          timing: "<strong>HOW TO PRACTISE</strong><p>Find a few quiet minutes each day. Read, answer honestly, and take one small step.</p>",
+          next: "CONTINUE →"
+        };
+        function setWelcomeText(id, value, html) {
+          var el = document.getElementById(id);
+          if (el) { if (html) el.innerHTML = value; else el.textContent = value; }
+        }
+        setWelcomeText("welcomeKicker", content.kicker);
+        setWelcomeText("welcomeTitle", content.title, true);
+        setWelcomeText("welcomeBody", content.body, true);
+        setWelcomeText("timingBox", content.timing, true);
+        setWelcomeText("welcomeNext", content.next);
+        document.querySelectorAll(".instruction-notice [data-en][data-pl]").forEach(function (el) {
+          el.textContent = lang === "pl" ? el.dataset.pl : el.dataset.en;
+        });
+        // The normal helper can additionally localize the remaining screens.
+        try { if (typeof fillIntro === "function") fillIntro(lang); } catch (error) {
+          console.error("Optional intro screen setup failed:", error);
         }
       }
       var en = document.getElementById("enBtn");
