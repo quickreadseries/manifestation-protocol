@@ -1017,6 +1017,13 @@ button:disabled{cursor:not-allowed}
 let feedbackSubmitted=localStorage.getItem("smmFeedbackSubmitted")==="1";
 let feedbackDismissed=localStorage.getItem("smmFeedbackDismissed")==="1";
 let language=localStorage.getItem("smmLanguage")||"";
+try{
+  const requestedLanguage=new URLSearchParams(window.location.search).get("lang");
+  if(requestedLanguage==="pl"||requestedLanguage==="en"){
+    language=requestedLanguage;
+    localStorage.setItem("smmLanguage",language);
+  }
+}catch(e){}
 let gender=localStorage.getItem("smmGender")||"";
 let current=Number(localStorage.getItem("manifestDay")||1);
 // Restore the day explicitly carried back from the About page, including for visitors without an account.
