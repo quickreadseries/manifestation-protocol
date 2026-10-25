@@ -220,10 +220,17 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape")document.getElementB
 
 </script>
 <script>
-/* Preserve the visitor's current practice day when returning from About. */
+/* Preserve the visitor's current practice day when returning from About.
+   Read local progress directly as well, so this also works if About was opened
+   from a cached copy of the home page that did not include the returnDay URL. */
 (function(){
   try{
-    const day=Number(new URLSearchParams(window.location.search).get("returnDay"));
+    const params=new URLSearchParams(window.location.search);
+    const fromUrl=Number(params.get("returnDay"));
+    const fromStorage=Number(localStorage.getItem("manifestDay")||1);
+    const day=Number.isInteger(fromUrl)&&fromUrl>=1&&fromUrl<=90
+      ? fromUrl
+      : fromStorage;
     if(Number.isInteger(day)&&day>=1&&day<=90){
       document.querySelectorAll('a[href="./index.html"]').forEach(function(link){
         link.href="./index.html?returnDay="+day;
