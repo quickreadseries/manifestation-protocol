@@ -2032,51 +2032,6 @@ document.addEventListener("DOMContentLoaded",()=>{
 </script>
 <div id="printJourney" aria-hidden="true"></div>
 
-<script>
-/* Emergency language-screen recovery: reveal the screen before translating any content. */
-(function () {
-  function activateLanguage(lang) {
-    localStorage.setItem("smmLanguage", lang);
-    document.documentElement.lang = lang;
-    ["introScreen", "genderScreen", "welcomeScreen", "howScreen", "practicesScreen", "protocolScreen", "endScreen"].forEach(function (id) {
-      var screen = document.getElementById(id);
-      if (screen) screen.classList.toggle("hidden", id !== "welcomeScreen");
-    });
-    window.scrollTo(0, 0);
-    try {
-      if (typeof fillIntro === "function") fillIntro(lang);
-    } catch (error) {
-      console.error("Could not fill full onboarding content:", error);
-      var pl = lang === "pl";
-      var set = function(id, value, html) {
-        var el = document.getElementById(id);
-        if (el) { if (html) el.innerHTML = value; else el.textContent = value; }
-      };
-      set("welcomeKicker", pl ? "METODA" : "THE METHOD");
-      set("welcomeTitle", pl ? "ZNAJDŹ PRZESTRZEŃ<br>NA ZMIANĘ." : "MAKE SPACE<br>FOR CHANGE.", true);
-      set("welcomeBody", pl
-        ? "<p>Small Moments Method to 90-dniowa praktyka refleksji. Każdego dnia przechodzisz przez cztery kroki: ARRIVE, FOCUS, REFLECT i APPLY.</p><h2>CZTERY ETAPY</h2><p>Tożsamość · Wizja · Perspektywa · Działanie</p>"
-        : "<p>Small Moments Method is a 90-day guided reflection practice with four daily steps: ARRIVE, FOCUS, REFLECT and APPLY.</p><h2>THE FOUR STAGES</h2><p>Identity · Vision · Perspective · Action</p>", true);
-      set("timingBox", pl ? "<strong>JAK PRAKTYKOWAĆ</strong><p>Około 15 minut dziennie: ARRIVE (3 min), FOCUS (4 min), REFLECT (5 min), APPLY (3 min).</p>" : "<strong>HOW TO PRACTISE</strong><p>About 15 minutes daily: ARRIVE (3 min), FOCUS (4 min), REFLECT (5 min), APPLY (3 min).</p>", true);
-      set("welcomeNext", pl ? "DALEJ →" : "CONTINUE →");
-      set("howKicker", pl ? "POGŁĘB SWOJĄ PRAKTYKĘ" : "OPTIONAL REFLECTION");
-      set("howTitle", pl ? "ZAPISUJ,<br>JEŚLI CHCESZ." : "GO A LITTLE<br>DEEPER.", true);
-      set("howBody", pl ? "<p>Jeśli masz ochotę, zapisuj myśli podczas refleksji. Nie musisz pisać codziennie.</p>" : "<p>If you wish, write down your thoughts as you reflect. You do not need to write every day.</p>", true);
-      set("howNext", pl ? "ROZPOCZNIJ PRAKTYKĘ →" : "START THE PRACTICE →");
-      document.querySelectorAll(".instruction-notice [data-en][data-pl]").forEach(function(el){el.textContent=pl?el.dataset.pl:el.dataset.en;});
-    }
-  }
-  function bind() {
-    var en=document.getElementById("enBtn"), pl=document.getElementById("plBtn");
-    if(en) en.addEventListener("click",function(e){e.preventDefault();e.stopImmediatePropagation();activateLanguage("en");},true);
-    if(pl) pl.addEventListener("click",function(e){e.preventDefault();e.stopImmediatePropagation();activateLanguage("pl");},true);
-    document.querySelectorAll("[data-intro-lang]").forEach(function(btn){
-      btn.addEventListener("click",function(e){e.preventDefault();e.stopImmediatePropagation();activateLanguage(btn.dataset.introLang==="pl"?"pl":"en");},true);
-    });
-  }
-  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",bind);
-  else bind();
-})();
-</script>
+
 </body>
 </html>
