@@ -657,8 +657,8 @@ button:disabled{cursor:not-allowed}
     <div class="intro-rule"></div>
     <div class="language-title">CHOOSE YOUR LANGUAGE<br><span>WYBIERZ JĘZYK</span></div>
     <div class="language-buttons">
-      <a class="btn" id="enBtn" href="?lang=en" role="button">ENGLISH</a>
-      <a class="btn" id="plBtn" href="?lang=pl" role="button">POLSKI</a>
+      <button class="btn" id="enBtn" type="button">ENGLISH</button>
+      <button class="btn" id="plBtn" type="button">POLSKI</button>
     </div>
 
     <div class="intro-practices">90 DAYS · ONE SMALL MOMENT AT A TIME</div>
@@ -993,9 +993,7 @@ button:disabled{cursor:not-allowed}
 <script>
 let feedbackSubmitted=localStorage.getItem("smmFeedbackSubmitted")==="1";
 let feedbackDismissed=localStorage.getItem("smmFeedbackDismissed")==="1";
-const languageFromUrl = new URLSearchParams(window.location.search).get("lang");
-let language = (languageFromUrl === "en" || languageFromUrl === "pl") ? languageFromUrl : (localStorage.getItem("smmLanguage") || "");
-if (languageFromUrl === "en" || languageFromUrl === "pl") { try { localStorage.setItem("smmLanguage", languageFromUrl); } catch (e) {} }
+let language=localStorage.getItem("smmLanguage")||"";
 let gender=localStorage.getItem("smmGender")||"";
 let current=Number(localStorage.getItem("manifestDay")||1);
 let done=JSON.parse(localStorage.getItem("manifestDone")||"{}");
@@ -1644,8 +1642,6 @@ document.addEventListener("DOMContentLoaded",()=>{
     document.querySelectorAll(".instruction-notice [data-en][data-pl]").forEach(el=>{el.textContent=el.dataset[language];});
     document.querySelectorAll("[data-intro-lang]").forEach(el=>el.classList.toggle("active",el.dataset.introLang===language));
     showScreen("protocolScreen");
-    buildPicker();
-    render();
   }else{
     showScreen("introScreen");
   }
@@ -2035,46 +2031,5 @@ document.addEventListener("DOMContentLoaded",()=>{
 <div id="printJourney" aria-hidden="true"></div>
 
 
-<script>
-/* Direct language-button fallback. Does not modify saved progress or notes. */
-window.smmChooseLanguage = function (lang) {
-  if (lang !== "en" && lang !== "pl") return;
-  try { localStorage.setItem("smmLanguage", lang); } catch (e) {}
-  try { language = lang; } catch (e) {}
-  document.documentElement.lang = lang;
-  var visible = ["welcomeScreen", "howScreen", "practicesScreen"].find(function(id) {
-    var el = document.getElementById(id);
-    return el && !el.classList.contains("hidden");
-  }) || "welcomeScreen";
-  try {
-    if (typeof fillIntro === "function") fillIntro(lang);
-    document.querySelectorAll(".instruction-notice [data-en][data-pl]").forEach(function(el) {
-      el.textContent = lang === "pl" ? el.dataset.pl : el.dataset.en;
-    });
-    document.querySelectorAll("[data-intro-lang]").forEach(function(el) {
-      el.classList.toggle("active", el.dataset.introLang === lang);
-    });
-    if (typeof updateAuthUI === "function" && typeof currentSession !== "undefined") updateAuthUI(currentSession);
-    if (typeof showScreen === "function") showScreen(visible);
-  } catch (error) {
-    console.error("Language selection fallback:", error);
-    var pl = lang === "pl";
-    var kicker = document.getElementById("welcomeKicker");
-    var title = document.getElementById("welcomeTitle");
-    var body = document.getElementById("welcomeBody");
-    var next = document.getElementById("welcomeNext");
-    if (kicker) kicker.textContent = pl ? "WPROWADZENIE" : "INTRODUCTION";
-    if (title) title.innerHTML = pl ? "ZNAJDŹ MIEJSCE<br>NA ZMIANĘ." : "MAKE SPACE<br>FOR CHANGE.";
-    if (body) body.textContent = pl
-      ? "Small Moments Method to 90-dniowa praktyka refleksji. Każdego dnia przejdziesz przez cztery kroki: ARRIVE, FOCUS, REFLECT i APPLY."
-      : "Small Moments Method is a 90-day reflection practice with four daily steps: ARRIVE, FOCUS, REFLECT and APPLY.";
-    if (next) next.textContent = pl ? "DALEJ →" : "CONTINUE →";
-    ["introScreen", "genderScreen", "welcomeScreen", "howScreen", "practicesScreen", "protocolScreen", "endScreen"].forEach(function(id) {
-      var el = document.getElementById(id);
-      if (el) el.classList.toggle("hidden", id !== "welcomeScreen");
-    });
-  }
-};
-</script>
 </body>
 </html>
