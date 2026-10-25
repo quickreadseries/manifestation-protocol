@@ -661,46 +661,47 @@ button:disabled{cursor:not-allowed}
       <button class="btn" id="plBtn" type="button">POLSKI</button>
     </div>
     <script>
-    // Standalone mobile-safe language selector. It does not depend on the main app script.
+    // Standalone mobile-safe language selector with a direct welcome-screen fallback.
     (function () {
       function chooseSmmLanguage(lang) {
-        // Always switch screens first, even if another script or browser storage fails.
         document.querySelectorAll(".screen").forEach(function (screen) {
           screen.classList.toggle("hidden", screen.id !== "welcomeScreen");
         });
         document.documentElement.lang = lang;
-        try { window.localStorage.setItem("smmLanguage", lang); } catch (error) {
-          console.warn("Language preference could not be saved in local storage.", error);
-        }
+        try { window.localStorage.setItem("smmLanguage", lang); } catch (error) {}
+        // Populate the welcome screen directly first; do not rely on the main initializer.
         try {
-          if (typeof fillIntro === "function") fillIntro(lang);
-        } catch (error) {
-          console.error("Could not fill welcome text:", error);
-        }
-        document.querySelectorAll(".instruction-notice [data-en][data-pl]").forEach(function (el) {
-          el.textContent = lang === "pl" ? el.dataset.pl : el.dataset.en;
-        });
-        // Refresh auth/storage labels only when those optional functions are available.
-        try {
-          if (typeof updateAuthUI === "function") {
-            updateAuthUI(typeof currentSession !== "undefined" ? currentSession : null);
+          var d = INTRO[lang] || INTRO.en;
+          var setText = function (id, value, html) {
+            var el = document.getElementById(id);
+            if (el && value != null) {
+              if (html) el.innerHTML = value;
+              else el.textContent = value;
+            }
+          };
+          setText("welcomeKicker", d.welcomeKicker);
+          setText("welcomeTitle", d.welcomeTitle, true);
+          setText("welcomeBody", d.welcomeBody, true);
+          setText("timingBox", d.timingBox, true);
+          setText("welcomeNext", d.continue);
+          document.querySelectorAll(".instruction-notice [data-en][data-pl]").forEach(function (el) {
+            el.textContent = lang === "pl" ? el.dataset.pl : el.dataset.en;
+          });
+          // Fill the remaining intro screens when the standard helper is available.
+          try { if (typeof fillIntro === "function") fillIntro(lang); } catch (error) {
+            console.error("Optional intro screen setup failed:", error);
           }
-        } catch (error) { console.warn("Auth UI refresh skipped.", error); }
-        try {
-          if (typeof updateStorageNote === "function") updateStorageNote();
-        } catch (error) { console.warn("Storage note refresh skipped.", error); }
+        } catch (error) {
+          console.error("Welcome screen content could not be populated:", error);
+        }
       }
       var en = document.getElementById("enBtn");
       var pl = document.getElementById("plBtn");
       if (en) en.addEventListener("click", function (event) {
-        event.preventDefault();
-        event.stopPropagation();
-        chooseSmmLanguage("en");
+        event.preventDefault(); event.stopPropagation(); chooseSmmLanguage("en");
       }, true);
       if (pl) pl.addEventListener("click", function (event) {
-        event.preventDefault();
-        event.stopPropagation();
-        chooseSmmLanguage("pl");
+        event.preventDefault(); event.stopPropagation(); chooseSmmLanguage("pl");
       }, true);
     })();    </script>
     <div class="intro-practices">90 DAYS · ONE SMALL MOMENT AT A TIME</div>
