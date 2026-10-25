@@ -2031,5 +2031,41 @@ document.addEventListener("DOMContentLoaded",()=>{
 });
 </script>
 <div id="printJourney" aria-hidden="true"></div>
+
+<script>
+/* Independent language-button recovery: full INTRO content, without touching saved progress. */
+(function () {
+  function activateLanguage(lang) {
+    try {
+      localStorage.setItem("smmLanguage", lang);
+      document.documentElement.lang = lang;
+      if (typeof fillIntro === "function") fillIntro(lang);
+      document.querySelectorAll(".instruction-notice [data-en][data-pl]").forEach(function (el) {
+        el.textContent = lang === "pl" ? el.dataset.pl : el.dataset.en;
+      });
+      document.querySelectorAll("[data-intro-lang]").forEach(function (el) {
+        el.classList.toggle("active", el.dataset.introLang === lang);
+      });
+      ["introScreen", "genderScreen", "welcomeScreen", "howScreen", "practicesScreen", "protocolScreen", "endScreen"].forEach(function (id) {
+        var screen = document.getElementById(id);
+        if (screen) screen.classList.toggle("hidden", id !== "welcomeScreen");
+      });
+      window.scrollTo(0, 0);
+    } catch (error) { console.error("Language selection failed:", error); }
+  }
+  function bindLanguageButtons() {
+    var en = document.getElementById("enBtn"), pl = document.getElementById("plBtn");
+    if (en) en.addEventListener("click", function (event) { event.preventDefault(); activateLanguage("en"); }, true);
+    if (pl) pl.addEventListener("click", function (event) { event.preventDefault(); activateLanguage("pl"); }, true);
+    document.querySelectorAll("[data-intro-lang]").forEach(function (button) {
+      button.addEventListener("click", function (event) {
+        event.preventDefault(); activateLanguage(button.dataset.introLang === "pl" ? "pl" : "en");
+      }, true);
+    });
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", bindLanguageButtons);
+  else bindLanguageButtons();
+})();
+</script>
 </body>
 </html>
