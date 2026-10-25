@@ -1632,8 +1632,15 @@ document.addEventListener("DOMContentLoaded",()=>{
   document.getElementById("enBtn").onclick=()=>{language="en";localStorage.setItem("smmLanguage","en");document.querySelectorAll(".instruction-notice [data-en][data-pl]").forEach(el=>{el.textContent=el.dataset.en;});fillIntro("en");updateAuthUI(currentSession);updateStorageNote();showScreen("welcomeScreen")};
   document.getElementById("plBtn").onclick=()=>{language="pl";localStorage.setItem("smmLanguage","pl");document.querySelectorAll(".instruction-notice [data-en][data-pl]").forEach(el=>{el.textContent=el.dataset.pl;});fillIntro("pl");updateAuthUI(currentSession);updateStorageNote();showScreen("welcomeScreen")};
 
-  // Always show the language chooser on entry. Saved progress remains untouched.
-  showScreen("introScreen");
+  // First visit: show language selection. Returning visitors keep their saved language and resume the practice.
+  if(language==="en" || language==="pl"){
+    fillIntro(language);
+    document.querySelectorAll(".instruction-notice [data-en][data-pl]").forEach(el=>{el.textContent=el.dataset[language];});
+    document.querySelectorAll("[data-intro-lang]").forEach(el=>el.classList.toggle("active",el.dataset.introLang===language));
+    showScreen("protocolScreen");
+  }else{
+    showScreen("introScreen");
+  }
   document.getElementById("welcomeNext").onclick=()=>showScreen("howScreen");
   document.getElementById("howNext").onclick=()=>{showScreen("protocolScreen");buildPicker();render()};
   document.getElementById("startProtocol").onclick=()=>{
