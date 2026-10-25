@@ -695,13 +695,65 @@ button:disabled{cursor:not-allowed}
         document.querySelectorAll(".instruction-notice [data-en][data-pl]").forEach(function (el) {
           el.textContent = lang === "pl" ? el.dataset.pl : el.dataset.en;
         });
-        // Keep the first transition functional even if the main app initializer fails.
+        // Populate the next screen directly as well, so it is usable if the main initializer fails.
+        var howContent = lang === "pl" ? {
+          kicker: "POGŁĘB SWOJĄ PRAKTYKĘ",
+          title: "ZAPISUJ,<br>JEŚLI CHCESZ.",
+          body: "<p>Jeśli masz ochotę, pogłęb swoją praktykę, zapisując swoje myśli podczas refleksji. Kilka słów w notesie lub workbooku może pomóc Ci się zatrzymać, uporządkować myśli i wrócić do nich później. Nie musisz pisać codziennie ani wypełniać każdej strony.</p>",
+          next: "ROZPOCZNIJ PRAKTYKĘ →"
+        } : {
+          kicker: "OPTIONAL REFLECTION",
+          title: "GO A LITTLE<br>DEEPER.",
+          body: "<p>If you feel like it, deepen your practice by writing down your thoughts as you reflect. A few words in a notebook or workbook can help you pause, clarify what you are thinking, and return to it later. There is no need to write every day or fill every page.</p>",
+          next: "START THE PRACTICE →"
+        };
+        setWelcomeText("howKicker", howContent.kicker);
+        setWelcomeText("howTitle", howContent.title, true);
+        setWelcomeText("howBody", howContent.body, true);
+        setWelcomeText("howNext", howContent.next);
+        // Keep transitions functional even if the main app initializer fails.
         window.scrollTo(0, 0);
         var continueButton = document.getElementById("welcomeNext");
         if (continueButton) continueButton.onclick = function (event) {
           if (event) event.preventDefault();
           document.querySelectorAll(".screen").forEach(function (screen) {
             screen.classList.toggle("hidden", screen.id !== "howScreen");
+          });
+          window.scrollTo(0, 0);
+        };
+        var howButton = document.getElementById("howNext");
+        if (howButton) howButton.onclick = function (event) {
+          if (event) event.preventDefault();
+          document.querySelectorAll(".screen").forEach(function (screen) {
+            screen.classList.toggle("hidden", screen.id !== "practicesScreen");
+          });
+          window.scrollTo(0, 0);
+        };
+        var practiceContent = lang === "pl" ? {
+          kicker: "CZTERY PRAKTYKI",
+          title: "ARRIVE.<br>FOCUS.<br>REFLECT.<br>APPLY.",
+          names: ["ARRIVE", "FOCUS", "REFLECT", "APPLY"],
+          descriptions: ["Zatrzymaj się i bądź tu, gdzie jesteś.", "Wybierz to, co dziś ważne.", "Przyjrzyj się myślom z ciekawością.", "Zrób jeden mały, praktyczny krok."],
+          next: "ROZPOCZNIJ PIERWSZY DZIEŃ →"
+        } : {
+          kicker: "THE FOUR PRACTICES",
+          title: "ARRIVE.<br>FOCUS.<br>REFLECT.<br>APPLY.",
+          names: ["ARRIVE", "FOCUS", "REFLECT", "APPLY"],
+          descriptions: ["Settle into the present moment.", "Choose what matters today.", "Explore your thoughts with curiosity.", "Take one small practical step."],
+          next: "START YOUR FIRST DAY →"
+        };
+        setWelcomeText("practicesKicker", practiceContent.kicker);
+        setWelcomeText("practicesTitle", practiceContent.title, true);
+        ["p1", "p2", "p3", "p4"].forEach(function (prefix, index) {
+          setWelcomeText(prefix + "name", practiceContent.names[index]);
+          setWelcomeText(prefix + "text", practiceContent.descriptions[index]);
+        });
+        setWelcomeText("startProtocol", practiceContent.next);
+        var startButton = document.getElementById("startProtocol");
+        if (startButton) startButton.onclick = function (event) {
+          if (event) event.preventDefault();
+          document.querySelectorAll(".screen").forEach(function (screen) {
+            screen.classList.toggle("hidden", screen.id !== "protocolScreen");
           });
           window.scrollTo(0, 0);
         };
