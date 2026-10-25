@@ -1798,6 +1798,8 @@ function setupTimer(){
   // Timer and sound controls are wired by the final DOMContentLoaded handler.
   populateFinalCompare();
   buildPicker();
+  // Always render the saved practice day on page load; otherwise the static Day 1 fallback remains visible until a language switch.
+  if(language==="en" || language==="pl") render();
 
   // First visit: show language selection.
   // Returning visitors: keep them on the protocol instead of resetting to intro.
