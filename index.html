@@ -1748,7 +1748,7 @@ document.addEventListener("DOMContentLoaded",()=>{
   document.getElementById("genderFemale").onclick=()=>choosePolishGender("female");
   document.getElementById("genderMale").onclick=()=>choosePolishGender("male");
   document.getElementById("enBtn").onclick=()=>{language="en";localStorage.setItem("smmLanguage","en");document.querySelectorAll(".instruction-notice [data-en][data-pl]").forEach(el=>{el.textContent=el.dataset.en;});fillIntro("en");updateAuthUI(currentSession);updateStorageNote();showScreen("welcomeScreen")};
-  document.getElementById("plBtn").onclick=()=>{language="pl";localStorage.setItem("smmLanguage","pl");document.querySelectorAll(".instruction-notice [data-en][data-pl]").forEach(el=>{el.textContent=el.dataset.pl;});fillIntro("pl");updateAuthUI(currentSession);updateStorageNote();showScreen("welcomeScreen")};
+  document.getElementById("plBtn").onclick=()=>{language="pl";localStorage.setItem("smmLanguage","pl");document.querySelectorAll(".instruction-notice [data-en][data-pl]").forEach(el=>{el.textContent=el.dataset.pl;});fillIntro("pl");updateAuthUI(currentSession);updateStorageNote();returnToProtocolAfterGender=false;showScreen("genderScreen")};
 
   // First visit: show language selection. Returning visitors keep their saved language and resume the practice.
   if(language==="en" || language==="pl"){
