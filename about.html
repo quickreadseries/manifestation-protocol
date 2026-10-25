@@ -219,5 +219,18 @@ document.getElementById("aboutLegalModal").addEventListener("click",e=>{if(e.tar
 document.addEventListener("keydown",e=>{if(e.key==="Escape")document.getElementById("aboutLegalModal").hidden=true;});
 
 </script>
+<script>
+/* Preserve the visitor's current practice day when returning from About. */
+(function(){
+  try{
+    const day=Number(new URLSearchParams(window.location.search).get("returnDay"));
+    if(Number.isInteger(day)&&day>=1&&day<=90){
+      document.querySelectorAll('a[href="./index.html"]').forEach(function(link){
+        link.href="./index.html?returnDay="+day;
+      });
+    }
+  }catch(e){}
+})();
+</script>
 </body>
 </html>
