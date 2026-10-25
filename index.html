@@ -1183,6 +1183,8 @@ async function loadCloudProgress(){
     localStorage.setItem("manifestDay",current);
     localStorage.setItem("manifestDone",JSON.stringify(done));
     localStorage.setItem("manifestNotes",JSON.stringify(notes));
+    buildPicker();
+    render();
     localStorage.setItem("manifestMoods",JSON.stringify(data.moods && typeof data.moods === "object" ? data.moods : {}));
     localStorage.setItem("manifestFinalNotes",data.final_notes || "");
   }else{
@@ -1654,6 +1656,8 @@ document.addEventListener("DOMContentLoaded",()=>{
     document.querySelectorAll(".instruction-notice [data-en][data-pl]").forEach(el=>{el.textContent=el.dataset[language];});
     document.querySelectorAll("[data-intro-lang]").forEach(el=>el.classList.toggle("active",el.dataset.introLang===language));
     showScreen("protocolScreen");
+    buildPicker();
+    render();
   }else{
     showScreen("introScreen");
   }
