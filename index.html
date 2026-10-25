@@ -2140,7 +2140,50 @@ document.addEventListener("DOMContentLoaded",()=>{
   }
 });
 </script>
-<div id="printJourney" aria-hidden="true"></div></body></html><script>
+<div id="printJourney" aria-hidden="true"></div>
+<script>
+/* Independent language switching for the onboarding screens.
+   Uses the agreed INTRO copy when available and leaves progress/notes untouched. */
+(function () {
+  function setNoticeLanguage(lang) {
+    document.querySelectorAll(".instruction-notice [data-en][data-pl]").forEach(function (el) {
+      el.textContent = lang === "pl" ? el.dataset.pl : el.dataset.en;
+    });
+  }
+  function setActiveLanguage(lang) {
+    document.querySelectorAll("[data-intro-lang]").forEach(function (el) {
+      el.classList.toggle("active", el.dataset.introLang === lang);
+    });
+  }
+  function switchIntroLanguage(lang, firstChoice) {
+    try { localStorage.setItem("smmLanguage", lang); } catch (e) {}
+    document.documentElement.lang = lang;
+    try {
+      if (typeof fillIntro === "function") fillIntro(lang);
+    } catch (e) {
+      console.error("Could not load the full introduction text:", e);
+    }
+    setNoticeLanguage(lang);
+    setActiveLanguage(lang);
+    if (firstChoice) {
+      document.querySelectorAll(".screen").forEach(function (screen) {
+        screen.classList.toggle("hidden", screen.id !== "welcomeScreen");
+      });
+    }
+    window.scrollTo(0, 0);
+  }
+  document.addEventListener("click", function (event) {
+    var button = event.target.closest("#enBtn, #plBtn, [data-intro-lang]");
+    if (!button) return;
+    var lang = button.id === "enBtn" || button.dataset.introLang === "en" ? "en" : "pl";
+    var firstChoice = button.id === "enBtn" || button.id === "plBtn";
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    switchIntroLanguage(lang, firstChoice);
+  }, true);
+})();
+</script>
+</body></html><script>
 document.addEventListener("DOMContentLoaded",()=>{
   const modal=document.getElementById("feedbackModal");
   const form=document.getElementById("feedbackForm");
