@@ -140,6 +140,8 @@ function polishForGender(value){
     ["byłaś","byłeś"],["czułaś","czułeś"],["chciałaś","chciałeś"]
   ];
   let out=value;
+  // Resolve explicit {female|male} alternatives before applying legacy word substitutions.
+  out=out.replace(/\{([^{}|]+)\|([^{}|]+)\}/g,(_,femaleForm,maleForm)=>gender==="male"?maleForm:femaleForm);
   for(const [from,to] of pairs) out=out.split(from).join(to);
   return out;
 }
