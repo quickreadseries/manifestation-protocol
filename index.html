@@ -1019,6 +1019,8 @@ let feedbackDismissed=localStorage.getItem("smmFeedbackDismissed")==="1";
 let language=localStorage.getItem("smmLanguage")||"";
 let gender=localStorage.getItem("smmGender")||"";
 let current=Number(localStorage.getItem("manifestDay")||1);
+// Restore the day explicitly carried back from the About page, including for visitors without an account.
+try{const returnDay=Number(new URLSearchParams(window.location.search).get("returnDay"));if(Number.isInteger(returnDay)&&returnDay>=1&&returnDay<=90){current=returnDay;localStorage.setItem("manifestDay",String(returnDay));}}catch(e){}
 let done=JSON.parse(localStorage.getItem("manifestDone")||"{}");
 let notes=JSON.parse(localStorage.getItem("manifestNotes")||"{}");
 let timerSeconds=180,timerId=null;
@@ -1422,7 +1424,7 @@ function render(){
   document.getElementById("dataProtectionLink").textContent=pl?"Ochrona danych":"Data Protection";
   document.getElementById("termsLink").textContent=pl?"Warunki korzystania":"Terms of Use";
   document.getElementById("contactLink").textContent=pl?"Kontakt":"Contact";
-  document.getElementById("aboutLink").onclick=()=>{window.location.href="about.html";};
+  document.getElementById("aboutLink").onclick=()=>{window.location.href="about.html?returnDay="+encodeURIComponent(current);};
   document.getElementById("safetyNote").textContent=pl
     ?"Small Moments Method to praktyka refleksji i pracy własnej. Nie jest terapią, poradą medyczną ani zamiennikiem profesjonalnej opieki."
     :"Small Moments Method is a reflection and personal practice. It is not therapy, medical advice, or a substitute for professional care.";
