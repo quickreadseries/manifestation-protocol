@@ -661,32 +661,48 @@ button:disabled{cursor:not-allowed}
       <button class="btn" id="plBtn" type="button">POLSKI</button>
     </div>
     <script>
-    // Independent fallback for mobile browsers: keep language selection working even
-    // if another DOMContentLoaded initializer fails. Never touch saved progress or notes.
+    // Standalone mobile-safe language selector. It does not depend on the main app script.
     (function () {
       function chooseSmmLanguage(lang) {
-        try {
-          window.localStorage.setItem("smmLanguage", lang);
-          document.documentElement.lang = lang;
-          if (typeof fillIntro === "function") fillIntro(lang);
-          document.querySelectorAll(".instruction-notice [data-en][data-pl]").forEach(function (el) {
-            el.textContent = lang === "pl" ? el.dataset.pl : el.dataset.en;
-          });
-          if (typeof updateAuthUI === "function") {
-            try { updateAuthUI(typeof currentSession !== "undefined" ? currentSession : null); } catch (_) {}
-          }
-          if (typeof updateStorageNote === "function") {
-            try { updateStorageNote(); } catch (_) {}
-          }
-          if (typeof showScreen === "function") showScreen("welcomeScreen");
-        } catch (error) {
-          console.error("Small Moments Method language selection:", error);
+        // Always switch screens first, even if another script or browser storage fails.
+        document.querySelectorAll(".screen").forEach(function (screen) {
+          screen.classList.toggle("hidden", screen.id !== "welcomeScreen");
+        });
+        document.documentElement.lang = lang;
+        try { window.localStorage.setItem("smmLanguage", lang); } catch (error) {
+          console.warn("Language preference could not be saved in local storage.", error);
         }
+        try {
+          if (typeof fillIntro === "function") fillIntro(lang);
+        } catch (error) {
+          console.error("Could not fill welcome text:", error);
+        }
+        document.querySelectorAll(".instruction-notice [data-en][data-pl]").forEach(function (el) {
+          el.textContent = lang === "pl" ? el.dataset.pl : el.dataset.en;
+        });
+        // Refresh auth/storage labels only when those optional functions are available.
+        try {
+          if (typeof updateAuthUI === "function") {
+            updateAuthUI(typeof currentSession !== "undefined" ? currentSession : null);
+          }
+        } catch (error) { console.warn("Auth UI refresh skipped.", error); }
+        try {
+          if (typeof updateStorageNote === "function") updateStorageNote();
+        } catch (error) { console.warn("Storage note refresh skipped.", error); }
       }
-      document.getElementById("enBtn").addEventListener("click", function () { chooseSmmLanguage("en"); });
-      document.getElementById("plBtn").addEventListener("click", function () { chooseSmmLanguage("pl"); });
-    })();
-    </script>
+      var en = document.getElementById("enBtn");
+      var pl = document.getElementById("plBtn");
+      if (en) en.addEventListener("click", function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        chooseSmmLanguage("en");
+      }, true);
+      if (pl) pl.addEventListener("click", function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        chooseSmmLanguage("pl");
+      }, true);
+    })();    </script>
     <div class="intro-practices">90 DAYS · ONE SMALL MOMENT AT A TIME</div>
   </div>
 </div>
