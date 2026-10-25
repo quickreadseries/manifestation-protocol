@@ -660,6 +660,33 @@ button:disabled{cursor:not-allowed}
       <button class="btn" id="enBtn" type="button">ENGLISH</button>
       <button class="btn" id="plBtn" type="button">POLSKI</button>
     </div>
+    <script>
+    // Independent fallback for mobile browsers: keep language selection working even
+    // if another DOMContentLoaded initializer fails. Never touch saved progress or notes.
+    (function () {
+      function chooseSmmLanguage(lang) {
+        try {
+          window.localStorage.setItem("smmLanguage", lang);
+          document.documentElement.lang = lang;
+          if (typeof fillIntro === "function") fillIntro(lang);
+          document.querySelectorAll(".instruction-notice [data-en][data-pl]").forEach(function (el) {
+            el.textContent = lang === "pl" ? el.dataset.pl : el.dataset.en;
+          });
+          if (typeof updateAuthUI === "function") {
+            try { updateAuthUI(typeof currentSession !== "undefined" ? currentSession : null); } catch (_) {}
+          }
+          if (typeof updateStorageNote === "function") {
+            try { updateStorageNote(); } catch (_) {}
+          }
+          if (typeof showScreen === "function") showScreen("welcomeScreen");
+        } catch (error) {
+          console.error("Small Moments Method language selection:", error);
+        }
+      }
+      document.getElementById("enBtn").addEventListener("click", function () { chooseSmmLanguage("en"); });
+      document.getElementById("plBtn").addEventListener("click", function () { chooseSmmLanguage("pl"); });
+    })();
+    </script>
     <div class="intro-practices">90 DAYS · ONE SMALL MOMENT AT A TIME</div>
   </div>
 </div>
