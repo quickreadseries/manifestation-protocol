@@ -89,7 +89,7 @@ textarea{width:100%;min-height:120px;border:1px solid var(--line);border-radius:
 .practice-intro-grid div{border-top:1px solid var(--line);padding:15px 5px 10px}
 .practice-intro-grid strong{display:block;font-size:11px;letter-spacing:1.5px;margin-bottom:8px}
 .practice-intro-grid span{display:block;font-family:Georgia,serif;font-size:16px;line-height:1.45;color:#5f5b55}
-@media(max-width:650px){.practice-intro-grid{grid-template-columns:1fr}.language-mark{font-size:54px}}
+@media(max-width:650px){.practice-intro-grid{grid-template-columns:1fr}.language-mark{font-size:54px}.intro-page h1#\welcomeTitle{font-size:clamp(42px,12vw,68px)!important;line-height:.98;overflow-wrap:normal;word-break:normal}}
 </style>
 
 <style>
@@ -695,6 +695,16 @@ button:disabled{cursor:not-allowed}
         document.querySelectorAll(".instruction-notice [data-en][data-pl]").forEach(function (el) {
           el.textContent = lang === "pl" ? el.dataset.pl : el.dataset.en;
         });
+        // Keep the first transition functional even if the main app initializer fails.
+        window.scrollTo(0, 0);
+        var continueButton = document.getElementById("welcomeNext");
+        if (continueButton) continueButton.onclick = function (event) {
+          if (event) event.preventDefault();
+          document.querySelectorAll(".screen").forEach(function (screen) {
+            screen.classList.toggle("hidden", screen.id !== "howScreen");
+          });
+          window.scrollTo(0, 0);
+        };
         // The normal helper can additionally localize the remaining screens.
         try { if (typeof fillIntro === "function") fillIntro(lang); } catch (error) {
           console.error("Optional intro screen setup failed:", error);
