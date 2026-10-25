@@ -881,54 +881,54 @@ button:disabled{cursor:not-allowed}
   <div class="feedback-box">
     <button class="legal-close" id="feedbackClose" aria-label="Close">×</button>
     <div class="eyebrow" id="feedbackKicker">AFTER 7 DAYS</div>
-    <h2 id="feedbackTitle">Small Moments Method: feedback after 7 days</h2>
-    <p class="feedback-intro" id="feedbackIntro">Thank you for trying the first week. Honest answers, including critical ones, are the most valuable to me. It takes about 2 minutes.</p>
+    <h2 id="feedbackTitle">Small Moments Method: your first 7 days</h2>
+    <p class="feedback-intro" id="feedbackIntro">Thank you for exploring the first 7 days of Small Moments Method. Your honest feedback will help improve the daily practices and the experience of using the app. It takes about 2 minutes.</p>
     <form id="feedbackForm">
       <div class="feedback-question">
-        <label for="feedbackDays" id="feedbackDaysLabel">How many days did you complete?</label>
+        <label for="feedbackDays" id="feedbackDaysLabel">How many days of the first 7 did you complete?</label>
         <select id="feedbackDays" required></select>
       </div>
       <div class="feedback-question">
-        <label for="feedbackHelpful" id="feedbackHelpfulLabel">Which step was most helpful to you?</label>
+        <label for="feedbackHelpful" id="feedbackHelpfulLabel">Which day's practice was most helpful to you?</label>
         <select id="feedbackHelpful" required></select>
       </div>
       <div class="feedback-question">
-        <label for="feedbackLeast" id="feedbackLeastLabel">Which step was least helpful to you?</label>
+        <label for="feedbackLeast" id="feedbackLeastLabel">Which day's practice was least helpful to you?</label>
         <select id="feedbackLeast" required></select>
       </div>
       <div class="feedback-question hidden" id="feedbackHelpfulExplainWrap">
-        <label for="feedbackHelpfulExplain" id="feedbackHelpfulExplainLabel">You chose “None”. What made no particular step stand out as helpful?</label>
+        <label for="feedbackHelpfulExplain" id="feedbackHelpfulExplainLabel">You chose “None of the days”. What made no day's practice stand out as especially helpful?</label>
         <textarea id="feedbackHelpfulExplain"></textarea>
       </div>
       <div class="feedback-question hidden" id="feedbackLeastExplainWrap">
-        <label for="feedbackLeastExplain" id="feedbackLeastExplainLabel">You chose “None”. What made no particular step stand out as less helpful?</label>
+        <label for="feedbackLeastExplain" id="feedbackLeastExplainLabel">You chose “None of the days”. What made no day's practice stand out as less helpful?</label>
         <textarea id="feedbackLeastExplain"></textarea>
       </div>
       <div class="feedback-question">
-        <label for="feedbackIssue" id="feedbackIssueLabel">Did anything feel unclear, uncomfortable or not work in the app? If so, what and on which device?</label>
+        <label for="feedbackIssue" id="feedbackIssueLabel">Was any part of the practice unclear or uncomfortable, or did anything in the app not work as expected? Please describe what happened and which device you used.</label>
         <textarea id="feedbackIssue"></textarea>
       </div>
       <div class="feedback-question">
-        <label for="feedbackContinue" id="feedbackContinueLabel">Would you like to continue with the next days?</label>
+        <label for="feedbackContinue" id="feedbackContinueLabel">Would you like to continue with the next days of Small Moments Method?</label>
         <select id="feedbackContinue" required></select>
       </div>
       <div class="feedback-question">
-        <label for="feedbackPrice" id="feedbackPriceLabel">Would you pay for the full 90 days? If yes or maybe, what price feels reasonable?</label>
+        <label for="feedbackPrice" id="feedbackPriceLabel">Would you consider paying to continue through all 90 days of Small Moments Method? If yes or maybe, what price would feel reasonable?</label>
         <textarea id="feedbackPrice"></textarea>
       </div>
       <div class="feedback-question">
-        <label for="feedbackMissing" id="feedbackMissingLabel">What were you missing?</label>
+        <label for="feedbackMissing" id="feedbackMissingLabel">What was missing from the first 7 days, or what would you like to see improved?</label>
         <textarea id="feedbackMissing"></textarea>
       </div>
       <div class="feedback-question">
-        <label for="feedbackEmail" id="feedbackEmailLabel">Email (optional, only if you want updates about the next days)</label>
+        <label for="feedbackEmail" id="feedbackEmailLabel">Email (optional, only if you would like updates about Small Moments Method)</label>
         <input type="email" id="feedbackEmail" autocomplete="email">
       </div>
       <div class="feedback-question">
-        <label for="feedbackQuote" id="feedbackQuoteLabel">May I quote your feedback on the website?</label>
+        <label for="feedbackQuote" id="feedbackQuoteLabel">May I quote your feedback on the Small Moments Method website?</label>
         <select id="feedbackQuote" required></select>
       </div>
-      <div class="feedback-note" id="feedbackPrivacyNote">Your feedback is stored securely for review. Email is optional. If you do not provide an email, your feedback is anonymous.</div>
+      <div class="feedback-note" id="feedbackPrivacyNote">Your feedback will be reviewed to improve Small Moments Method. Email is optional; without an email address, your response will not be linked to your contact details.</div>
       <div class="feedback-status" id="feedbackStatus" aria-live="polite"></div>
       <div class="feedback-actions">
         <button type="button" class="btn" id="feedbackLater">Later</button>
@@ -1438,6 +1438,79 @@ function render(){
   document.getElementById("dayTitle").textContent=(pl?"Dzień ":"Day ")+current;
   const dayTitlesPL=["Zatrzymaj się i zauważ","Myśli, które wypełniają mój dzień","Mój wewnętrzny głos","Słowa, którymi opisuję siebie","Moje mocne strony","Co trudno mi w sobie zaakceptować","Pierwszy tydzień obserwacji","Myśli, które wracają","Porównywanie się z innymi","Głosy, które zapamiętałam","Etykiety, które sobie nadaję","Co robię dobrze","Samokrytyka a fakty","Co uruchamia moją reakcję?","Co robię, żeby uniknąć dyskomfortu?","Czego unikam","Założenia, które przyjmuję","Co wydaje mi się niemożliwe","Obawa przed oceną","Kiedy czuję się sobą","Podsumowanie etapu Tożsamość","Co jest dla mnie ważne","Moje wartości","Moje pragnienia a oczekiwania innych","Mój zwyczajny, dobry dzień","Czego chcę więcej","Czego chcę mniej","Jak rozumiem sukces","Moje granice","Co daje mi energię","Co odbiera mi energię","Czego jestem ciekawa","Co odkładam na później","Co chciałabym zmienić","Dlaczego to ma znaczenie","Jak chcę się czuć","Co jest pod moją kontrolą","Czy to naprawdę mój wybór?","Po czym poznam postęp","Realistyczna wizja przyszłości","Czego potrzebuję, by ruszyć dalej","Moje możliwości","Co chcę zachować","Mój własny kierunek","Podsumowanie CHOOSE","Przekonania związane z moim kierunkiem","Skąd znam tę myśl?","Fakty i interpretacje","Dowody za i przeciw","Inne możliwe wyjaśnienie","Mój wewnętrzny krytyk","Co uznaję za dowód?","Niepewność nie musi mnie zatrzymywać","Strach przed porażką","Co już potrafię","Czego mogę się nauczyć","Moje wcześniejsze doświadczenia","Co powiedziałabym sobie wtedy","Pozwalam sobie zmieniać zdanie","Więcej niż jedna perspektywa","Odwaga nie oznacza braku strachu","Co mogę zrobić inaczej","Małe obietnice składane sobie","Kiedy wracają stare myśli","Przyjmowanie wsparcia","Moje granice wspierają moje wybory","Praktykuję nową odpowiedź","Nie muszę być doskonała","Co zmieniło się w moim spojrzeniu","Podsumowanie SEE","Zobacz to, czego pragniesz","Jak będę się czuła?","Przenieś uwagę na możliwości","Zobacz siebie po zmianie","Cel, który ma dla mnie znaczenie","Kim się staję?","Podejmuję decyzje zgodne z moim celem","Bycie gotową to decyzja","Jak myślę o sobie, gdy pojawia się trudność?","Daj sobie prawo do nowej wersji siebie","Gdzie kieruję uwagę, tam płynie energia","Wybieram to, co mnie wspiera","Moja uwaga jest moim wyborem","Decyzje, które tworzą moją przyszłość","Wybieram swój kierunek na nowo","Błędy są częścią nauki","Nie muszę czuć się tak samo każdego dnia","Wracam do tego, co ważne","Żyję zgodnie z tym, co wybieram","List do siebie z przyszłości"];
   const dayTitlesEN=["Pause and notice","The thoughts that fill my day","My inner voice","The words I use to describe myself","My strengths","What I find difficult to accept in myself","My first week of noticing","Thoughts that keep returning","Comparing myself with others","Voices I have carried with me","The labels I give myself","What I do well","Self-criticism and facts","What triggers my reaction?","What I do to avoid discomfort","What I avoid","The assumptions I make","What seems impossible to me","Fear of being judged","When I feel like myself","Reflecting on the Identity stage","What matters to me","My values","My desires and other people's expectations","My ordinary, good day","What I want more of","What I want less of","What success means to me","My boundaries","What gives me energy","What drains my energy","What I am curious about","What I keep postponing","What I would like to change","Why it matters","How I want to feel","What is within my control","Is this truly my choice?","How I will recognise progress","A realistic vision of the future","What I need to move forward","My options","What I want to keep","My own direction","Reflecting on CHOOSE","Beliefs connected to my direction","Where did this thought come from?","Facts and interpretations","Evidence for and against","Another Possible Explanation","My Inner Critic","What Do I Treat as Evidence?","Uncertainty Does Not Have to Stop Me","Fear of Failure","What I Already Know How to Do","What I Can Learn","My Past Experiences","What I Would Tell My Past Self","Allowing Myself to Change My Mind","More Than One Perspective","Courage Does Not Mean the Absence of Fear","What Can I Do Differently?","Small Promises to Myself","When Old Thoughts Return","Allowing Myself to Receive Support","My Boundaries Support My Choices","Practising a New Response","I Do Not Have to Be Perfect","What Has Changed in My Perspective?","Reflecting on SEE","See What You Desire","How Will I Feel?","Shift Your Attention to Possibilities","See Yourself After the Change","A Goal That Matters to Me","Who Am I Becoming?","Making Decisions That Align With My Goal","Being Ready Is a Decision","How I Think About Myself When Things Get Difficult","Allow Yourself to Become a New Version of Yourself","Where Focus Goes, Energy Flows","I Choose What Supports Me","My Attention Is My Choice","Decisions That Shape My Future","Choosing My Direction Again","Mistakes Are Part of Learning","I Do Not Have to Feel the Same Every Day","Returning to What Matters","Living in Alignment With My Choices","A Letter to Myself from the Future"];
+  // Keep the 7-day feedback survey aligned with the current Small Moments Method terminology and language.
+  const feedbackText={
+    en:{
+      kicker:"AFTER 7 DAYS", title:"Small Moments Method: your first 7 days",
+      intro:"Thank you for exploring the first 7 days of Small Moments Method. Your honest feedback will help improve the daily practices and the experience of using the app. It takes about 2 minutes.",
+      days:"How many days of the first 7 did you complete?",
+      helpful:"Which day's practice was most helpful to you?",
+      least:"Which day's practice was least helpful to you?",
+      helpfulExplain:"You chose “None of the days”. What made no day's practice stand out as especially helpful?",
+      leastExplain:"You chose “None of the days”. What made no day's practice stand out as less helpful?",
+      issue:"Was any part of the practice unclear or uncomfortable, or did anything in the app not work as expected? Please describe what happened and which device you used.",
+      continue:"Would you like to continue with the next days of Small Moments Method?",
+      price:"Would you consider paying to continue through all 90 days of Small Moments Method? If yes or maybe, what price would feel reasonable?",
+      missing:"What was missing from the first 7 days, or what would you like to see improved?",
+      email:"Email (optional, only if you would like updates about Small Moments Method)",
+      quote:"May I quote your feedback on the Small Moments Method website?",
+      privacy:"Your feedback will be reviewed to improve Small Moments Method. Email is optional; without an email address, your response will not be linked to your contact details.",
+      later:"Later", submit:"Send feedback", none:"None of the days", yes:"Yes", no:"No", maybe:"Not sure yet",
+      dayCount:n=>n===0?"I did not complete a full day":" "+n+" of 7 days",
+      dayLabel:(i,t)=>"Day "+i+": "+t
+    },
+    pl:{
+      kicker:"PO 7 DNIACH", title:"Small Moments Method: pierwsze 7 dni",
+      intro:"Dziękuję, że wypróbowałaś pierwsze 7 dni Small Moments Method. Twoja szczera opinia pomoże ulepszyć codzienne praktyki i korzystanie z aplikacji. Wypełnienie ankiety zajmie około 2 minut.",
+      days:"Ile z pierwszych 7 dni udało Ci się ukończyć?",
+      helpful:"Praktyka z którego dnia była dla Ciebie najbardziej pomocna?",
+      least:"Praktyka z którego dnia była dla Ciebie najmniej pomocna?",
+      helpfulExplain:"Wybrałaś „Żaden dzień”. Co sprawiło, że żadna praktyka nie wyróżniła się jako szczególnie pomocna?",
+      leastExplain:"Wybrałaś „Żaden dzień”. Dlaczego żadna praktyka nie była dla Ciebie mniej pomocna od pozostałych?",
+      issue:"Czy coś w praktyce było niejasne lub wywoływało dyskomfort albo czy aplikacja nie działała zgodnie z oczekiwaniami? Opisz, co się stało i na jakim urządzeniu.",
+      continue:"Czy chcesz kontynuować Small Moments Method i przejść do kolejnych dni?",
+      price:"Czy rozważyłabyś opłatę za kontynuowanie całej 90-dniowej Small Moments Method? Jeśli tak lub być może, jaka cena byłaby rozsądna?",
+      missing:"Czego zabrakło w pierwszych 7 dniach lub co chciałabyś ulepszyć?",
+      email:"E-mail (opcjonalnie, jeśli chcesz otrzymywać informacje o Small Moments Method)",
+      quote:"Czy mogę zacytować Twoją opinię na stronie Small Moments Method?",
+      privacy:"Twoja opinia zostanie wykorzystana do ulepszania Small Moments Method. E-mail jest opcjonalny; bez niego odpowiedź nie będzie powiązana z Twoimi danymi kontaktowymi.",
+      later:"Później", submit:"Wyślij opinię", none:"Żaden dzień", yes:"Tak", no:"Nie", maybe:"Jeszcze nie wiem",
+      dayCount:n=>n===0?"Nie ukończyłam całego dnia":n+" z 7 dni",
+      dayLabel:(i,t)=>"Dzień "+i+": "+t
+    }
+  }[pl?"pl":"en"];
+  const feedbackSetText=(id,value)=>{const el=document.getElementById(id);if(el)el.textContent=value;};
+  feedbackSetText("feedbackKicker",feedbackText.kicker);
+  feedbackSetText("feedbackTitle",feedbackText.title);
+  feedbackSetText("feedbackIntro",feedbackText.intro);
+  feedbackSetText("feedbackDaysLabel",feedbackText.days);
+  feedbackSetText("feedbackHelpfulLabel",feedbackText.helpful);
+  feedbackSetText("feedbackLeastLabel",feedbackText.least);
+  feedbackSetText("feedbackHelpfulExplainLabel",feedbackText.helpfulExplain);
+  feedbackSetText("feedbackLeastExplainLabel",feedbackText.leastExplain);
+  feedbackSetText("feedbackIssueLabel",feedbackText.issue);
+  feedbackSetText("feedbackContinueLabel",feedbackText.continue);
+  feedbackSetText("feedbackPriceLabel",feedbackText.price);
+  feedbackSetText("feedbackMissingLabel",feedbackText.missing);
+  feedbackSetText("feedbackEmailLabel",feedbackText.email);
+  feedbackSetText("feedbackQuoteLabel",feedbackText.quote);
+  feedbackSetText("feedbackPrivacyNote",feedbackText.privacy);
+  feedbackSetText("feedbackLater",feedbackText.later);
+  feedbackSetText("feedbackSubmit",feedbackText.submit);
+  const fillFeedbackSelect=(id,items,placeholder)=>{
+    const el=document.getElementById(id); if(!el)return;
+    const previous=el.value; el.replaceChildren();
+    const first=document.createElement("option"); first.value=""; first.textContent=placeholder; el.appendChild(first);
+    items.forEach(([value,label])=>{const option=document.createElement("option");option.value=value;option.textContent=label;el.appendChild(option);});
+    if([...el.options].some(option=>option.value===previous))el.value=previous;
+  };
+  fillFeedbackSelect("feedbackDays",Array.from({length:8},(_,i)=>[String(i),feedbackText.dayCount(i)]),pl?"Wybierz liczbę dni":"Select number of days");
+  const dayOptions=Array.from({length:7},(_,i)=>[String(i+1),feedbackText.dayLabel(i+1,pl?dayTitlesPL[i]:dayTitlesEN[i])]);
+  dayOptions.push(["none",feedbackText.none]);
+  fillFeedbackSelect("feedbackHelpful",dayOptions,pl?"Wybierz dzień":"Select a day");
+  fillFeedbackSelect("feedbackLeast",dayOptions,pl?"Wybierz dzień":"Select a day");
+  fillFeedbackSelect("feedbackContinue",[["yes",feedbackText.yes],["maybe",feedbackText.maybe],["no",feedbackText.no]],pl?"Wybierz odpowiedź":"Select an answer");
+  fillFeedbackSelect("feedbackQuote",[["yes",feedbackText.yes],["no",feedbackText.no]],pl?"Wybierz odpowiedź":"Select an answer");
   document.getElementById("daySubtitle").textContent=pl?dayTitlesPL[current-1]:dayTitlesEN[current-1];
   const phaseStarts=[1,22,46,71];
   const phaseEnds=[21,45,70,90];
