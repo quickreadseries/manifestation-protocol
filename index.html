@@ -62,6 +62,7 @@ textarea{width:100%;min-height:120px;border:1px solid var(--line);border-radius:
 .stage-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:18px 0 24px}.stage-card{border:1px solid var(--line);border-radius:12px;padding:15px 14px;background:#fffdf9}.stage-card span{display:block;font-size:10px;letter-spacing:1.5px;color:var(--muted);margin-bottom:7px}.stage-card h3{font-family:Georgia,serif;font-size:21px;font-weight:400;margin:0 0 6px}.stage-card p{font-size:14px;line-height:1.5;margin:0;color:#5f5b55}.mini-heading{font-family:Inter,Arial,sans-serif;font-size:10px;letter-spacing:2px;font-weight:600;color:var(--muted);margin:28px 0 8px}.intro-note{border-left:2px solid var(--line);padding:3px 0 3px 14px;margin-top:20px}@media(max-width:600px){.stage-grid{grid-template-columns:1fr}.stage-card{padding:14px}}
 
 .workbook-card{border:1px solid var(--line);border-radius:12px;background:#fffdf9;padding:18px 18px 15px;margin:12px 0;text-align:left}.workbook-label{display:block;font:600 10px/1.4 Inter,Arial,sans-serif;letter-spacing:2px;color:var(--muted);margin-bottom:9px}.workbook-card p{margin:0;line-height:1.65}
+ .daily-statement{display:block;margin-top:14px;padding-top:10px;border-top:1px solid var(--line);font-weight:500;}
 </style>
 <style>
 .inline-info{border:0;background:transparent;padding:0;color:inherit;text-decoration:underline;text-underline-offset:3px;cursor:pointer;font:inherit;font-weight:600}
@@ -1459,7 +1460,22 @@ function render(){
 
   document.getElementById("manifestation").textContent=item[0];
   document.getElementById("mirror").textContent=item[1];
-  document.getElementById("anchor").textContent=item[2];
+  const anchor=document.getElementById("anchor");
+  const statementLabels=pl?["Zdanie na dziś:","Zdanie na dziś —"]:["Today's statement:","Today’s statement:"];
+  const statementIndex=statementLabels.map(label=>item[2].indexOf(label)).filter(index=>index>=0).sort((a,b)=>a-b)[0];
+  anchor.replaceChildren();
+  if(Number.isInteger(statementIndex)){
+    const mainText=item[2].slice(0,statementIndex).trim();
+    const statementText=item[2].slice(statementIndex).trim();
+    const main=document.createElement("span");
+    main.textContent=mainText;
+    const statement=document.createElement("span");
+    statement.className="daily-statement";
+    statement.textContent=statementText;
+    anchor.append(main,statement);
+  }else{
+    anchor.textContent=item[2];
+  }
   document.getElementById("notesTitle").textContent=pl?"Twoje notatki":"Your notes";
   document.getElementById("notes").placeholder=pl
     ?"Pisz krótko. Jedno słowo, jedno zdanie albo cokolwiek, co wydaje się właściwe."
