@@ -657,8 +657,8 @@ button:disabled{cursor:not-allowed}
     <div class="intro-rule"></div>
     <div class="language-title">CHOOSE YOUR LANGUAGE<br><span>WYBIERZ JĘZYK</span></div>
     <div class="language-buttons">
-      <button class="btn" id="enBtn" type="button" onclick="window.smmChooseLanguage('en')">ENGLISH</button>
-      <button class="btn" id="plBtn" type="button" onclick="window.smmChooseLanguage('pl')">POLSKI</button>
+      <a class="btn" id="enBtn" href="?lang=en" role="button">ENGLISH</a>
+      <a class="btn" id="plBtn" href="?lang=pl" role="button">POLSKI</a>
     </div>
 
     <div class="intro-practices">90 DAYS · ONE SMALL MOMENT AT A TIME</div>
@@ -993,7 +993,9 @@ button:disabled{cursor:not-allowed}
 <script>
 let feedbackSubmitted=localStorage.getItem("smmFeedbackSubmitted")==="1";
 let feedbackDismissed=localStorage.getItem("smmFeedbackDismissed")==="1";
-let language=localStorage.getItem("smmLanguage")||"";
+const languageFromUrl = new URLSearchParams(window.location.search).get("lang");
+let language = (languageFromUrl === "en" || languageFromUrl === "pl") ? languageFromUrl : (localStorage.getItem("smmLanguage") || "");
+if (languageFromUrl === "en" || languageFromUrl === "pl") { try { localStorage.setItem("smmLanguage", languageFromUrl); } catch (e) {} }
 let gender=localStorage.getItem("smmGender")||"";
 let current=Number(localStorage.getItem("manifestDay")||1);
 let done=JSON.parse(localStorage.getItem("manifestDone")||"{}");
