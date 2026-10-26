@@ -352,6 +352,8 @@ function closeFeedback(){
     });
     if(done && done[7]===true && !feedbackSubmitted){
       if(openBtn)openBtn.classList.add("visible");
+      localStorage.removeItem("smmFeedbackDismissed");
+      feedbackDismissed=false;
       setTimeout(openFeedback,400);
     }
   };
@@ -1882,7 +1884,7 @@ document.addEventListener("DOMContentLoaded",()=>{
     if(e.target.checked && current===7){
       const fb=document.getElementById("feedbackOpenBtn");
       if(fb && !feedbackSubmitted)fb.classList.add("visible");
-      if(!feedbackSubmitted && !feedbackDismissed) setTimeout(openFeedback,350);
+      if(!feedbackSubmitted) { localStorage.removeItem("smmFeedbackDismissed"); feedbackDismissed=false; setTimeout(openFeedback,350); }
     }
     if(e.target.checked && current===90) showScreen("endScreen");
   };
