@@ -286,7 +286,7 @@ const supabaseClient = supabase.createClient(
 </script>
 <script>
 /* Day-7 feedback modal and Supabase submission fix. */
-function openFeedback(){
+window.openFeedback=function openFeedback(){
   const modal=document.getElementById("feedbackModal");
   if(!modal)return;
   modal.classList.remove("hidden");
@@ -299,7 +299,6 @@ function closeFeedback(){
 }
 (function wireSMMFeedback(){
   const init=()=>{
-    window.supabaseClient=supabaseClient;
     const modal=document.getElementById("feedbackModal");
     const form=document.getElementById("feedbackForm");
     const status=document.getElementById("feedbackStatus");
@@ -307,6 +306,7 @@ function closeFeedback(){
     const closeBtn=document.getElementById("feedbackClose");
     const laterBtn=document.getElementById("feedbackLater");
     if(!modal||!form)return;
+    try{window.supabaseClient=window.supabaseClient||supabaseClient;}catch(clientInitError){console.error("Supabase client unavailable",clientInitError);}
     const setStatus=(message,isError=false)=>{
       if(status){status.textContent=message;status.style.color=isError?"#a33":"";}
     };
@@ -956,7 +956,7 @@ button:disabled{cursor:not-allowed}
   <span id="storageNote">Without an account, your progress stays in this browser. When you sign in, progress is saved to your account and may be available on another device.</span><br>
   <span id="safetyNote">Small Moments Method is a reflection and personal practice. It is not therapy, medical advice, or a substitute for professional care.</span><br>
   <span id="copyrightNotice" data-en="© 2026 Small Moments Method. All rights reserved." data-pl="© 2026 Small Moments Method. Wszelkie prawa zastrzeżone.">© 2026 Small Moments Method. All rights reserved.</span>
-  <div class="legal-links"><button id="feedbackOpenBtn" class="feedback-open">Feedback after 7 days</button>
+  <div class="legal-links"><button type="button" id="feedbackOpenBtn" class="feedback-open" onclick="if(window.openFeedback){window.openFeedback();}else{var m=document.getElementById('feedbackModal');if(m)m.classList.remove('hidden');}">Feedback after 7 days</button>
     <button id="aboutLink">About</button>
     <button id="privacyLink">Privacy Policy</button>
     <button id="dataProtectionLink">Data Protection</button>
