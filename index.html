@@ -311,8 +311,8 @@ function closeFeedback(){
       if(status){status.textContent=message;status.style.color=isError?"#a33":"";}
     };
     if(openBtn)openBtn.addEventListener("click",()=>openFeedback());
-    if(closeBtn)closeBtn.addEventListener("click",()=>{closeFeedback();localStorage.setItem("smmFeedbackDismissed","1");feedbackDismissed=true;});
-    if(laterBtn)laterBtn.addEventListener("click",()=>{closeFeedback();localStorage.setItem("smmFeedbackDismissed","1");feedbackDismissed=true;});
+    if(closeBtn)closeBtn.addEventListener("click",()=>{closeFeedback();localStorage.setItem(feedbackDismissedKey,"1");feedbackDismissed=true;});
+    if(laterBtn)laterBtn.addEventListener("click",()=>{closeFeedback();localStorage.setItem(feedbackDismissedKey,"1");feedbackDismissed=true;});
     modal.addEventListener("click",e=>{if(e.target===modal)closeFeedback();});
     form.addEventListener("submit",async e=>{
       e.preventDefault();
@@ -339,8 +339,8 @@ function closeFeedback(){
         const {error}=await window.supabaseClient.from("smm_feedback").insert(payload);
         if(error)throw error;
         feedbackSubmitted=true;
-        localStorage.setItem("smmFeedbackSubmitted","1");
-        localStorage.removeItem("smmFeedbackDismissed");
+        localStorage.setItem(feedbackSubmittedKey,"1");
+        localStorage.removeItem(feedbackDismissedKey);
         feedbackDismissed=false;
         if(openBtn)openBtn.classList.remove("visible");
         setStatus(language==="pl"?"Dziękujemy! Twoja opinia została zapisana.":"Thank you! Your feedback has been saved.");
@@ -352,7 +352,7 @@ function closeFeedback(){
     });
     if(done && done[7]===true && !feedbackSubmitted){
       if(openBtn)openBtn.classList.add("visible");
-      localStorage.removeItem("smmFeedbackDismissed");
+      localStorage.removeItem(feedbackDismissedKey);
       feedbackDismissed=false;
       setTimeout(openFeedback,400);
     }
@@ -1103,8 +1103,8 @@ button:disabled{cursor:not-allowed}
 </div>
 
 <script>
-let feedbackSubmitted=localStorage.getItem("smmFeedbackSubmitted")==="1";
-let feedbackDismissed=localStorage.getItem("smmFeedbackDismissed")==="1";
+let feedbackSubmitted=false;
+let feedbackDismissed=false;
 let language=localStorage.getItem("smmLanguage")||"";
 try{
   const requestedLanguage=new URLSearchParams(window.location.search).get("lang");
@@ -1113,6 +1113,10 @@ try{
     localStorage.setItem("smmLanguage",language);
   }
 }catch(e){}
+const feedbackSubmittedKey="smmFeedbackSubmitted_"+(language==="pl"?"pl":"en");
+const feedbackDismissedKey="smmFeedbackDismissed_"+(language==="pl"?"pl":"en");
+feedbackSubmitted=localStorage.getItem(feedbackSubmittedKey)==="1";
+feedbackDismissed=localStorage.getItem(feedbackDismissedKey)==="1";
 let gender=localStorage.getItem("smmGender")||"";
 let current=Number(localStorage.getItem("manifestDay")||1);
 // Restore the day explicitly carried back from the About page, including for visitors without an account.
@@ -1884,7 +1888,7 @@ document.addEventListener("DOMContentLoaded",()=>{
     if(e.target.checked && current===7){
       const fb=document.getElementById("feedbackOpenBtn");
       if(fb && !feedbackSubmitted)fb.classList.add("visible");
-      if(!feedbackSubmitted) { localStorage.removeItem("smmFeedbackDismissed"); feedbackDismissed=false; setTimeout(openFeedback,350); }
+      if(!feedbackSubmitted) { localStorage.removeItem(feedbackDismissedKey); feedbackDismissed=false; setTimeout(openFeedback,350); }
     }
     if(e.target.checked && current===90) showScreen("endScreen");
   };
