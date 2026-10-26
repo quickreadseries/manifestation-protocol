@@ -284,6 +284,81 @@ const supabaseClient = supabase.createClient(
   SUPABASE_PUBLISHABLE_KEY
 );
 </script>
+<script>
+/* Day-7 feedback modal and Supabase submission fix. */
+function openFeedback(){
+  const modal=document.getElementById("feedbackModal");
+  if(!modal)return;
+  modal.classList.remove("hidden");
+  document.body.classList.add("modal-open");
+}
+function closeFeedback(){
+  const modal=document.getElementById("feedbackModal");
+  if(modal)modal.classList.add("hidden");
+  document.body.classList.remove("modal-open");
+}
+(function wireSMMFeedback(){
+  const init=()=>{
+    window.supabaseClient=supabaseClient;
+    const modal=document.getElementById("feedbackModal");
+    const form=document.getElementById("feedbackForm");
+    const status=document.getElementById("feedbackStatus");
+    const openBtn=document.getElementById("feedbackOpenBtn");
+    const closeBtn=document.getElementById("feedbackClose");
+    const laterBtn=document.getElementById("feedbackLater");
+    if(!modal||!form)return;
+    const setStatus=(message,isError=false)=>{
+      if(status){status.textContent=message;status.style.color=isError?"#a33":"";}
+    };
+    if(openBtn)openBtn.addEventListener("click",()=>openFeedback());
+    if(closeBtn)closeBtn.addEventListener("click",()=>{closeFeedback();localStorage.setItem("smmFeedbackDismissed","1");feedbackDismissed=true;});
+    if(laterBtn)laterBtn.addEventListener("click",()=>{closeFeedback();localStorage.setItem("smmFeedbackDismissed","1");feedbackDismissed=true;});
+    modal.addEventListener("click",e=>{if(e.target===modal)closeFeedback();});
+    form.addEventListener("submit",async e=>{
+      e.preventDefault();
+      const submit=document.getElementById("feedbackSubmit");
+      if(submit)submit.disabled=true;
+      setStatus(language==="pl"?"Wysyłanie opinii…":"Sending feedback…");
+      const value=id=>(document.getElementById(id)?.value||"").trim();
+      const payload={
+        language:language==="pl"?"pl":"en",
+        days_completed:value("feedbackDays"),
+        helpful_step:value("feedbackHelpful"),
+        helpful_explanation:value("feedbackHelpfulExplain"),
+        least_helpful_step:value("feedbackLeast"),
+        least_helpful_explanation:value("feedbackLeastExplain"),
+        issue:value("feedbackIssue"),
+        continue_choice:value("feedbackContinue"),
+        price:value("feedbackPrice"),
+        missing:value("feedbackMissing"),
+        email:value("feedbackEmail")||null,
+        quote_permission:value("feedbackQuote")
+      };
+      try{
+        if(!window.supabaseClient)throw new Error("Supabase client is not available");
+        const {error}=await window.supabaseClient.from("smm_feedback").insert(payload);
+        if(error)throw error;
+        feedbackSubmitted=true;
+        localStorage.setItem("smmFeedbackSubmitted","1");
+        localStorage.removeItem("smmFeedbackDismissed");
+        feedbackDismissed=false;
+        if(openBtn)openBtn.classList.remove("visible");
+        setStatus(language==="pl"?"Dziękujemy! Twoja opinia została zapisana.":"Thank you! Your feedback has been saved.");
+        setTimeout(closeFeedback,1200);
+      }catch(err){
+        console.error("SMM feedback submission failed:",err);
+        setStatus(language==="pl"?"Nie udało się zapisać opinii. Spróbuj ponownie.":"Could not save feedback. Please try again.",true);
+      }finally{if(submit)submit.disabled=false;}
+    });
+    if(done && done[7]===true && !feedbackSubmitted){
+      if(openBtn)openBtn.classList.add("visible");
+      setTimeout(openFeedback,400);
+    }
+  };
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init,{once:true});
+  else init();
+})();
+</script>
 <style>
 .auth-actions{
   display:flex;
