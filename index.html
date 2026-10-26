@@ -153,10 +153,13 @@ let returnToProtocolAfterGender=false;
 function choosePolishGender(value){
   gender=value;
   localStorage.setItem("smmGender",gender);
+  localStorage.setItem("smmLanguage","pl");
+  language="pl";
   fillIntro("pl");
   document.querySelectorAll(".instruction-notice [data-en][data-pl]").forEach(el=>{el.textContent=el.dataset.pl;});
   updateAuthUI(currentSession);
   updateStorageNote();
+  save();
   if(returnToProtocolAfterGender){
     returnToProtocolAfterGender=false;
     showScreen("protocolScreen");
@@ -1277,7 +1280,7 @@ async function loadCloudProgress(){
   }
 
   if(data){
-    language = data.language || language || "en";
+    language = language || data.language || "en";
     current = Math.min(90,Math.max(1,Number(data.current_day)||1));
     done = data.done && typeof data.done === "object" ? data.done : {};
     notes = data.notes && typeof data.notes === "object" ? data.notes : {};
@@ -1867,7 +1870,7 @@ document.addEventListener("DOMContentLoaded",()=>{
   document.getElementById("switchEN").setAttribute("aria-label","Switch to English");
   document.getElementById("switchPL").setAttribute("aria-label","Przełącz na polski");
   document.getElementById("switchEN").onclick=()=>{language="en";localStorage.setItem("smmLanguage","en");updateAuthUI(currentSession);populateFinalCompare();render();save()};
-  document.getElementById("switchPL").onclick=()=>{language="pl";localStorage.setItem("smmLanguage","pl");returnToProtocolAfterGender=!document.getElementById("protocolScreen").classList.contains("hidden");showScreen("genderScreen");};
+  document.getElementById("switchPL").onclick=()=>{language="pl";localStorage.setItem("smmLanguage","pl");save();returnToProtocolAfterGender=!document.getElementById("protocolScreen").classList.contains("hidden");showScreen("genderScreen");};
 
   document.getElementById("completed").onchange=e=>{
     const scrollX=window.scrollX;
